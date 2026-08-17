@@ -21,6 +21,7 @@ const ARCHIVE_STATE_KEY = 'cityle_archive_state_v1';
 const SETTINGS_KEY = 'cityle_settings_v1';
 const ACHIEVEMENTS_KEY = 'cityle_achievements_v1';
 const WELCOME_SEEN_KEY = 'cityle_welcome_seen_v1';
+const QUICKFIRE_BEST_SCORE_KEY = 'cityle_quickfire_best_v1';
 
 export function getSavedDailyState(dailyNumber: number): GameState | null {
   if (typeof window === 'undefined') return null;
@@ -527,5 +528,37 @@ export function markWelcomeSeen(): void {
     localStorage.setItem(WELCOME_SEEN_KEY, 'true');
   } catch {
     // Non-fatal: worst case the welcome modal reappears on a later visit.
+  }
+}
+
+// --- Sixty-Second Cityle / Quickfire (Phase 7, Workstream MM) --------------
+//
+// Single stored number — the best score ever achieved across all Quickfire
+// sessions (freely repeatable, not day-locked, so there's no per-day keying
+// like getSavedDailyState above). Shown on both the start screen and the
+// end-of-session screen (src/app/quickfire/page.tsx).
+
+export function getQuickfireBestScore(): number {
+  if (typeof window === 'undefined') return 0;
+  try {
+    const raw = localStorage.getItem(QUICKFIRE_BEST_SCORE_KEY);
+    if (!raw) return 0;
+    const parsed = Number(raw);
+    return Number.isFinite(parsed) ? parsed : 0;
+  } catch {
+    return 0;
+  }
+}
+
+/** Only overwrites the stored best when `score` genuinely beats it. */
+export function saveQuickfireBestScore(score: number): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const current = getQuickfireBestScore();
+    if (score > current) {
+      localStorage.setItem(QUICKFIRE_BEST_SCORE_KEY, String(score));
+    }
+  } catch (err) {
+    console.error('Failed to save quickfire best score to localStorage', err);
   }
 }

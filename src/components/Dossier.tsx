@@ -560,6 +560,27 @@ const DossierGame = ({ city, guessCount, difficulty, isPhotoMode = false, t, loc
         onOpenKoppen={() => setSelectedKoppen({ code: city.koppen_current.code, is2050: false })}
       />
 
+      {/* Phase 7, Workstream LL: free bonus flavor text, no token cost, no
+          interaction with unlockedCategories/token-spending logic at all.
+          city.cryptic_clue is optional (Workstream KK's riddle batches are
+          still landing) — render nothing when absent, never a placeholder
+          or an empty box. Kept visually quiet/subordinate to the tabs below:
+          same muted border/bg treatment as the app's other secondary text,
+          not the louder amber treatment used for the urban_fact callout. */}
+      {city.cryptic_clue && (
+        <div className="flex items-start gap-2 rounded-md border border-white/10 bg-white/5 px-3 py-2.5">
+          <span className="mt-0.5 shrink-0 text-sm leading-none" aria-hidden="true">
+            🔮
+          </span>
+          <div className="flex flex-col gap-0.5">
+            <span className="mono text-[0.62rem] font-semibold uppercase tracking-wide text-[#8a97a5]">
+              {t.crypticClueLabel}
+            </span>
+            <p className="text-xs leading-relaxed text-[#c5ced7]">{city.cryptic_clue}</p>
+          </div>
+        </div>
+      )}
+
       <TabBar
         unlockedCategories={unlockedCategories}
         activeCategory={activeCategory}

@@ -105,6 +105,12 @@ export interface City {
   urban_fact: string;
   educational_debrief: string;
 
+  // Free bonus flavor text (Phase 7, Workstream KK) — a short riddle
+  // pointing at the city without naming it, never gated behind a token.
+  // Optional until every city's batch lands; buildCuratedCities.ts asserts
+  // full coverage once Workstream KK's integration step completes.
+  cryptic_clue?: string;
+
   // Visual Photography & License Attribution (Wikimedia Commons / Public Domain)
   image_url?: string;
   image_author?: string;

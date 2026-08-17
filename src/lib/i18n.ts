@@ -36,6 +36,7 @@ export interface Translations {
   shareGrid: string;
   shareResultCard: string;
   challengeAFriend: string;
+  getPostcard: string;
   copied: string;
   playNextRandom: string;
   nextDailyIn: string;
@@ -297,6 +298,10 @@ export interface Translations {
   openMarathonLabel: string;
   // Header wiring (Phase 5, Workstream AA): Explore menu's 4th link.
   openPlaylistsLabel: string;
+  // Header wiring (Phase 7, Workstream OO): Explore menu's 5th-7th links.
+  openTimeMachineLabel: string;
+  openQuickfireLabel: string;
+  openNotesLabel: string;
   difficultyStandard: string;
   difficultyHard: string;
   difficultyToggleHint: string;
@@ -421,6 +426,71 @@ export interface Translations {
   playlistSummarySubtitle: string;
   playlistShareCta: string;
   playlistComeBackAnytime: string;
+
+  // Phase 7 — Climate Time Machine (Workstream II): /time-machine, a
+  // freely-repeatable practice mode. Feeds a synthetic "2050" City object
+  // (see buildSyntheticFutureTarget in timeMachineLogic.ts) straight into
+  // the existing evaluateGuess/ComparisonMatrix pipeline, unchanged — no day
+  // lock, no saved state, a fresh random target on every visit or replay.
+  // Reuses several existing keys as-is for the reveal state (cityIdentified,
+  // mysteryRevealed, solvedInGuesses, completedAttempts, the winHeadline/
+  // winSubline ladder, lossHeadline/lossSubline) and for two of the three
+  // profile stats (koppen2050Label, rainShiftLabel) — only genuinely new
+  // copy is declared here.
+  timeMachineEyebrow: string;
+  timeMachinePageTitle: string;
+  timeMachineIntro: string;
+  timeMachineHookTitle: string;
+  timeMachineHookSubtitle: string;
+  timeMachineProjectedTempLabel: string;
+  timeMachineRevealIntro: string;
+  timeMachinePlayAgain: string;
+  timeMachineLoading: string;
+
+  // Phase 7 — Cryptic clue (Workstream LL): free bonus flavor text label,
+  // rendered near the Dossier's pinned header whenever city.cryptic_clue is
+  // present (Workstream KK's riddle-authoring batches). No token cost, no
+  // interaction with the "Choose Your Clue" economy above.
+  crypticClueLabel: string;
+
+  // Phase 7 — Sixty-Second Cityle / Quickfire (Workstream MM): a 60-second
+  // timed "which city is highest/lowest on this stat" session. Freely
+  // repeatable, session-based, not day-locked.
+  quickfireEyebrow: string;
+  quickfireTitle: string;
+  quickfireIntro: string;
+  quickfireBestScoreLabel: string;
+  quickfireStartCta: string;
+  quickfireTimeLeftLabel: string;
+  quickfireScoreLabel: string;
+  quickfireQuestionHighest: string;
+  quickfireQuestionLowest: string;
+  quickfireFieldPopulation: string;
+  quickfireFieldPm25: string;
+  quickfireFieldElevation: string;
+  quickfireFieldTemp: string;
+  quickfireFieldTreeCanopy: string;
+  quickfireFieldTransit: string;
+  quickfireFieldEquatorDistance: string;
+  quickfireCorrectAnnounce: string;
+  quickfireIncorrectAnnounce: string;
+  quickfireFinishedEyebrow: string;
+  quickfireFinishedTitle: string;
+  quickfireFinalScoreLabel: string;
+  quickfireNewBestBadge: string;
+  quickfirePlayAgainCta: string;
+
+  // Phase 7 — Curator's Notes (Workstream NN): /notes lists short,
+  // first-person essays with the day's featured one pinned at the top. The
+  // essays themselves live in curatorNotes.ts as English-only authored
+  // content (matching how city urban_fact/educational_debrief are already
+  // English-only, not translated) — these are just the page-chrome labels
+  // wrapped around them, which do get the normal es/it treatment.
+  notesPageEyebrow: string;
+  notesPageTitle: string;
+  notesPageIntro: string;
+  notesFeaturedBadge: string;
+  notesMoreHeading: string;
 }
 
 export const TRANSLATIONS: Record<Locale, Translations> = {
@@ -460,6 +530,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     shareGrid: 'SHARE SCORE GRID',
     shareResultCard: 'SHARE RESULT',
     challengeAFriend: 'CHALLENGE A FRIEND',
+    getPostcard: 'GET POSTCARD',
     copied: 'COPIED TO CLIPBOARD!',
     playNextRandom: 'PLAY NEXT RANDOM CITY',
     nextDailyIn: 'Next Daily Cityle releases in 24 hours',
@@ -717,6 +788,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     openAlmanacLabel: 'Open City Almanac',
     openMarathonLabel: 'Open Marathon of the Day',
     openPlaylistsLabel: 'Open Curated Playlists',
+    openTimeMachineLabel: 'Open Climate Time Machine',
+    openQuickfireLabel: 'Open Sixty-Second Cityle',
+    openNotesLabel: "Open Curator's Notes",
     difficultyStandard: 'Standard',
     difficultyHard: 'Hard',
     difficultyToggleHint: 'Hard Mode: every clue group arrives one guess later',
@@ -821,6 +895,51 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     playlistSummarySubtitle: "Here's how your run through {name} went.",
     playlistShareCta: 'Share Playlist Result',
     playlistComeBackAnytime: "Playlists aren't day-locked — play this one again anytime.",
+
+    // Phase 7 — Climate Time Machine (Workstream II)
+    timeMachineEyebrow: 'CLIMATE TIME MACHINE',
+    timeMachinePageTitle: 'Climate Time Machine',
+    timeMachineIntro: 'Every city already has a projected 2050 climate — we fast-forward one at random.',
+    timeMachineHookTitle: 'In 2050, somewhere on Earth, the climate will feel like this.',
+    timeMachineHookSubtitle: 'Which real city feels like that right now?',
+    timeMachineProjectedTempLabel: '2050 Projected Temp',
+    timeMachineRevealIntro: 'The real city living that future today:',
+    timeMachinePlayAgain: 'Play Again',
+    timeMachineLoading: 'Fast-forwarding a random city to 2050…',
+
+    crypticClueLabel: 'Cryptic Clue',
+
+    // Phase 7 — Quickfire (Workstream MM)
+    quickfireEyebrow: 'QUICKFIRE',
+    quickfireTitle: 'Sixty-Second Cityle',
+    quickfireIntro: 'Four cities, one stat, sixty seconds on the clock. Tap the city that wins each round.',
+    quickfireBestScoreLabel: 'Best score',
+    quickfireStartCta: 'Start',
+    quickfireTimeLeftLabel: 'Time left',
+    quickfireScoreLabel: 'Score',
+    quickfireQuestionHighest: 'Which of these cities has the highest {field}?',
+    quickfireQuestionLowest: 'Which of these cities has the lowest {field}?',
+    quickfireFieldPopulation: 'metro population',
+    quickfireFieldPm25: 'annual PM2.5 pollution',
+    quickfireFieldElevation: 'elevation',
+    quickfireFieldTemp: 'average annual temperature',
+    quickfireFieldTreeCanopy: 'tree canopy cover',
+    quickfireFieldTransit: 'transit & active-travel commuting share',
+    quickfireFieldEquatorDistance: 'distance from the equator',
+    quickfireCorrectAnnounce: 'Correct!',
+    quickfireIncorrectAnnounce: 'Incorrect — it was {city}.',
+    quickfireFinishedEyebrow: "TIME'S UP",
+    quickfireFinishedTitle: 'Session Complete',
+    quickfireFinalScoreLabel: 'Final score',
+    quickfireNewBestBadge: 'New best!',
+    quickfirePlayAgainCta: 'Play Again',
+
+    notesPageEyebrow: "CURATOR'S NOTES",
+    notesPageTitle: "Curator's Notes",
+    notesPageIntro:
+      "Short, first-person essays on why specific cities earned a spot in this pool, what the data can't tell you, and a few opinions I'm not hiding.",
+    notesFeaturedBadge: "Today's featured note",
+    notesMoreHeading: 'More notes',
   },
   es: {
     appName: 'CITYLE',
@@ -858,6 +977,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     shareGrid: 'COMPARTIR RESULTADOS',
     shareResultCard: 'COMPARTIR RESULTADO',
     challengeAFriend: 'RETAR A UN AMIGO',
+    getPostcard: 'OBTENER POSTAL',
     copied: '¡COPIADO AL PORTAPAPELES!',
     playNextRandom: 'JUGAR OTRA CIUDAD ALEATORIA',
     nextDailyIn: 'El próximo Cityle diario sale en 24 horas',
@@ -1115,6 +1235,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     openAlmanacLabel: 'Abrir Almanaque de Ciudades',
     openMarathonLabel: 'Abrir Maratón del Día',
     openPlaylistsLabel: 'Abrir Listas Seleccionadas',
+    openTimeMachineLabel: 'Abrir Máquina del Tiempo Climática',
+    openQuickfireLabel: 'Abrir Cityle en 60 Segundos',
+    openNotesLabel: 'Abrir Notas del Curador',
     difficultyStandard: 'Estándar',
     difficultyHard: 'Difícil',
     difficultyToggleHint: 'Modo Difícil: cada grupo de pistas llega un intento más tarde',
@@ -1219,6 +1342,51 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     playlistSummarySubtitle: 'Así te fue en tu recorrido por {name}.',
     playlistShareCta: 'Compartir Resultado de la Lista',
     playlistComeBackAnytime: 'Las listas no están ligadas a un día — juega esta de nuevo cuando quieras.',
+
+    // Fase 7 — Máquina del Tiempo Climática (Workstream II)
+    timeMachineEyebrow: 'MÁQUINA DEL TIEMPO CLIMÁTICA',
+    timeMachinePageTitle: 'Máquina del Tiempo Climática',
+    timeMachineIntro: 'Cada ciudad ya tiene un clima proyectado para 2050 — adelantamos una al azar.',
+    timeMachineHookTitle: 'En 2050, en algún lugar del mundo, el clima se sentirá así.',
+    timeMachineHookSubtitle: '¿Qué ciudad real se siente así ahora mismo?',
+    timeMachineProjectedTempLabel: 'Temp. Proyectada 2050',
+    timeMachineRevealIntro: 'La ciudad real que ya vive ese futuro:',
+    timeMachinePlayAgain: 'Jugar de Nuevo',
+    timeMachineLoading: 'Adelantando una ciudad al azar hasta 2050…',
+
+    crypticClueLabel: 'Pista Críptica',
+
+    // Fase 7 — Quickfire (Workstream MM)
+    quickfireEyebrow: 'PARTIDA RÁPIDA',
+    quickfireTitle: 'Cityle en 60 Segundos',
+    quickfireIntro: 'Cuatro ciudades, un dato, sesenta segundos en el reloj. Toca la ciudad ganadora de cada ronda.',
+    quickfireBestScoreLabel: 'Mejor puntuación',
+    quickfireStartCta: 'Empezar',
+    quickfireTimeLeftLabel: 'Tiempo restante',
+    quickfireScoreLabel: 'Puntuación',
+    quickfireQuestionHighest: '¿Cuál de estas ciudades tiene el valor más alto en {field}?',
+    quickfireQuestionLowest: '¿Cuál de estas ciudades tiene el valor más bajo en {field}?',
+    quickfireFieldPopulation: 'población metropolitana',
+    quickfireFieldPm25: 'contaminación anual por PM2.5',
+    quickfireFieldElevation: 'elevación',
+    quickfireFieldTemp: 'temperatura media anual',
+    quickfireFieldTreeCanopy: 'cobertura de copa arbórea',
+    quickfireFieldTransit: 'porcentaje de desplazamientos en transporte público o activo',
+    quickfireFieldEquatorDistance: 'distancia al ecuador',
+    quickfireCorrectAnnounce: '¡Correcto!',
+    quickfireIncorrectAnnounce: 'Incorrecto — era {city}.',
+    quickfireFinishedEyebrow: 'SE ACABÓ EL TIEMPO',
+    quickfireFinishedTitle: 'Partida Terminada',
+    quickfireFinalScoreLabel: 'Puntuación final',
+    quickfireNewBestBadge: '¡Nuevo récord!',
+    quickfirePlayAgainCta: 'Jugar de Nuevo',
+
+    notesPageEyebrow: 'NOTAS DEL CURADOR',
+    notesPageTitle: 'Notas del Curador',
+    notesPageIntro:
+      'Ensayos breves en primera persona sobre por qué ciertas ciudades entraron en este catálogo, lo que los datos no pueden contarte, y algunas opiniones que no escondo.',
+    notesFeaturedBadge: 'Nota destacada de hoy',
+    notesMoreHeading: 'Más notas',
   },
   it: {
     appName: 'CITYLE',
@@ -1256,6 +1424,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     shareGrid: 'CONDIVIDI RISULTATO',
     shareResultCard: 'CONDIVIDI SCHEDA RISULTATO',
     challengeAFriend: 'SFIDA UN AMICO',
+    getPostcard: 'OTTIENI CARTOLINA',
     copied: 'COPIATO NEGLI APPUNTI!',
     playNextRandom: 'GIOCA UN\'ALTRA CITTÀ CASUALE',
     nextDailyIn: 'Il prossimo Cityle giornaliero esce tra 24 ore',
@@ -1513,6 +1682,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     openAlmanacLabel: 'Apri Almanacco delle Città',
     openMarathonLabel: 'Apri Maratona del Giorno',
     openPlaylistsLabel: 'Apri Playlist Curate',
+    openTimeMachineLabel: 'Apri Macchina del Tempo Climatica',
+    openQuickfireLabel: 'Apri Cityle in 60 Secondi',
+    openNotesLabel: 'Apri Note del Curatore',
     difficultyStandard: 'Standard',
     difficultyHard: 'Difficile',
     difficultyToggleHint: 'Modalità Difficile: ogni gruppo di indizi arriva un tentativo più tardi',
@@ -1617,6 +1789,51 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     playlistSummarySubtitle: 'Ecco come è andato il tuo percorso in {name}.',
     playlistShareCta: 'Condividi Risultato Playlist',
     playlistComeBackAnytime: 'Le playlist non sono legate a un giorno — rigiocala quando vuoi.',
+
+    // Fase 7 — Macchina del Tempo Climatica (Workstream II)
+    timeMachineEyebrow: 'MACCHINA DEL TEMPO CLIMATICA',
+    timeMachinePageTitle: 'Macchina del Tempo Climatica',
+    timeMachineIntro: 'Ogni città ha già un clima proiettato al 2050 — ne facciamo avanzare una a caso.',
+    timeMachineHookTitle: 'Nel 2050, da qualche parte nel mondo, il clima sarà così.',
+    timeMachineHookSubtitle: 'Quale città reale si sente così proprio adesso?',
+    timeMachineProjectedTempLabel: 'Temp. Proiettata 2050',
+    timeMachineRevealIntro: 'La città reale che vive già quel futuro:',
+    timeMachinePlayAgain: 'Gioca Ancora',
+    timeMachineLoading: 'Proiettiamo una città a caso nel 2050…',
+
+    crypticClueLabel: 'Indizio Criptico',
+
+    // Fase 7 — Quickfire (Workstream MM)
+    quickfireEyebrow: 'PARTITA RAPIDA',
+    quickfireTitle: 'Cityle in 60 Secondi',
+    quickfireIntro: 'Quattro città, un dato, sessanta secondi sul cronometro. Tocca la città vincente di ogni round.',
+    quickfireBestScoreLabel: 'Miglior punteggio',
+    quickfireStartCta: 'Inizia',
+    quickfireTimeLeftLabel: 'Tempo rimasto',
+    quickfireScoreLabel: 'Punteggio',
+    quickfireQuestionHighest: 'Quale di queste città ha il valore più alto per {field}?',
+    quickfireQuestionLowest: 'Quale di queste città ha il valore più basso per {field}?',
+    quickfireFieldPopulation: "popolazione dell'area metropolitana",
+    quickfireFieldPm25: 'inquinamento annuale da PM2.5',
+    quickfireFieldElevation: 'altitudine',
+    quickfireFieldTemp: 'temperatura media annuale',
+    quickfireFieldTreeCanopy: 'copertura arborea',
+    quickfireFieldTransit: 'quota di spostamenti in trasporto pubblico o attivo',
+    quickfireFieldEquatorDistance: "distanza dall'equatore",
+    quickfireCorrectAnnounce: 'Corretto!',
+    quickfireIncorrectAnnounce: 'Sbagliato — era {city}.',
+    quickfireFinishedEyebrow: 'TEMPO SCADUTO',
+    quickfireFinishedTitle: 'Partita Terminata',
+    quickfireFinalScoreLabel: 'Punteggio finale',
+    quickfireNewBestBadge: 'Nuovo record!',
+    quickfirePlayAgainCta: 'Gioca Ancora',
+
+    notesPageEyebrow: 'NOTE DEL CURATORE',
+    notesPageTitle: 'Note del Curatore',
+    notesPageIntro:
+      'Brevi saggi in prima persona su perché certe città sono entrate in questo catalogo, su cosa i dati non possono dirti, e su alcune opinioni che non nascondo.',
+    notesFeaturedBadge: 'Nota in evidenza di oggi',
+    notesMoreHeading: 'Altre note',
   }
 };
 

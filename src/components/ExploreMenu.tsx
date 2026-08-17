@@ -51,6 +51,9 @@ export const ExploreMenu = ({ t }: ExploreMenuProps) => {
     { href: '/almanac', label: t.openAlmanacLabel },
     { href: '/marathon', label: t.openMarathonLabel },
     { href: '/playlists', label: t.openPlaylistsLabel },
+    { href: '/time-machine', label: t.openTimeMachineLabel },
+    { href: '/quickfire', label: t.openQuickfireLabel },
+    { href: '/notes', label: t.openNotesLabel },
   ];
 
   const openMenu = () => {

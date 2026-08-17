@@ -1,7 +1,8 @@
 'use client';
 
 import confetti from 'canvas-confetti';
-import { ArrowRight, Award, Check, HeartHandshake, ImageIcon, MapPin, RotateCw, Share2, Swords, Trophy, X } from 'lucide-react';
+import { ArrowRight, Award, Check, Frame, HeartHandshake, ImageIcon, MapPin, RotateCw, Share2, Swords, Trophy, X } from 'lucide-react';
+import Link from 'next/link';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { encodeChallenge } from '../../lib/challengeCode';
 import { generateShareText } from '../../lib/gameLogic';
@@ -315,6 +316,23 @@ export const VictoryModal = ({
                   ? t.shareErrorTitle
                   : t.challengeAFriend}
             </button>
+
+            {/* Workstream JJ: generative skyline poster for the just-solved
+                city, keyed only on its id (unlike the result/challenge links
+                above, no guess-trail to encode) — a win-only bonus, opened
+                in a new tab so it doesn't navigate away from this modal's
+                share flow. Deliberately absent on a loss: this is a reward
+                for solving it, not a consolation artifact. */}
+            {won && (
+              <Link
+                href={`/postcard/${targetCity.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nothing-button flex items-center justify-center gap-2 border border-white/15 bg-white/5 text-[#F4F6F8] hover:bg-white/10"
+              >
+                <Frame className="h-4 w-4" /> {t.getPostcard}
+              </Link>
+            )}
           </div>
 
           {(mode === 'unlimited' || mode === 'photo') && onPlayNextUnlimited && (
