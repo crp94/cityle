@@ -112,6 +112,24 @@ export function MarathonRound({
           </h2>
           <span className="text-xs text-[#8f9dac]">{t.cluesFraction} {unlockedClueCount}/6</span>
         </div>
+        {/*
+          Scope note (token-economy persistence): Dossier now supports
+          resuming its "Choose Your Clue" token economy across a reload via
+          initialUnlockedCategories/initialBankedTokenCount/onTokenStateChange
+          (see GameApp.tsx and Dossier.tsx). Deliberately NOT wired up here:
+          a Marathon/Playlist round's in-progress guesses aren't persisted
+          at all — saveMarathonState/savePlaylistState (see the callers in
+          src/app/marathon/page.tsx and src/app/playlists/[playlistId]/page.tsx)
+          only write a completed round's result via onRoundComplete, never
+          the guesses/status for the round currently in progress. So a
+          reload mid-round already restarts this round from scratch
+          (guesses included) regardless of the token economy — persisting
+          just the token half here would be inconsistent (tokens survive,
+          guesses don't) without also adding a whole new mid-round save/
+          resume layer for `guesses`/`status` first, which is a bigger,
+          separate lift than this fix. Revisit together if Marathon/Playlists
+          ever gain real mid-round resumability.
+        */}
         <Dossier city={city} guessCount={guesses.length} difficulty={difficulty} t={t} locale={locale} />
       </section>
     </div>

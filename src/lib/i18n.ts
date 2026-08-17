@@ -393,6 +393,7 @@ export interface Translations {
   almanacClearFilters: string;
   almanacResultsCount: string;
   almanacEmptyState: string;
+  almanacLoadMore: string;
 
   // Phase 4 — Photo mode (Workstream V): header pill label (mirrors
   // `daily`/`unlimited` above — a later, separate workstream wires the
@@ -844,7 +845,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     exploreGroupReadLabel: 'Read',
     difficultyStandard: 'Standard',
     difficultyHard: 'Hard',
-    difficultyToggleHint: 'Hard Mode: every clue group arrives one guess later',
+    difficultyToggleHint: 'Hard Mode: no free clues — every category, including Climate & Air, costs a token, spent in order',
     difficultyLockedHint: 'Difficulty locks once you start guessing',
     hardModeSectionLockedDesc: 'Hard Mode delays even the baseline climate and air quality clues by one guess.',
     livesModeOn: 'Lives On',
@@ -905,6 +906,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     almanacClearFilters: 'Clear filters',
     almanacResultsCount: '{n} of {total} cities',
     almanacEmptyState: 'No cities match these filters. Try clearing one.',
+    almanacLoadMore: 'Load more cities',
 
     // Phase 4 — Photo mode (Workstream V)
     photo: 'PHOTO',
@@ -1316,7 +1318,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     exploreGroupReadLabel: 'Leer',
     difficultyStandard: 'Estándar',
     difficultyHard: 'Difícil',
-    difficultyToggleHint: 'Modo Difícil: cada grupo de pistas llega un intento más tarde',
+    difficultyToggleHint: 'Modo Difícil: sin pistas gratis — cada categoría, incluida Clima y Aire, cuesta un token, gastado en orden',
     difficultyLockedHint: 'La dificultad se bloquea al empezar a jugar',
     hardModeSectionLockedDesc: 'El Modo Difícil retrasa incluso las pistas básicas de clima y calidad del aire un intento.',
     livesModeOn: 'Vidas Activadas',
@@ -1377,6 +1379,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     almanacClearFilters: 'Quitar filtros',
     almanacResultsCount: '{n} de {total} ciudades',
     almanacEmptyState: 'Ningún resultado con estos filtros. Prueba a quitar alguno.',
+    almanacLoadMore: 'Cargar más ciudades',
 
     // Fase 4 — Modo Foto (Workstream V)
     photo: 'FOTO',
@@ -1788,7 +1791,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     exploreGroupReadLabel: 'Leggi',
     difficultyStandard: 'Standard',
     difficultyHard: 'Difficile',
-    difficultyToggleHint: 'Modalità Difficile: ogni gruppo di indizi arriva un tentativo più tardi',
+    difficultyToggleHint: 'Modalità Difficile: nessun indizio gratis — ogni categoria, inclusa Clima e Aria, costa un token, speso in ordine',
     difficultyLockedHint: "La difficoltà si blocca all'inizio della partita",
     hardModeSectionLockedDesc: "La Modalità Difficile ritarda anche gli indizi base su clima e qualità dell'aria di un tentativo.",
     livesModeOn: 'Vite Attive',
@@ -1849,6 +1852,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     almanacClearFilters: 'Rimuovi filtri',
     almanacResultsCount: '{n} di {total} città',
     almanacEmptyState: 'Nessuna città con questi filtri. Prova a rimuoverne uno.',
+    almanacLoadMore: 'Carica altre città',
 
     // Fase 4 — Modalità Foto (Workstream V)
     photo: 'FOTO',

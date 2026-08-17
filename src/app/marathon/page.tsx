@@ -272,11 +272,23 @@ export default function MarathonPage() {
   const t = useMemo(() => getTranslation(locale), [locale]);
 
   const [marathon, setMarathon] = useState<MarathonState>(() => buildFreshMarathonState());
-  // Read once at mount (mirrors GameApp's own lazy `getSettings().difficulty`
-  // read) — Marathon has no per-round Hard Mode toggle of its own, it just
-  // plays out whatever the player's current global difficulty setting is,
-  // consistently across all 5 rounds of a single run.
-  const [difficulty] = useState<Difficulty>(() => getSettings().difficulty);
+  // Starts at the safe SSR-matching default and is corrected post-mount in
+  // the effect below (same deferred pattern as locale/stats/achievements,
+  // and the same fix now applied to GameApp.tsx's own `difficulty` state) —
+  // reading getSettings().difficulty synchronously in the lazy initializer
+  // is a real hydration-mismatch bug: SSR has no localStorage and always
+  // renders 'standard', but the client's first hydration pass already has
+  // localStorage access, so a previously-saved 'hard' rendered immediately
+  // and diverged from the server-rendered HTML (confirmed live: a fresh
+  // /marathon load with difficulty: 'hard' saved threw React's "Hydration
+  // failed because the server rendered text..." Recoverable Error). Safe
+  // here for the same reason it's safe in GameApp.tsx: Dossier.tsx's
+  // internal key includes `difficulty`, so a correction shortly after mount
+  // cleanly remounts its token-economy state rather than leaving it stuck
+  // under the wrong difficulty. Marathon has no per-round Hard Mode toggle
+  // of its own — it just plays out whatever the player's current global
+  // difficulty setting is, consistently across all 5 rounds of a single run.
+  const [difficulty, setDifficulty] = useState<Difficulty>('standard');
   const [stats, setStats] = useState<GameStats>(() => createDefaultStats());
   const [achievements, setAchievements] = useState(() => createDefaultAchievementsState());
   const [shareStatus, setShareStatus] = useState<ShareStatus>('idle');
@@ -303,6 +315,11 @@ export default function MarathonPage() {
       }
       setStats(getPlayerStats());
       setAchievements(getAchievementsState());
+      // `difficulty`'s initial state is a hardcoded SSR-safe default (see
+      // its useState above), not the player's real saved preference — needs
+      // the same post-mount correction every other localStorage-derived
+      // value in this effect gets.
+      setDifficulty(getSettings().difficulty);
     });
     return () => cancelAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { track } from '@vercel/analytics';
 import {
   Building2,
@@ -46,6 +46,43 @@ interface DossierProps {
   isPhotoMode?: boolean;
   t: Translations;
   locale: Locale;
+
+  // --- Token-economy resume seeds (GameState.unlockedClueCategories /
+  // .bankedTokenCount in types.ts) -------------------------------------
+  //
+  // Both undefined for a genuinely fresh game (or any caller, like
+  // MarathonRound, that never wires this up at all) — DossierGame's own
+  // initialUnlocked(difficulty, isPhotoMode)/empty-bank defaults apply
+  // exactly as before. When defined, they seed DossierGame's local state
+  // instead, letting a resumed game reopen with whatever categories/tokens
+  // the player already paid for. Only read at mount time (see the
+  // useState initializers below) — GameApp.tsx is responsible for forcing a
+  // remount via `resumeGeneration` whenever it resolves a new seed for the
+  // city already on screen (see that prop's own comment).
+  initialUnlockedCategories?: Set<ClueCategory>;
+  initialBankedTokenCount?: number;
+  // Bumped by GameApp.tsx exactly once per resume-state resolution (its
+  // mount effect, and every other place it restores/resets a game). Purely
+  // a remount trigger for the Dossier wrapper's `key` below — never read
+  // inside DossierGame itself. It exists because `city.id` +
+  // `difficulty`/`isPhotoMode` (the rest of the key) don't always change
+  // across a resume: a Standard-difficulty daily/challenge resume keeps
+  // `difficulty` at 'standard' before AND after the mount effect corrects
+  // it (there's nothing to correct), so without this, DossierGame would
+  // already be mounted — using the pre-resume default seed — by the time
+  // initialUnlockedCategories/initialBankedTokenCount arrive as updated
+  // props, and a plain useState initializer never re-runs on a props change
+  // without a remount. Hard Mode doesn't strictly need this (its difficulty
+  // correction already forces a remount on its own), but every resume path
+  // bumps it regardless, for one consistent mechanism instead of two.
+  resumeGeneration?: number;
+  // Fired whenever unlockedCategories or the banked-token count changes
+  // (spending a token via handleTabClick, or a new token being minted as
+  // guessCount advances) so GameApp.tsx can mirror it into GameState and
+  // persist it. Optional — MarathonRound's practice rounds don't wire this
+  // up (see the scope comment in MarathonRound.tsx) and simply don't
+  // persist their token economy, same as before this change.
+  onTokenStateChange?: (state: { unlockedCategories: Set<ClueCategory>; bankedTokenCount: number }) => void;
 }
 
 // --- "Choose Your Clue" token economy ---------------------------------------
@@ -56,7 +93,10 @@ interface DossierProps {
 // once guessCount hits 6 (the final guess) or later, giving the 5 dead
 // colorGrading functions (gdp/coastalRisk/aridity/carbonFootprint/warmingRate)
 // their first real home in the app.
-type ClueCategory =
+// Exported so GameApp.tsx (and anything else persisting/restoring the token
+// economy) can type its own mirror of this state and validate persisted
+// strings against CATEGORY_ORDER below without duplicating the category list.
+export type ClueCategory =
   | 'climateAir'
   | 'peopleEconomy'
   | 'mobilityForm'
@@ -64,7 +104,7 @@ type ClueCategory =
   | 'placeMap'
   | 'bonusInsight';
 
-const CATEGORY_ORDER: ClueCategory[] = [
+export const CATEGORY_ORDER: ClueCategory[] = [
   'climateAir',
   'peopleEconomy',
   'mobilityForm',
@@ -268,7 +308,7 @@ function PinnedHeader({
   if (isPhotoMode) {
     return (
       <div className="flex flex-col gap-1.5">
-        <CityPhoto city={city} />
+        <CityPhoto city={city} spoilerSafe />
         <p className="text-center text-[0.68rem] text-[#8a97a5]">{t.photoModePinnedHint}</p>
       </div>
     );
@@ -304,33 +344,126 @@ function PinnedHeader({
 }
 
 // The token economy (unlockedCategories/activeCategory/availableTokens) is
-// intentionally local, ephemeral state — not part of GameState/localStorage
-// (see module comment). Wrapping it in its own component keyed on city.id
-// lets a new target city reset every bit of that state for free, by letting
-// React unmount-and-remount fresh state rather than hand-rolling a
+// local component state, kept in sync with (and now resumable from)
+// GameState.unlockedClueCategories/.bankedTokenCount via the
+// initialUnlockedCategories/initialBankedTokenCount/onTokenStateChange props
+// above — see their comments on DossierProps and GameApp.tsx's handling of
+// them. It's still not literally GameState itself: DossierGame derives its
+// own richer local shape (a live Set, activeCategory, the full
+// availableTokens array) from those seeds, and reports back only the
+// minimal slice types.ts actually persists. Wrapping it in its own
+// component keyed on city.id + difficulty + isPhotoMode + resumeGeneration
+// lets a new target city, a difficulty/mode change, or GameApp resolving a
+// new resume seed reset (or reseed) every bit of that state for free, by
+// letting React unmount-and-remount fresh state rather than hand-rolling a
 // setState-in-effect reset (which both defeats React's "derive during
 // render" idiom and trips the react-hooks/set-state-in-effect lint rule).
-export const Dossier = (props: DossierProps) => <DossierGame key={props.city.id} {...props} />;
+//
+// difficulty/isPhotoMode are in the key for a real reason, not defensiveness:
+// initialUnlocked(difficulty, isPhotoMode) only runs once, on mount. Without
+// them in the key, toggling Hard Mode on AFTER this component already
+// mounted under Standard (a real, easy-to-hit sequence: load the page, then
+// flip the header toggle before guessing) left Climate & Air permanently
+// unlocked for free for the rest of that game, since nothing ever re-ran the
+// lazy initializer under the new difficulty. Including them here means any
+// such change gets a clean remount instead, which is also what makes it safe
+// for GameApp.tsx's `difficulty` state to use the standard deferred/
+// SSR-safe-default pattern instead of reading localStorage synchronously
+// during render (a real hydration-mismatch source) — see GameApp.tsx.
+// resumeGeneration exists for the same underlying reason, for the case that
+// mechanism doesn't already cover: see its comment on DossierProps.
+export const Dossier = (props: DossierProps) => (
+  <DossierGame
+    key={`${props.city.id}:${props.difficulty}:${props.isPhotoMode ?? false}:${props.resumeGeneration ?? 0}`}
+    {...props}
+  />
+);
 
-const DossierGame = ({ city, guessCount, difficulty, isPhotoMode = false, t, locale }: DossierProps) => {
+const DossierGame = ({
+  city,
+  guessCount,
+  difficulty,
+  isPhotoMode = false,
+  t,
+  locale,
+  initialUnlockedCategories,
+  initialBankedTokenCount,
+  onTokenStateChange,
+}: DossierProps) => {
   const [selectedKoppen, setSelectedKoppen] = useState<{ code: string; is2050: boolean } | null>(null);
+  // initialUnlockedCategories, when provided, is a resume seed from
+  // GameState (see DossierProps) — it's used verbatim (not merged with
+  // initialUnlocked's fresh-game default) since the persisted set already
+  // reflects whatever initialUnlocked produced back when this game started,
+  // plus everything unlocked since. Undefined (a genuinely fresh game, or a
+  // caller like MarathonRound that doesn't wire resume seeds up at all)
+  // falls back to exactly the pre-existing default.
   const [unlockedCategories, setUnlockedCategories] = useState<Set<ClueCategory>>(() =>
-    initialUnlocked(difficulty, isPhotoMode)
+    initialUnlockedCategories ?? initialUnlocked(difficulty, isPhotoMode)
   );
-  const [activeCategory, setActiveCategory] = useState<ClueCategory>('climateAir');
+  // Deliberately not persisted (see GameState.bankedTokenCount's comment in
+  // types.ts) — on resume, default to whichever already-unlocked category
+  // sorts first in CATEGORY_ORDER (matching what a player would see if they
+  // unlocked categories in that order), or the baseline 'climateAir' tab
+  // when nothing's unlocked yet.
+  const [activeCategory, setActiveCategory] = useState<ClueCategory>(() => {
+    if (!initialUnlockedCategories || initialUnlockedCategories.size === 0) return 'climateAir';
+    return CATEGORY_ORDER.find((category) => initialUnlockedCategories.has(category)) ?? 'climateAir';
+  });
   // Unspent Intel Tokens, one entry per token, storing the guess number that
   // minted it (oldest first). The array length IS "bankedTokens" — there's no
   // separate counter to keep in sync, so a token can never be double-counted
   // or spent twice by construction: spending always splices exactly one
   // entry out of this array at the moment a category is unlocked.
-  const [availableTokens, setAvailableTokens] = useState<number[]>([]);
+  //
+  // On resume, only the COUNT survives (GameState.bankedTokenCount) — not
+  // which guess minted each banked token, since that provenance is only
+  // ever used for the clue_category_selected analytics event's `wasBanked`
+  // field (see handleTabClick below), not for any gameplay decision. `0` is
+  // used as a sentinel mint-guess for resumed tokens rather than the real
+  // (unknown) guess number: since guess numbers start at 1, `spentToken !==
+  // guessCount` in handleTabClick is then always true for a resumed token,
+  // i.e. it's always reported as "banked" rather than "just minted" — a
+  // reasonable default, since a token that survived a reload was, from this
+  // fresh mount's perspective, definitely already sitting in the bank.
+  const [availableTokens, setAvailableTokens] = useState<number[]>(() =>
+    initialUnlockedCategories ? Array.from({ length: initialBankedTokenCount ?? 0 }, () => 0) : []
+  );
   // How many guesses' worth of tokens have already been minted into
   // availableTokens. Comparing this plain render-time state to the current
   // guessCount prop — and calling setState conditionally, during render,
   // rather than in a useEffect — is React's documented pattern for
   // "adjusting state when a prop changes"; it avoids the extra
   // effect-triggered render pass a useEffect version would need.
-  const [mintedThroughGuess, setMintedThroughGuess] = useState(0);
+  //
+  // On resume, this seeds to the CURRENT guessCount (capped at 6) rather
+  // than 0: every guess up through guessCount has already had its token
+  // accounted for, either spent (folded into unlockedCategories) or still
+  // banked (bankedTokenCount, seeded into availableTokens above) — re-
+  // minting them here on top of that would double-count.
+  const [mintedThroughGuess, setMintedThroughGuess] = useState(() =>
+    initialUnlockedCategories ? Math.min(guessCount, 6) : 0
+  );
+
+  // Notify GameApp.tsx of the current token-economy snapshot whenever it
+  // changes — both from a real user action (handleTabClick spending a
+  // token) and from the render-time auto-mint logic just below (a new
+  // guess minting a token). An effect, rather than calling
+  // onTokenStateChange directly from either of those call sites, is
+  // deliberate: handleTabClick runs from a click handler so a direct call
+  // would be safe there, but the auto-mint logic runs during THIS
+  // component's render — calling a prop function that turns around and
+  // calls setState on the PARENT (GameApp) synchronously during a child's
+  // render is exactly the "Cannot update a component while rendering a
+  // different component" hazard React's rules disallow. Routing both
+  // sources through one post-render effect sidesteps that entirely, at the
+  // cost of one extra (harmless, idempotent) notification on mount.
+  useEffect(() => {
+    onTokenStateChange?.({ unlockedCategories, bankedTokenCount: availableTokens.length });
+    // onTokenStateChange is passed fresh on every GameApp render; only the
+    // actual state values below should re-trigger the notification.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unlockedCategories, availableTokens.length]);
 
   // Every guess from 1 to 6 mints exactly one Intel Token. Guess 6's token
   // (and any token still sitting in the bank once guess 6 happens) can only
@@ -482,7 +615,7 @@ const DossierGame = ({ city, guessCount, difficulty, isPhotoMode = false, t, loc
         </div>
         {/* In Photo mode the photo is already the pinned baseline above —
             never render it a second time here. */}
-        {!isPhotoMode && <CityPhoto city={city} />}
+        {!isPhotoMode && <CityPhoto city={city} spoilerSafe />}
       </Section>
     </div>
   );

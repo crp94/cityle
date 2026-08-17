@@ -185,6 +185,40 @@ export interface GameState {
   // decrement-and-end-game-at-zero behavior into page.tsx is a later
   // integration step, not implemented alongside this field.
   livesRemaining?: number;
+
+  // "Choose Your Clue" token economy (Dossier.tsx): which clue categories the
+  // player has already unlocked by spending an Intel Token. Persisted so a
+  // real page reload (browser close/reopen, an accidental refresh, a
+  // suspended tab getting reactivated — all common real player behavior)
+  // doesn't silently re-lock categories the player already paid for.
+  // `guesses` above already survives a reload; this field (plus
+  // bankedTokenCount below) is the matching piece of per-game state that
+  // used to live only in Dossier.tsx's local component state and vanish on
+  // remount. Serializes Dossier's internal `Set<ClueCategory>` as a plain
+  // string array for JSON transport; GameApp.tsx reconstructs it back into a
+  // Set (filtering out any unrecognized values defensively) when resuming.
+  // Absent on any old saved state — resumes exactly like today: Dossier
+  // falls back to its own initialUnlocked(difficulty, isPhotoMode) default
+  // (only the free baseline category unlocked, or none in Hard/Photo mode).
+  unlockedClueCategories?: string[];
+  // How many Intel Tokens are currently banked — minted but not yet spent,
+  // i.e. Dossier's `availableTokens.length`. Deliberately just a count, not
+  // the full `availableTokens: number[]` array Dossier keeps internally
+  // (which also records *which* guess minted each token, solely to power
+  // the clue_category_selected analytics event's `wasBanked` field). That
+  // per-token mint-guess provenance isn't needed to correctly reconstruct
+  // the UI on resume — what's spendable depends only on how many tokens are
+  // banked and which categories are already unlocked (unlockedClueCategories
+  // above) — so persisting anything more than a count would be state the
+  // resumed UI never actually reads. Absent on old saves, treated as 0.
+  //
+  // `activeCategory` (which tab is currently focused) is deliberately NOT
+  // persisted here at all: it's pure view state with no gameplay
+  // consequence, and re-deriving a reasonable default on resume (the first
+  // already-unlocked category, or the free baseline) is simpler and safer
+  // than persisting+restoring a third field for what is, at worst, a
+  // one-tab-click inconvenience if the guess is wrong.
+  bankedTokenCount?: number;
 }
 
 // Marathon mode (Workstream S/T): a shared daily sequence of `targetCityIds`

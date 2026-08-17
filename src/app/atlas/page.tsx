@@ -40,6 +40,7 @@ function CitySlot({
   onClear,
   t,
   placeholder,
+  excludeId,
 }: {
   slotLabel: string;
   city: City | null;
@@ -47,6 +48,15 @@ function CitySlot({
   onClear: () => void;
   t: Translations;
   placeholder: string;
+  // The id already picked in the *other* slot, if any — passed through to
+  // SearchInput's alreadyGuessedIds so a city can't be selected in both
+  // slots at once. Without this, picking the same city twice produces a
+  // degenerate "X vs X" comparison whose RobinsonMap plots two guesses at
+  // identical coordinates, so only one pin is ever visible despite the
+  // map's own "2 plotted" count — confusing, not a crash, but a real gap
+  // versus every other picker in the app (Marathon/Daily) which already
+  // excludes already-guessed cities via this same prop.
+  excludeId?: string;
 }) {
   // Reuses SearchInput's actual search-and-select UX (filtering, keyboard
   // nav, combobox a11y) as-is — no fork needed. Two pieces of copy are
@@ -79,7 +89,12 @@ function CitySlot({
           </button>
         </div>
       ) : (
-        <SearchInput cities={cities} onSelectCity={onSelect} alreadyGuessedIds={[]} t={slotT} />
+        <SearchInput
+          cities={cities}
+          onSelectCity={onSelect}
+          alreadyGuessedIds={excludeId ? [excludeId] : []}
+          t={slotT}
+        />
       )}
     </div>
   );
@@ -138,6 +153,7 @@ function AtlasPickerPageContent() {
             onClear={() => setCityA(null)}
             t={t}
             placeholder="Search for the first city..."
+            excludeId={cityB?.id}
           />
           <CitySlot
             slotLabel="City B"
@@ -146,6 +162,7 @@ function AtlasPickerPageContent() {
             onClear={() => setCityB(null)}
             t={t}
             placeholder="Search for the second city..."
+            excludeId={cityA?.id}
           />
         </div>
 

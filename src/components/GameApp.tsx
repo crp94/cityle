@@ -5,7 +5,7 @@ import { track } from '@vercel/analytics';
 import { Database, Globe2, Trophy } from 'lucide-react';
 import citiesData from '../data/curated-cities.json';
 import { ComparisonMatrix } from './ComparisonMatrix';
-import { Dossier } from './Dossier';
+import { CATEGORY_ORDER, Dossier, type ClueCategory } from './Dossier';
 import { Header } from './Header';
 import { ArchiveModal } from './Modals/ArchiveModal';
 import { HelpModal } from './Modals/HelpModal';
@@ -58,6 +58,20 @@ function randomCity(previousId?: string): City {
   return available[Math.floor(Math.random() * available.length)] ?? cities[0];
 }
 
+// Reconstructs the token-economy Set<ClueCategory> Dossier.tsx expects from
+// the plain string[] GameState.unlockedClueCategories persists. Filters out
+// anything that isn't a recognized ClueCategory (defensively — e.g. a saved
+// value from a future app version, or corrupted localStorage) rather than
+// trusting the persisted JSON blindly. Returns undefined when there's
+// nothing to restore, so callers can pass that straight through as "no seed"
+// (see Dossier's initialUnlockedCategories prop) rather than an empty Set,
+// which would incorrectly override Dossier's own fresh-game default.
+function toClueCategorySet(raw: string[] | undefined): Set<ClueCategory> | undefined {
+  if (!raw) return undefined;
+  const known = new Set<string>(CATEGORY_ORDER);
+  return new Set(raw.filter((value): value is ClueCategory => known.has(value)));
+}
+
 interface GameAppProps {
   // Both are unused/undefined by default and byte-for-byte inert unless set —
   // wired up by Workstream J (challenge links, /challenge/[code]/page.tsx).
@@ -81,14 +95,19 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   const [targetCity, setTargetCity] = useState<City>(() =>
     isChallenge ? (challengeTargetCity as City) : getDailyTargetCity(cities, getDailyGameNumber())
   );
-  // Lazily resolved from settings on first render, same pattern as dailyNumber/targetCity above —
-  // getSettings() already guards `typeof window === 'undefined'` (safe during SSR, returns the
-  // default there) so there's no placeholder-then-correct frame. This matters beyond just avoiding
-  // a visual flash: Dossier.tsx's unlock state is initialized once on mount from whatever
-  // `difficulty` it's handed at that moment (keyed on city.id, not re-derived on prop change), so a
-  // static 'standard' default corrected a frame later left Hard Mode games permanently stuck with
-  // Climate & Air pre-unlocked for the rest of that game.
-  const [difficulty, setDifficulty] = useState<Difficulty>(() => getSettings().difficulty);
+  // Starts at the safe SSR-matching default and is corrected post-mount in the effect below (same
+  // deferred pattern as locale/stats/achievements) — a real hydration-mismatch bug, previously
+  // fixed by reading getSettings().difficulty synchronously here instead, since SSR has no
+  // localStorage: the server always renders 'standard', but the client's first hydration pass
+  // already has localStorage access, so a previously-saved 'hard' would render immediately and
+  // diverge from the server-rendered HTML (React then discards and regenerates the whole tree,
+  // the exact "Recoverable Error" Next.js's dev overlay flags). That synchronous-read fix was only
+  // needed because Dossier.tsx's unlock state used to be keyed on city.id alone: a static
+  // 'standard' default corrected a frame later left Hard Mode games permanently stuck with
+  // Climate & Air pre-unlocked for the rest of that game. Dossier's key now also includes
+  // difficulty/isPhotoMode (see Dossier.tsx), so it cleanly remounts when this corrects a frame
+  // after mount — which is what makes the safe deferred pattern correct here again.
+  const [difficulty, setDifficulty] = useState<Difficulty>('standard');
   // Lives mode (GameSettings.livesMode in storage.ts): resolved once per fresh game exactly
   // like difficulty above, and re-resolved the same way whenever a fresh/resumed game is set
   // up elsewhere in this file (startNewUnlimitedGame, startNewPhotoGame, handleToggleMode,
@@ -100,6 +119,25 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   );
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
   const [status, setStatus] = useState<GameStatus>('playing');
+  // Mirrors Dossier's "Choose Your Clue" token economy (GameState.
+  // unlockedClueCategories/.bankedTokenCount) so it can be (a) threaded back
+  // into Dossier as a resume seed and (b) folded into the next save call.
+  // undefined means "no seed for the game currently on screen" — either a
+  // genuinely fresh game (Dossier falls back to its own default) or an old
+  // save from before this field existed (same fallback, for the same
+  // reason). Updated via handleTokenStateChange (fired by Dossier itself)
+  // and reset via resumeTokenEconomy below every time a fresh/resumed game
+  // is set up elsewhere in this file — never derived any other way.
+  const [tokenEconomy, setTokenEconomy] = useState<
+    { unlockedCategories: Set<ClueCategory>; bankedTokenCount: number } | undefined
+  >(undefined);
+  // Bumped every time resumeTokenEconomy (below) resolves a fresh/resumed
+  // token-economy baseline for the city currently on screen. Threaded to
+  // Dossier as `resumeGeneration`, purely to force it to remount and pick up
+  // the corresponding tokenEconomy seed above — see that prop's comment on
+  // DossierProps for why this is needed on top of city.id/difficulty
+  // already being part of Dossier's remount key.
+  const [resumeGeneration, setResumeGeneration] = useState(0);
   const [isVictoryModalOpen, setIsVictoryModalOpen] = useState(false);
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
@@ -114,13 +152,40 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   const [streakBeforeLoss, setStreakBeforeLoss] = useState<number>(0);
   const t = useMemo(() => getTranslation(locale), [locale]);
 
+  // Resolves tokenEconomy/resumeGeneration together for whichever game is
+  // about to be shown — called from every place in this file that already
+  // resolves guesses/difficulty/livesRemaining for a fresh-or-resumed game
+  // (the mount effect's daily/challenge branches, handleToggleMode's three
+  // branches, handleSelectArchiveDay's two branches, and startNewUnlimited/
+  // PhotoGame). `saved` is whatever GameState that call site already
+  // determined is the relevant one to resume from — null/undefined for a
+  // fresh game, exactly like the `validSaved`/`saved`/`savedDaily`-style
+  // variables those call sites already use for guesses/difficulty.
+  function resumeTokenEconomy(saved: GameState | null | undefined) {
+    setTokenEconomy(
+      saved?.unlockedClueCategories
+        ? {
+            unlockedCategories: toClueCategorySet(saved.unlockedClueCategories) ?? new Set(),
+            bankedTokenCount: saved.bankedTokenCount ?? 0,
+          }
+        : undefined
+    );
+    // Always bumped, even when nothing changed (e.g. a fresh game, or a
+    // resumed game whose city.id/difficulty already differs and would force
+    // a Dossier remount on its own) — one consistent mechanism is simpler
+    // to reason about than trying to predict exactly when it's redundant,
+    // and a redundant remount here is harmless (see DossierProps' comment).
+    setResumeGeneration((generation) => generation + 1);
+  }
+
   useEffect(() => {
-    // dailyNumber/targetCity/difficulty are already correct from lazy initial state (no flash to
-    // fix here) — this effect only restores what genuinely requires localStorage: locale, stats,
-    // achievements, and any in-progress daily (or, in challenge mode, challenge) save (which may
-    // carry its own difficulty, set when that game's first guess was made — see the branches
-    // below). Deferred one frame (matching the app's existing localStorage-restore timing) so the
-    // batch of setState calls below doesn't fire synchronously within the effect body.
+    // dailyNumber/targetCity are already correct from lazy initial state (no flash to fix here) —
+    // this effect restores what genuinely requires localStorage: locale, stats, achievements,
+    // difficulty (see the safe-default comment on its useState above), and any in-progress daily
+    // (or, in challenge mode, challenge) save (which may carry its own difficulty, set when that
+    // game's first guess was made — see the branches below). Deferred one frame (matching the
+    // app's existing localStorage-restore timing) so the batch of setState calls below doesn't
+    // fire synchronously within the effect body.
     const frame = requestAnimationFrame(() => {
       let savedLocale: Locale | null = null;
       try {
@@ -151,6 +216,15 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
           setLivesRemaining(
             savedChallenge.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
           );
+          resumeTokenEconomy(savedChallenge);
+        } else {
+          // No in-progress save for this challenge's target city — still a fresh game, but
+          // `difficulty`'s initial state is a hardcoded SSR-safe default (see its useState above),
+          // not the player's real saved preference, so it needs the same correction a resumed
+          // game gets above.
+          setDifficulty(getSettings().difficulty);
+          setLivesRemaining(getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined);
+          resumeTokenEconomy(null);
         }
         return;
       }
@@ -165,6 +239,15 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         setLivesRemaining(
           savedDaily.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
         );
+        resumeTokenEconomy(savedDaily);
+      } else {
+        // No in-progress save for today's puzzle — still a fresh game, but `difficulty`/
+        // `livesRemaining`'s initial state is a hardcoded SSR-safe default, not the player's real
+        // saved preference (see the useState comments above), so it needs the same correction a
+        // resumed game gets above.
+        setDifficulty(getSettings().difficulty);
+        setLivesRemaining(getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined);
+        resumeTokenEconomy(null);
       }
     });
     return () => cancelAnimationFrame(frame);
@@ -198,6 +281,12 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     setLivesRemaining(nextLivesRemaining);
     setIsVictoryModalOpen(false);
     setNewlyUnlockedBadges([]);
+    // A brand-new game's token economy is exactly Dossier's own fresh-game
+    // default — nothing to seed, and nothing stale from the previous game
+    // should leak into this one (targetCity's change already forces a
+    // Dossier remount, but tokenEconomy itself must still be reset, since
+    // it's not re-derived from city.id).
+    resumeTokenEconomy(null);
     saveUnlimitedState({
       mode: 'unlimited',
       dailyNumber: 0,
@@ -224,6 +313,8 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     setLivesRemaining(nextLivesRemaining);
     setIsVictoryModalOpen(false);
     setNewlyUnlockedBadges([]);
+    // See the matching call in startNewUnlimitedGame above.
+    resumeTokenEconomy(null);
     savePhotoState({
       mode: 'photo',
       dailyNumber: 0,
@@ -254,6 +345,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setLivesRemaining(
         validSaved?.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
       );
+      resumeTokenEconomy(validSaved);
       return;
     }
 
@@ -270,6 +362,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         setLivesRemaining(
           savedPhoto.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
         );
+        resumeTokenEconomy(savedPhoto);
       } else {
         startNewPhotoGame();
       }
@@ -286,6 +379,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setLivesRemaining(
         saved.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
       );
+      resumeTokenEconomy(saved);
     } else {
       startNewUnlimitedGame();
     }
@@ -316,6 +410,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setLivesRemaining(
         validSaved?.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
       );
+      resumeTokenEconomy(validSaved);
       return;
     }
 
@@ -331,6 +426,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     setLivesRemaining(
       validSaved?.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
     );
+    resumeTokenEconomy(validSaved);
   }
 
   // Changing difficulty mid-game would desync already-unlocked clues, so the toggle only
@@ -341,6 +437,18 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     setDifficulty(next);
     // Preserve the existing livesMode setting — this toggle only changes difficulty.
     saveSettings({ ...getSettings(), difficulty: next });
+    // The guard above guarantees zero guesses have been made yet for the game currently on
+    // screen, so there's nothing real to resume token-economy-wise — but `tokenEconomy` itself
+    // still needs resetting here, not just left alone: Dossier's mount effect reports its
+    // token-economy snapshot even at 0 guesses (see its onTokenStateChange comment), so
+    // `tokenEconomy` is already populated with the OLD difficulty's fresh-game default (e.g.
+    // Standard's free `climateAir`) by the time a player can even reach this toggle. Without
+    // this reset, that stale seed would flow back into Dossier as `initialUnlockedCategories`
+    // when the difficulty change remounts it, leaving Climate & Air incorrectly pre-unlocked
+    // after switching to Hard Mode — the exact bug the resumeGeneration/key mechanism elsewhere
+    // in this file exists to prevent, just reached through a different door (confirmed live: a
+    // fresh game, toggled to Hard Mode, showed Climate & Air already unlocked before this fix).
+    resumeTokenEconomy(null);
   }
 
   function handleChangeLocale(nextLocale: Locale) {
@@ -351,6 +459,81 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     } catch {
       // The selected language still applies for this session.
     }
+  }
+
+  /** The single-slot/keyed save function for whichever mode is currently active — used by both
+   * handleSelectCity and handleTokenStateChange below so they persist to the same place. */
+  function saveStateForMode(gameState: GameState): void {
+    if (mode === 'daily') saveDailyState(gameState);
+    else if (mode === 'unlimited') saveUnlimitedState(gameState);
+    else if (mode === 'challenge') saveChallengeState(gameState);
+    else if (mode === 'photo') savePhotoState(gameState);
+    else saveArchiveState(gameState);
+  }
+
+  /** The read-side counterpart to saveStateForMode above — used only to recover an
+   * already-recorded `completedAt` in handleTokenStateChange (see its comment). */
+  function getSavedStateForMode(activeDailyNumber: number): GameState | null {
+    if (mode === 'daily') return getSavedDailyState(dailyNumber);
+    if (mode === 'unlimited') return getSavedUnlimitedState();
+    if (mode === 'challenge') return getSavedChallengeState();
+    if (mode === 'photo') return getSavedPhotoState();
+    return getArchiveState(activeDailyNumber);
+  }
+
+  /**
+   * Fired by Dossier whenever its token economy changes (a token spent, or a new one minted) —
+   * see Dossier's onTokenStateChange prop. Mirrors the new state into `tokenEconomy` (so the next
+   * render passes it back down as Dossier's resume seed, and so handleSelectCity's own save below
+   * includes it) AND persists immediately here, rather than waiting for the next guess: a token
+   * spend can happen with no further guess afterward (spend a token, then reload before guessing
+   * again), so it can't simply piggyback on handleSelectCity's save the way it might seem to.
+   */
+  function handleTokenStateChange(state: { unlockedCategories: Set<ClueCategory>; bankedTokenCount: number }) {
+    setTokenEconomy(state);
+
+    // Dossier reports its token-economy snapshot even at mount (0 guesses) — see its
+    // onTokenStateChange comment — but nothing genuinely spendable exists yet at that point
+    // (mintedThroughGuess starts at 0, so no token can have been spent), and `unlockedCategories`
+    // can only be whatever initialUnlocked(difficulty, isPhotoMode) already deterministically
+    // produces. Skipping the save here isn't just an optimization: `difficulty`/`livesRemaining`
+    // are themselves still corrected asynchronously (via the mount effect's own deferred
+    // localStorage read, to avoid a hydration mismatch — see their useState comments), so a save
+    // that fires from this callback before that correction lands would capture the wrong,
+    // not-yet-corrected value into gameState.difficulty below — and because a resumed game's own
+    // recorded difficulty deliberately takes precedence over the live settings default (see the
+    // mount effect's resume branches), that one premature save would then wrongly win over the
+    // player's real saved preference on every future load of this same game, not just this one.
+    // Confirmed live: without this guard, loading fresh with Hard Mode already saved in settings
+    // still showed Standard, because Dossier's initial callback beat the correction to disk.
+    if (guesses.length === 0) return;
+
+    const activeDailyNumber = mode === 'archive' ? archiveDayNumber ?? dailyNumber : dailyNumber;
+    // Reuse whatever completedAt a finished game already recorded, rather than re-stamping a
+    // fresh one: a player can still spend a leftover token after the game's already been won or
+    // lost (nothing here disables the tab bar once status !== 'playing'), and this save call
+    // fires for that too — stamping a NEW completedAt on every such spend would make a game look
+    // like it finished later than it really did (e.g. skewing saveArchiveState's
+    // oldest-completed-first eviction order).
+    const existing = getSavedStateForMode(activeDailyNumber);
+    const gameState: GameState = {
+      mode,
+      dailyNumber: isDayAgnosticMode(mode) ? 0 : activeDailyNumber,
+      targetCityId: targetCity.id,
+      guesses,
+      status,
+      maxGuesses: MAX_GUESSES,
+      difficulty,
+      livesRemaining,
+      unlockedClueCategories: Array.from(state.unlockedCategories),
+      bankedTokenCount: state.bankedTokenCount,
+      ...(existing?.completedAt
+        ? { completedAt: existing.completedAt }
+        : status !== 'playing'
+          ? { completedAt: new Date().toISOString() }
+          : {}),
+    };
+    saveStateForMode(gameState);
   }
 
   function handleSelectCity(city: City) {
@@ -396,14 +579,23 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       maxGuesses: MAX_GUESSES,
       difficulty,
       livesRemaining: nextLivesRemaining,
+      // Carries forward whatever token economy Dossier last reported (via tokenEconomy/
+      // handleTokenStateChange above) — this guess's own save doesn't know about any token this
+      // guess itself is about to mint (that arrives moments later, in the post-render effect
+      // that calls handleTokenStateChange), but omitting these fields entirely here would
+      // overwrite — not merge with — whatever was already persisted, silently erasing any
+      // categories unlocked before this guess. handleTokenStateChange's own save (which follows
+      // immediately once the new token is minted) reconciles the rest.
+      ...(tokenEconomy
+        ? {
+            unlockedClueCategories: Array.from(tokenEconomy.unlockedCategories),
+            bankedTokenCount: tokenEconomy.bankedTokenCount,
+          }
+        : {}),
       ...(nextStatus !== 'playing' ? { completedAt: new Date().toISOString() } : {}),
     };
 
-    if (mode === 'daily') saveDailyState(gameState);
-    else if (mode === 'unlimited') saveUnlimitedState(gameState);
-    else if (mode === 'challenge') saveChallengeState(gameState);
-    else if (mode === 'photo') savePhotoState(gameState);
-    else saveArchiveState(gameState);
+    saveStateForMode(gameState);
 
     if (nextStatus !== 'playing') {
       setIsVictoryModalOpen(true);
@@ -539,6 +731,10 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
               isPhotoMode={isPhotoMode}
               t={t}
               locale={locale}
+              initialUnlockedCategories={tokenEconomy?.unlockedCategories}
+              initialBankedTokenCount={tokenEconomy?.bankedTokenCount}
+              resumeGeneration={resumeGeneration}
+              onTokenStateChange={handleTokenStateChange}
             />
           </section>
         </div>

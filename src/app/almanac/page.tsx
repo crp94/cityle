@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { BookOpen, Search, X } from 'lucide-react';
 import citiesData from '../../data/curated-cities.json';
@@ -25,6 +25,18 @@ const SMALL_MID_MIN = 250_000;
 
 type PopulationTier = 'megacity' | 'large' | 'mid' | 'small-mid';
 const POPULATION_TIERS: PopulationTier[] = ['megacity', 'large', 'mid', 'small-mid'];
+
+// Batch size for the grid below. All 255 curated cities have a real photo
+// hotlinked from upload.wikimedia.org (no local hosting/CDN — see
+// AlmanacCard.tsx's comment), and Wikimedia rate-limits bursts of hotlinked
+// image requests from a single origin. Mounting all 255 <img> tags at once
+// relied solely on native `loading="lazy"` to avoid a burst, which isn't
+// enough protection against a fast scroll or repeated filter changes in one
+// session. Capping how many cards are ever mounted at once — growing the
+// visible batch on scroll or via the "load more" control, and resetting back
+// to one batch whenever the filtered set changes — keeps concurrent image
+// requests bounded regardless of how the grid is used.
+const PAGE_SIZE = 48;
 
 function getPopulationTier(populationMetro: number): PopulationTier | null {
   if (populationMetro >= MEGACITY_MIN) return 'megacity';
@@ -146,6 +158,47 @@ export default function AlmanacPage() {
     setSelectedTiers(new Set());
   };
 
+  // Only the first `visibleCount` filtered cities are ever mounted — see the
+  // PAGE_SIZE comment above. Resets to a fresh first page whenever the
+  // filtered set itself changes (filteredCities is a new array reference
+  // only when query/selectedContinents/selectedGroups/selectedTiers change),
+  // so switching filters doesn't compound the count from the previous view.
+  // Adjusts state during render rather than in an effect — the recommended
+  // React pattern for "reset state when a prop/computed value changes" —
+  // since a setState-in-effect here would trigger an extra, avoidable
+  // cascading render (and trips this repo's react-hooks/set-state-in-effect
+  // lint rule).
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [pageResetKey, setPageResetKey] = useState(filteredCities);
+  if (pageResetKey !== filteredCities) {
+    setPageResetKey(filteredCities);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  const visibleCities = useMemo(() => filteredCities.slice(0, visibleCount), [filteredCities, visibleCount]);
+  const hasMore = visibleCount < filteredCities.length;
+  const loadMore = () => setVisibleCount((count) => Math.min(count + PAGE_SIZE, filteredCities.length));
+
+  // Auto-grow the batch as the user scrolls near the bottom of the grid, in
+  // addition to the explicit "load more" button below — either interaction
+  // pulls in the next PAGE_SIZE cities rather than mounting everything.
+  const loadMoreSentinelRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!hasMore) return;
+    const sentinel = loadMoreSentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setVisibleCount((count) => Math.min(count + PAGE_SIZE, filteredCities.length));
+        }
+      },
+      { rootMargin: '400px' },
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, filteredCities.length]);
+
   return (
     <div className="min-h-screen bg-[#0A0C10] text-[#aab6c2] dot-matrix-bg">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 sm:py-14">
@@ -231,11 +284,24 @@ export default function AlmanacPage() {
         </div>
 
         {filteredCities.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {filteredCities.map((city) => (
-              <AlmanacCard key={city.id} city={city} t={t} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {visibleCities.map((city) => (
+                <AlmanacCard key={city.id} city={city} t={t} />
+              ))}
+            </div>
+            {hasMore && (
+              <div ref={loadMoreSentinelRef} className="flex justify-center pt-2">
+                <button
+                  type="button"
+                  onClick={loadMore}
+                  className="mono rounded-md border border-[#2a3340] bg-[#131922]/50 px-4 py-2 text-[0.7rem] font-semibold text-[#8f9dac] transition-colors hover:border-[#3FD17C]/40 hover:text-[#c5ced7]"
+                >
+                  {t.almanacLoadMore}
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="nothing-widget flex flex-col items-center gap-2 p-8 text-center">
             <p className="text-sm text-[#8f9dac]">{t.almanacEmptyState}</p>
