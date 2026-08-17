@@ -1,0 +1,267 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0A0C10;
+  --surface: #10141C;
+  --surface-raised: #161B25;
+  --border: rgba(244, 246, 248, 0.12);
+  --border-soft: rgba(244, 246, 248, 0.07);
+  --ink: #F4F6F8;
+  --body: #aab6c2;
+  --muted: #8a97a5;
+  --meta: #7d8b99;
+  --chip: #93a4b6;
+  --chip-border: #2a3340;
+  --accent: #3FD17C;
+  --accent-2: #FFB238;
+  --danger: #FF4D4D;
+  /* 4th Köppen comparison tier (between exact and same-group): shares the
+     cyan already used for the 2050-estimate overlay line in Sparkline.tsx,
+     promoted here to a named semantic token. */
+  --koppen-subtype: #38BDF8;
+  /* Comparison-tile match states (consumed by ComparisonMatrix.tsx): reuse
+     the same green/gold/muted-gray language already used throughout this
+     file instead of generic Tailwind emerald/amber/slate. */
+  --exact: #34D67E;
+  --close: #FFB238;
+  --different: #6B7684;
+
+  /* Heavy-weight sans display face for headlines/big moments — loaded via
+     next/font/google in layout.tsx (falls back gracefully if that hasn't
+     hydrated yet). Serif headings are intentionally retired. */
+  --display: var(--font-display), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --tech: var(--mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--body);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select,
+summary,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Nothing-OS Dot Matrix background pattern */
+.dot-matrix-bg {
+  background-image: radial-gradient(rgba(244, 246, 248, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.tech-mono {
+  font-family: var(--tech);
+}
+
+/* Kept as a class name for backward compatibility with existing call sites
+   (KoppenModal.tsx, StatsModal.tsx) — no longer an actual serif; it now
+   resolves to the same heavy display face as h1-h4 below. Serif headings
+   (Georgia) have been retired project-wide. */
+.serif {
+  font-family: var(--display);
+}
+
+h1, h2, h3, h4, .editorial-heading {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* Nothing-OS technical cards & hairline widgets */
+.editorial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+}
+
+.nothing-widget {
+  background: rgba(16, 20, 28, 0.85);
+  border: 1px solid rgba(244, 246, 248, 0.12);
+  border-radius: 6px;
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.nothing-widget::before {
+  content: none;
+}
+
+.nothing-red-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--danger);
+  box-shadow: 0 0 6px rgba(255, 77, 77, 0.6);
+  display: inline-block;
+}
+
+.stamp {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+
+.icon-button {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--chip-border);
+  border-radius: 0.25rem;
+  color: #9eabb6;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+.icon-button:hover {
+  color: var(--ink);
+  background: var(--surface-raised);
+  border-color: rgba(244, 246, 248, 0.22);
+}
+
+.result-stat {
+  display: flex;
+  min-height: 4rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.35rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 0.25rem;
+  background: var(--bg);
+  padding: 0.65rem;
+}
+
+.result-stat span {
+  color: #8f9dac;
+}
+
+.result-stat strong {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.stamp-accent {
+  color: var(--accent);
+}
+
+.stamp-gold {
+  color: var(--accent-2);
+}
+
+.stamp-red {
+  color: var(--danger);
+}
+
+/* Badge chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--chip-border);
+  color: var(--chip);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  padding: 0.22em 0.65em;
+  border-radius: 3px;
+  background: rgba(16, 20, 28, 0.8);
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* One-shot "SO CLOSE" border pulse for a near-miss guess row in
+   ComparisonMatrix.tsx — a distinct, single-play motion language from the
+   win/loss states (confetti, ladder headline). Plays once, not a loop; the
+   global prefers-reduced-motion block below already collapses this to an
+   instant, imperceptible flash, matching how the VictoryModal confetti
+   effect checks matchMedia('(prefers-reduced-motion: reduce)') before firing. */
+@keyframes closeGuessPulse {
+  0%,
+  100% {
+    border-color: var(--chip-border);
+  }
+  50% {
+    border-color: var(--accent-2);
+  }
+}
+
+.animate-close-pulse {
+  animation: closeGuessPulse 1s ease-in-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--chip-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--meta);
+}
+
+::selection {
+  background: rgba(255, 77, 77, 0.35);
+  color: var(--ink);
+}
