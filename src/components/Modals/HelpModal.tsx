@@ -49,8 +49,7 @@ export const HelpModal = ({ isOpen, onClose, t }: HelpModalProps) => {
           <section className="rounded-md border border-[#FFB238]/25 bg-[#FFB238]/7 p-4">
             <div className="flex items-center gap-2 text-[#FFB238]"><Database className="h-4 w-4" /><h3 className="text-sm font-semibold">{t.dataStatusTitle}</h3></div>
             <p className="mt-2 text-[#c2cbd3]">{t.dataStatusP1}</p>
-            <p className="mt-2 text-[#c2cbd3]">{t.dataStatusP2}</p>
-            <p className="mt-2 text-[#c2cbd3]">{t.dataStatusP3}</p>
+            <p className="mt-2 text-[#c2cbd3]">{t.dataStatusP2} {t.dataStatusP3}</p>
           </section>
 
           <section className="rounded-md border border-[#3FD17C]/25 bg-[#3FD17C]/7 p-4">

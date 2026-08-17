@@ -24,6 +24,7 @@ import {
   getPlayerStats,
   getSavedChallengeState,
   getSavedDailyState,
+  getSavedPhotoState,
   getSavedUnlimitedState,
   getSettings,
   recordDailyResult,
@@ -32,6 +33,7 @@ import {
   saveArchiveState,
   saveChallengeState,
   saveDailyState,
+  savePhotoState,
   saveSettings,
   saveUnlimitedState,
 } from '../lib/storage';
@@ -162,6 +164,29 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     });
   }
 
+  // Photo mode (Workstream V): same free-repeat/random-city cadence as
+  // Unlimited above — mirrors startNewUnlimitedGame byte-for-byte, just
+  // swapping in the single-slot getSavedPhotoState/savePhotoState pair.
+  function startNewPhotoGame() {
+    const nextCity = randomCity(targetCity.id);
+    const nextDifficulty = getSettings().difficulty;
+    setTargetCity(nextCity);
+    setGuesses([]);
+    setStatus('playing');
+    setDifficulty(nextDifficulty);
+    setIsVictoryModalOpen(false);
+    setNewlyUnlockedBadges([]);
+    savePhotoState({
+      mode: 'photo',
+      dailyNumber: 0,
+      targetCityId: nextCity.id,
+      guesses: [],
+      status: 'playing',
+      maxGuesses: MAX_GUESSES,
+      difficulty: nextDifficulty,
+    });
+  }
+
   function handleToggleMode(nextMode: GameMode) {
     if (nextMode === mode) return;
     setMode(nextMode);
@@ -177,6 +202,22 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setGuesses(validSaved?.guesses ?? []);
       setStatus(validSaved?.status ?? 'playing');
       setDifficulty(validSaved?.difficulty ?? getSettings().difficulty);
+      return;
+    }
+
+    if (nextMode === 'photo') {
+      const savedPhoto = getSavedPhotoState();
+      const savedPhotoCity = savedPhoto
+        ? cities.find((city) => city.id === savedPhoto.targetCityId)
+        : undefined;
+      if (savedPhoto?.status === 'playing' && savedPhotoCity) {
+        setTargetCity(savedPhotoCity);
+        setGuesses(savedPhoto.guesses);
+        setStatus('playing');
+        setDifficulty(savedPhoto.difficulty ?? getSettings().difficulty);
+      } else {
+        startNewPhotoGame();
+      }
       return;
     }
 
@@ -266,9 +307,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
 
     const gameState: GameState = {
       mode,
-      // Challenge has no daily cadence, same as unlimited — 0 is a deliberate sentinel, not a
-      // real day number.
-      dailyNumber: mode === 'unlimited' || mode === 'challenge' ? 0 : activeDailyNumber,
+      // Challenge and Photo have no daily cadence, same as unlimited — 0 is a deliberate
+      // sentinel, not a real day number.
+      dailyNumber: mode === 'unlimited' || mode === 'challenge' || mode === 'photo' ? 0 : activeDailyNumber,
       targetCityId: targetCity.id,
       guesses: updatedGuesses,
       status: nextStatus,
@@ -280,6 +321,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     if (mode === 'daily') saveDailyState(gameState);
     else if (mode === 'unlimited') saveUnlimitedState(gameState);
     else if (mode === 'challenge') saveChallengeState(gameState);
+    else if (mode === 'photo') savePhotoState(gameState);
     else saveArchiveState(gameState);
 
     if (nextStatus !== 'playing') {
@@ -333,9 +375,10 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   const guessedIds = useMemo(() => guesses.map((guess) => guess.city.id), [guesses]);
   const isDifficultyLocked = status === 'playing' && guesses.length > 0;
   const activeDailyNumber = mode === 'archive' ? archiveDayNumber ?? dailyNumber : dailyNumber;
+  const isPhotoMode = mode === 'photo';
   const unlockedClueCount = useMemo(
-    () => Object.values(getUnlockedClues(guesses.length, difficulty)).filter(Boolean).length,
-    [guesses.length, difficulty]
+    () => Object.values(getUnlockedClues(guesses.length, difficulty, isPhotoMode)).filter(Boolean).length,
+    [guesses.length, difficulty, isPhotoMode]
   );
 
   return (
@@ -348,6 +391,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         onOpenHelp={() => setIsHelpModalOpen(true)}
         onOpenArchive={() => setIsArchiveModalOpen(true)}
         onNewUnlimitedGame={startNewUnlimitedGame}
+        onNewPhotoGame={startNewPhotoGame}
         stats={stats}
         difficulty={difficulty}
         onToggleDifficulty={handleToggleDifficulty}
@@ -407,7 +451,14 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
               </h2>
               <span className="text-xs text-[#8f9dac]">{t.cluesFraction} {unlockedClueCount}/6</span>
             </div>
-            <Dossier city={targetCity} guessCount={guesses.length} difficulty={difficulty} t={t} locale={locale} />
+            <Dossier
+              city={targetCity}
+              guessCount={guesses.length}
+              difficulty={difficulty}
+              isPhotoMode={isPhotoMode}
+              t={t}
+              locale={locale}
+            />
           </section>
         </div>
       </main>
@@ -429,7 +480,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         won={status === 'won'}
         mode={mode}
         dailyNumber={activeDailyNumber}
-        onPlayNextUnlimited={startNewUnlimitedGame}
+        onPlayNextUnlimited={mode === 'photo' ? startNewPhotoGame : startNewUnlimitedGame}
         newlyUnlockedBadges={newlyUnlockedBadges}
         streakBeforeLoss={streakBeforeLoss}
         t={t}

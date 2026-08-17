@@ -73,6 +73,8 @@ export function formatModeBadge(decoded: DecodedResult): string {
       return `ARCHIVE #${decoded.dailyNumber}`;
     case 'challenge':
       return 'CHALLENGE';
+    case 'photo':
+      return 'PHOTO';
     case 'unlimited':
     default:
       return 'UNLIMITED';

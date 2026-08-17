@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { BarChart3, CalendarDays, Flame, HelpCircle, Map as MapIcon, RotateCcw, Swords, Zap } from 'lucide-react';
+import { BarChart3, CalendarDays, Flame, HelpCircle, RotateCcw, Swords, Zap } from 'lucide-react';
+import { ExploreMenu } from './ExploreMenu';
 import { Locale, Translations } from '../lib/i18n';
 import { Difficulty, GameMode, GameStats } from '../lib/types';
 
@@ -14,6 +14,10 @@ interface HeaderProps {
   onOpenHelp: () => void;
   onOpenArchive: () => void;
   onNewUnlimitedGame: () => void;
+  // Phase 4, Workstream Y: mirrors onNewUnlimitedGame for the new Photo
+  // pill's reroll button — optional so this stays a purely additive prop
+  // for any other Header caller that hasn't wired Photo mode in.
+  onNewPhotoGame?: () => void;
   stats: GameStats;
   difficulty: Difficulty;
   onToggleDifficulty: () => void;
@@ -31,6 +35,7 @@ export const Header = ({
   onOpenHelp,
   onOpenArchive,
   onNewUnlimitedGame,
+  onNewPhotoGame,
   stats,
   difficulty,
   onToggleDifficulty,
@@ -68,6 +73,13 @@ export const Header = ({
           >
             {t.unlimited}
           </button>
+          <button
+            onClick={() => onToggleMode('photo')}
+            aria-pressed={mode === 'photo'}
+            className={`flex-1 rounded px-3 py-1.5 text-xs font-semibold transition-colors sm:flex-none ${mode === 'photo' ? 'bg-[#F4F6F8] text-[#0A0C10]' : 'text-[#96a3af] hover:text-white'}`}
+          >
+            {t.photo}
+          </button>
         </div>
         <button
           type="button"
@@ -95,8 +107,13 @@ export const Header = ({
       </nav>
 
       <div className="flex items-center gap-1.5">
-        {mode === 'unlimited' && (
-          <button onClick={onNewUnlimitedGame} aria-label={t.nextRandom} title={t.nextRandom} className="icon-button">
+        {(mode === 'unlimited' || mode === 'photo') && (
+          <button
+            onClick={mode === 'photo' ? onNewPhotoGame : onNewUnlimitedGame}
+            aria-label={t.nextRandom}
+            title={t.nextRandom}
+            className="icon-button"
+          >
             <RotateCcw className="h-4 w-4" />
           </button>
         )}
@@ -105,14 +122,7 @@ export const Header = ({
             {mode === 'unlimited' ? <Zap className="h-4 w-4" /> : <Flame className="h-4 w-4" />} {streakValue}
           </span>
         )}
-        <Link
-          href="/atlas"
-          aria-label={t.openAtlasLabel}
-          title={t.openAtlasLabel}
-          className="icon-button"
-        >
-          <MapIcon className="h-4 w-4" />
-        </Link>
+        <ExploreMenu t={t} />
         <label className="sr-only" htmlFor="locale">Language</label>
         <select
           id="locale"

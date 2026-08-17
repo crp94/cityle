@@ -157,7 +157,7 @@ export interface GuessResult {
 }
 
 export type GameStatus = 'playing' | 'won' | 'lost';
-export type GameMode = 'daily' | 'unlimited' | 'archive' | 'challenge';
+export type GameMode = 'daily' | 'unlimited' | 'archive' | 'challenge' | 'photo';
 
 export type Difficulty = 'standard' | 'hard';
 
@@ -179,6 +179,29 @@ export interface GameState {
   // decrement-and-end-game-at-zero behavior into page.tsx is a later
   // integration step, not implemented alongside this field.
   livesRemaining?: number;
+}
+
+// Marathon mode (Workstream S/T): a shared daily sequence of `targetCityIds`
+// (from getMarathonCities/getMarathonNumber in marathonLogic.ts) that every
+// player faces in the same order, one city at a time. Distinct from
+// GameState above because a single marathon spans multiple targets/guess
+// histories rather than one target's guesses — `roundResults` accumulates
+// one entry per completed city as the player advances through
+// `currentIndex`. Never recorded via recordDailyResult/recordUnlimitedResult
+// (mirrors Archive/Challenge's existing exclusion from those stats), but
+// each round's win still flows into evaluateAchievements like every other
+// mode.
+export interface MarathonState {
+  marathonNumber: number;
+  targetCityIds: string[];
+  currentIndex: number;
+  roundResults: {
+    targetCityId: string;
+    guesses: GuessResult[];
+    guessesUsed: number;
+    won: boolean;
+  }[];
+  status: 'playing' | 'complete';
 }
 
 // Unlimited mode has no daily cadence, so instead of a streak it tracks a

@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { GitCompare } from 'lucide-react';
 import citiesData from '../../data/curated-cities.json';
@@ -85,11 +85,28 @@ function CitySlot({
   );
 }
 
-export default function AtlasPickerPage() {
+// useSearchParams() requires a Suspense boundary above it (Next.js bails out
+// of static prerendering otherwise — confirmed by a failing `npm run build`:
+// "useSearchParams() should be wrapped in a suspense boundary at page
+// '/atlas'"). Keeping the actual page content in this inner component and
+// wrapping it in the default export below is the standard fix and doesn't
+// change any behavior — cityB, the redirect effect, and CitySlot are all
+// untouched.
+function AtlasPickerPageContent() {
   const locale = useAtlasLocale();
   const t = useMemo(() => getTranslation(locale), [locale]);
   const router = useRouter();
-  const [cityA, setCityA] = useState<City | null>(null);
+  // Almanac "Compare" links land here as /atlas?cityA=<id> — resolve that
+  // against the bundled city list once, on mount, via a lazy useState
+  // initializer so there's no extra render/flash. Falls back to null (the
+  // normal empty-slot state) when the id is missing or unrecognized. cityB
+  // is untouched: it always starts unset and is picked via the existing
+  // SearchInput/CitySlot flow below.
+  const searchParams = useSearchParams();
+  const [cityA, setCityA] = useState<City | null>(() => {
+    const prefillId = searchParams.get('cityA');
+    return prefillId ? cities.find((c) => c.id === prefillId) ?? null : null;
+  });
   const [cityB, setCityB] = useState<City | null>(null);
 
   useEffect(() => {
@@ -145,5 +162,13 @@ export default function AtlasPickerPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AtlasPickerPage() {
+  return (
+    <Suspense fallback={null}>
+      <AtlasPickerPageContent />
+    </Suspense>
   );
 }

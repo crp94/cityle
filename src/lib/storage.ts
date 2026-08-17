@@ -1,9 +1,12 @@
 import { createDefaultAchievementsState, type AchievementsState } from './achievements';
-import { Difficulty, GameState, GameStats, GameStatus, UnlimitedStats } from './types';
+import { getMarathonNumber } from './marathonLogic';
+import { Difficulty, GameState, GameStats, GameStatus, MarathonState, UnlimitedStats } from './types';
 
 const DAILY_STATE_KEY = 'cityle_daily_state_v1';
 const UNLIMITED_STATE_KEY = 'cityle_unlimited_state_v1';
 const CHALLENGE_STATE_KEY = 'cityle_challenge_state_v1';
+const PHOTO_STATE_KEY = 'cityle_photo_state_v1';
+const MARATHON_STATE_KEY = 'cityle_marathon_state_v1';
 const STATS_KEY = 'cityle_player_stats_v1';
 const ARCHIVE_STATE_KEY = 'cityle_archive_state_v1';
 const SETTINGS_KEY = 'cityle_settings_v1';
@@ -73,6 +76,62 @@ export function saveChallengeState(state: GameState): void {
     localStorage.setItem(CHALLENGE_STATE_KEY, JSON.stringify(state));
   } catch (err) {
     console.error('Failed to save challenge state to localStorage', err);
+  }
+}
+
+// Single-slot, mirroring getSavedUnlimitedState/saveUnlimitedState above —
+// Photo mode is a free-repeat cadence like Unlimited (random target each
+// time), just a different clue texture, so it gets the same single-slot
+// treatment rather than Daily's per-day keying (Workstream S, consumed by
+// Workstream V's Photo-first mode).
+export function getSavedPhotoState(): GameState | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(PHOTO_STATE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+export function savePhotoState(state: GameState): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(PHOTO_STATE_KEY, JSON.stringify(state));
+  } catch (err) {
+    console.error('Failed to save photo state to localStorage', err);
+  }
+}
+
+// Single-slot, like getSavedUnlimitedState/saveUnlimitedState, but with a
+// staleness check like getSavedDailyState's dailyNumber check above: a
+// saved marathon in progress from a previous day (its marathonNumber no
+// longer matches today's) is treated as stale and discarded rather than
+// resumed, since that day's sequence (getMarathonCities) is keyed off the
+// *current* marathon number (Workstream S, consumed by Workstream T's
+// Marathon mode UI).
+export function getSavedMarathonState(): MarathonState | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(MARATHON_STATE_KEY);
+    if (!raw) return null;
+    const state: MarathonState = JSON.parse(raw);
+    if (state.marathonNumber === getMarathonNumber()) {
+      return state;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveMarathonState(state: MarathonState): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(MARATHON_STATE_KEY, JSON.stringify(state));
+  } catch (err) {
+    console.error('Failed to save marathon state to localStorage', err);
   }
 }
 

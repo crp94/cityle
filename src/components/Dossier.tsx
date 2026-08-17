@@ -35,6 +35,13 @@ interface DossierProps {
   city: City;
   guessCount: number;
   difficulty: Difficulty;
+  // Photo mode (Workstream V): optional, defaults to false so every other
+  // caller (including Marathon's reuse of this component) is unaffected.
+  // When true, the pinned baseline becomes the city photo instead of the
+  // Köppen/temp/PM2.5 chips, and Climate & Air becomes a normal lockable
+  // category requiring a token — reusing the exact same gating condition
+  // Hard Mode already uses (see initialUnlocked/getSpendableTargets below).
+  isPhotoMode?: boolean;
   t: Translations;
   locale: Locale;
 }
@@ -75,29 +82,38 @@ const STANDARD_FREE_CHOICE_CATEGORIES: ClueCategory[] = [
   'placeMap',
 ];
 
-function initialUnlocked(difficulty: Difficulty): Set<ClueCategory> {
-  return new Set(difficulty === 'standard' ? (['climateAir'] as ClueCategory[]) : []);
+// isPhotoMode is checked alongside difficulty === 'hard' everywhere below —
+// Photo mode (Workstream V) reuses Hard Mode's existing "no free baseline"
+// wiring as-is rather than introducing a parallel gating path: in Photo
+// mode, Climate & Air is never pre-unlocked, regardless of the actual
+// difficulty setting, because the pinned baseline is the city photo instead.
+function initialUnlocked(difficulty: Difficulty, isPhotoMode: boolean): Set<ClueCategory> {
+  return new Set(
+    difficulty === 'standard' && !isPhotoMode ? (['climateAir'] as ClueCategory[]) : []
+  );
 }
 
 /**
  * Which categories a token can be spent on right now, given what's already
- * unlocked, the difficulty, and how many guesses have been made.
+ * unlocked, the difficulty, how many guesses have been made, and whether
+ * this is Photo mode.
  *
- * Hard Mode: "no free choice" — tokens must be spent in the fixed original
- * order (Climate & Air is now part of that order too, since nothing is free
- * in Hard Mode), so there is always at most one valid target.
+ * Hard Mode (or Photo mode): "no free choice" — tokens must be spent in the
+ * fixed original order (Climate & Air is now part of that order too, since
+ * nothing is free), so there is always at most one valid target.
  *
- * Standard: free choice among the four non-bonus categories, until guess 6 —
- * at that point (guess 6's token, or any leftover banked token) the ONLY
- * valid target becomes Bonus Insight. Bonus Insight is never reachable
- * before guess 6, no matter how many tokens are banked.
+ * Standard (non-Photo): free choice among the four non-bonus categories,
+ * until guess 6 — at that point (guess 6's token, or any leftover banked
+ * token) the ONLY valid target becomes Bonus Insight. Bonus Insight is never
+ * reachable before guess 6, no matter how many tokens are banked.
  */
 function getSpendableTargets(
   unlocked: Set<ClueCategory>,
   difficulty: Difficulty,
-  guessCount: number
+  guessCount: number,
+  isPhotoMode: boolean
 ): ClueCategory[] {
-  if (difficulty === 'hard') {
+  if (difficulty === 'hard' || isPhotoMode) {
     const next = CATEGORY_ORDER.find((category) => !unlocked.has(category));
     return next ? [next] : [];
   }
@@ -236,11 +252,26 @@ function PinnedHeader({
   city,
   t,
   onOpenKoppen,
+  isPhotoMode,
 }: {
   city: City;
   t: Translations;
   onOpenKoppen: () => void;
+  isPhotoMode: boolean;
 }) {
+  // Photo mode's pinned baseline is the city photo itself, prominent and
+  // un-gated, INSTEAD OF the Köppen/temp/PM2.5 chip trio below — those three
+  // stats move behind the (now token-gated) Climate & Air category like
+  // everything else in this mode.
+  if (isPhotoMode) {
+    return (
+      <div className="flex flex-col gap-1.5">
+        <CityPhoto city={city} />
+        <p className="text-center text-[0.68rem] text-[#8a97a5]">{t.photoModePinnedHint}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-3 gap-2">
       <button type="button" onClick={onOpenKoppen} aria-haspopup="dialog" className="text-left">
@@ -279,10 +310,10 @@ function PinnedHeader({
 // render" idiom and trips the react-hooks/set-state-in-effect lint rule).
 export const Dossier = (props: DossierProps) => <DossierGame key={props.city.id} {...props} />;
 
-const DossierGame = ({ city, guessCount, difficulty, t, locale }: DossierProps) => {
+const DossierGame = ({ city, guessCount, difficulty, isPhotoMode = false, t, locale }: DossierProps) => {
   const [selectedKoppen, setSelectedKoppen] = useState<{ code: string; is2050: boolean } | null>(null);
   const [unlockedCategories, setUnlockedCategories] = useState<Set<ClueCategory>>(() =>
-    initialUnlocked(difficulty)
+    initialUnlocked(difficulty, isPhotoMode)
   );
   const [activeCategory, setActiveCategory] = useState<ClueCategory>('climateAir');
   // Unspent Intel Tokens, one entry per token, storing the guess number that
@@ -314,7 +345,7 @@ const DossierGame = ({ city, guessCount, difficulty, t, locale }: DossierProps) 
     }
   }
 
-  const spendableTargets = getSpendableTargets(unlockedCategories, difficulty, guessCount);
+  const spendableTargets = getSpendableTargets(unlockedCategories, difficulty, guessCount, isPhotoMode);
   const bankedTokens = availableTokens.length;
 
   function handleTabClick(category: ClueCategory) {
@@ -447,7 +478,9 @@ const DossierGame = ({ city, guessCount, difficulty, t, locale }: DossierProps) 
           <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-[#FFB238]" />
           <p className="text-sm leading-relaxed text-[#d4dbe1]">{city.urban_fact}</p>
         </div>
-        <CityPhoto city={city} />
+        {/* In Photo mode the photo is already the pinned baseline above —
+            never render it a second time here. */}
+        {!isPhotoMode && <CityPhoto city={city} />}
       </Section>
     </div>
   );
@@ -520,7 +553,12 @@ const DossierGame = ({ city, guessCount, difficulty, t, locale }: DossierProps) 
         <p className="text-xs leading-relaxed text-[#b4bec8]">{t.chooseYourClueBanner}</p>
       </div>
 
-      <PinnedHeader city={city} t={t} onOpenKoppen={() => setSelectedKoppen({ code: city.koppen_current.code, is2050: false })} />
+      <PinnedHeader
+        city={city}
+        t={t}
+        isPhotoMode={isPhotoMode}
+        onOpenKoppen={() => setSelectedKoppen({ code: city.koppen_current.code, is2050: false })}
+      />
 
       <TabBar
         unlockedCategories={unlockedCategories}

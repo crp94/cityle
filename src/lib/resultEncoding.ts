@@ -12,8 +12,9 @@ import { GameMode } from './types';
  * client and in any server context without dragging the city JSON along.
  *
  * Format: `v1.{modeChar}.{dailyNumber}.{targetId}.{guessId1}_{guessId2}_...`
- *   - modeChar: 'd' = daily, 'u' = unlimited, 'a' = archive, 'c' = challenge
- *   - dailyNumber: '0' when not applicable (unlimited/challenge)
+ *   - modeChar: 'd' = daily, 'u' = unlimited, 'a' = archive, 'c' = challenge,
+ *     'p' = photo
+ *   - dailyNumber: '0' when not applicable (unlimited/challenge/photo)
  *   - targetId / guessIdN: stable City.id strings, never array indices, so
  *     links never break as the city pool keeps growing
  *
@@ -26,6 +27,7 @@ const MODE_TO_CHAR: Record<GameMode, string> = {
   unlimited: 'u',
   archive: 'a',
   challenge: 'c',
+  photo: 'p',
 };
 
 const CHAR_TO_MODE: Record<string, GameMode> = {
@@ -33,6 +35,7 @@ const CHAR_TO_MODE: Record<string, GameMode> = {
   u: 'unlimited',
   a: 'archive',
   c: 'challenge',
+  p: 'photo',
 };
 
 export interface DecodedResult {
@@ -49,7 +52,8 @@ export function encodeResult(
   guessIds: string[]
 ): string {
   const modeChar = MODE_TO_CHAR[mode];
-  const safeDailyNumber = mode === 'unlimited' || mode === 'challenge' ? 0 : dailyNumber;
+  const safeDailyNumber =
+    mode === 'unlimited' || mode === 'challenge' || mode === 'photo' ? 0 : dailyNumber;
   return `v1.${modeChar}.${safeDailyNumber}.${targetId}.${guessIds.join('_')}`;
 }
 

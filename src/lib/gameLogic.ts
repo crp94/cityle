@@ -293,11 +293,20 @@ export function shouldLoseLife(closenessPct: number): boolean {
  * Returns which progressive clue levels are unlocked based on number of
  * guesses. In hard mode, every clue group — including the baseline
  * climate/air group that's normally always on — arrives one guess later.
+ * Photo mode (Workstream V) reuses this exact "no free baseline" wiring:
+ * passing isPhotoMode = true has the same effect as difficulty === 'hard'
+ * here, regardless of the actual difficulty setting, since Photo mode's
+ * pinned baseline is the city photo instead of the free climate/air group.
  */
-export function getUnlockedClues(guessCount: number, difficulty: Difficulty = 'standard') {
-  const offset = difficulty === 'hard' ? 1 : 0;
+export function getUnlockedClues(
+  guessCount: number,
+  difficulty: Difficulty = 'standard',
+  isPhotoMode: boolean = false
+) {
+  const noFreeBaseline = difficulty === 'hard' || isPhotoMode;
+  const offset = noFreeBaseline ? 1 : 0;
   return {
-    climateAndAir: difficulty === 'hard' ? guessCount >= 1 : true,
+    climateAndAir: noFreeBaseline ? guessCount >= 1 : true,
     demographicsAndEconomy: guessCount >= 1 + offset,
     mobilityAndForm: guessCount >= 2 + offset,
     climateProjections2050: guessCount >= 3 + offset,
@@ -328,7 +337,9 @@ export function generateShareText(
         ? `🏙️ Cityle #${dailyNumber} (Archive) ${scoreText}`
         : mode === 'challenge'
           ? `🏙️ Cityle Challenge ${scoreText}`
-          : `🏙️ Cityle Unlimited ${scoreText}`;
+          : mode === 'photo'
+            ? `🏙️ Cityle Photo Mode ${scoreText}`
+            : `🏙️ Cityle Unlimited ${scoreText}`;
 
   const rows = guesses.map((g) => {
     if (g.isCorrect) return '🟩🟩🟩🎯 SOLVED!';

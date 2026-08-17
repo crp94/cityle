@@ -206,6 +206,7 @@ export interface Translations {
   futureEstimatesDisclaimer: string;
   directionalInequality: string;
   footerTagline: string;
+  madeByLabel: string;
   methodologySources: string;
   guessMap: string;
   cluesFraction: string;
@@ -289,6 +290,11 @@ export interface Translations {
   openArchiveLabel: string;
   // Header wiring (Phase 3, Workstream I): Atlas mode nav entry
   openAtlasLabel: string;
+  // Header wiring (Phase 4, Workstream Y): Explore menu consolidating
+  // Atlas/Almanac/Marathon behind a single trigger icon.
+  exploreMenuLabel: string;
+  openAlmanacLabel: string;
+  openMarathonLabel: string;
   difficultyStandard: string;
   difficultyHard: string;
   difficultyToggleHint: string;
@@ -338,6 +344,51 @@ export interface Translations {
   lockedTabTooltipSpendNow: string;
   bonusInsightLockedTooltip: string;
   bonusInsightDisclaimer: string;
+
+  // Phase 4 — Almanac (Workstream U): browsable grid of all curated cities,
+  // client-side filters, and search. Deliberately spoiler-safe — only the
+  // photo/name/country/Köppen headline stat ever renders on a card.
+  almanacTitle: string;
+  almanacSubtitle: string;
+  almanacFilterContinentLabel: string;
+  almanacFilterKoppenLabel: string;
+  almanacFilterPopulationLabel: string;
+  almanacTierMegacity: string;
+  almanacTierLarge: string;
+  almanacTierMid: string;
+  almanacTierSmallMid: string;
+  almanacSearchPlaceholder: string;
+  almanacCompareCta: string;
+  almanacClearFilters: string;
+  almanacResultsCount: string;
+  almanacEmptyState: string;
+
+  // Phase 4 — Photo mode (Workstream V): header pill label (mirrors
+  // `daily`/`unlimited` above — a later, separate workstream wires the
+  // actual header pill using this key) plus one short pinned-photo caption.
+  photo: string;
+  photoModePinnedHint: string;
+
+  // Phase 4 — Marathon mode (Workstream T): /marathon, a shared daily
+  // 5-city sequence built from MarathonRound. Keys prefixed `marathon` to
+  // stay collision-safe while i18n.ts is being edited concurrently by other
+  // Phase 4 workstreams.
+  marathonEyebrow: string;
+  marathonPageTitle: string;
+  marathonIntro: string;
+  marathonRoundProgress: string;
+  marathonSummaryEyebrow: string;
+  marathonSummaryTitle: string;
+  marathonSummarySubtitle: string;
+  marathonTotalScoreLabel: string;
+  marathonTableCity: string;
+  marathonTableGuesses: string;
+  marathonTableResult: string;
+  marathonResultWon: string;
+  marathonResultLost: string;
+  marathonShareCta: string;
+  marathonComeBackTomorrow: string;
+  marathonBackToCityle: string;
 }
 
 export const TRANSLATIONS: Record<Locale, Translations> = {
@@ -393,7 +444,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     clueStart: 'Climate & Air Baseline (Köppen, Temp, Rain, PM2.5, Elevation, Climatogram)',
     clueG1: 'People & Inequality (Population, Density, Gini, Age)',
     clueG2: 'Mobility, Care & Shared Infrastructure',
-    clueG3: '2050 Climate Projections & Future Analogue (2050 Köppen, Heatwave days, Future Twin)',
+    clueG3: '2050 Climate Projections & Future Analogue',
     clueG4: 'Label-Free Street Map & Urban Footprint',
     clueG5: 'Curated Urban Planning Clue (Geography / historic trivia)',
     tilesAndDirection: 'FEEDBACK TILES & DIRECTION',
@@ -484,7 +535,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     formContextDelta: 'Waterways, bridges and flood-prone land can interrupt otherwise short local journeys.',
     socialInfrastructureTitle: 'Essential social infrastructure',
     socialInfrastructureDesc: 'Affordable food · public health · schools and childcare · libraries · parks · transit · care and civic services',
-    accessUnscoredNote: "We're not giving this city a walkability score. A number can't tell you if care nearby is affordable, safe, or actually open when you need it — or who in this neighbourhood gets locked out by disability access and inequality that a single figure would hide.",
+    accessUnscoredNote: "We're not scoring this city's walkability. A number can't say if nearby care is affordable, safe, or open when needed — or who disability access and inequality shut out.",
     collectiveLeversTitle: 'Collective levers',
     collectiveLeversDesc: 'Frequent public transit · social and affordable housing near services · publicly funded care, health and education · safe streets · shade and public space · democratic neighbourhood planning',
 
@@ -511,7 +562,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
 
     // Victory Modal & Debrief
     theSharedCity: 'The shared city',
-    sharedCityDesc: 'Averages hide who has secure housing, nearby care, clean air, free time, shade and reliable transport. Urban outcomes reflect public budgets, land rules, ownership and collective power—not individual choices alone. Improvement should expand access without pricing people out.',
+    sharedCityDesc: 'Urban outcomes reflect public budgets, land rules, ownership and collective power — not individual choices alone. Improvement should expand access without pricing people out.',
     gameplayDisclaimer: 'Values are directional game estimates. See Methodology & sources for limitations.',
     statClimate: 'Climate',
     statMeanTemp: 'Mean temp',
@@ -524,19 +575,19 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     // Help Modal
     howToReadCity: 'How to read a city',
     readCityPoint1Title: 'Start with distribution.',
-    readCityPoint1Desc: 'A citywide average can conceal large differences in exposure, time, wealth and access between neighbourhoods.',
+    readCityPoint1Desc: 'Big gaps in exposure, time, wealth and access — hidden behind one average.',
     readCityPoint2Title: 'Treat essentials as shared infrastructure.',
-    readCityPoint2Desc: 'Housing, care, health, education, water, mobility, shade and public space shape freedom in everyday life.',
+    readCityPoint2Desc: 'Housing, care, health, education, water, mobility, shade, public space.',
     readCityPoint3Title: 'Look beyond personal choice.',
-    readCityPoint3Desc: 'Travel and consumption are constrained by wages, working time, rents, service location, street safety and public investment.',
+    readCityPoint3Desc: 'Travel and spending, shaped by wages, hours, rents, service location, street safety, public investment.',
     readCityPoint4Title: 'Ask who decides.',
-    readCityPoint4Desc: 'Land ownership, budgets, labour conditions and democratic participation determine whose needs planning serves.',
+    readCityPoint4Desc: 'Land ownership, budgets, labour conditions, democratic participation — whose needs planning serves.',
     readCityPoint5Title: 'Avoid green displacement.',
-    readCityPoint5Desc: 'Climate improvements should benefit existing communities without making their homes unaffordable.',
+    readCityPoint5Desc: 'Climate upgrades that help residents without pricing them out.',
     dataStatusTitle: 'Data status',
-    dataStatusP1: "Cityle is a game, not a database. Every profile is curated for play — climate, air quality, mobility, economy, heat-risk and 2050 numbers are directional estimates, not verified point data.",
-    dataStatusP2: 'Population figures use metropolitan or functional urban area definitions rather than a single harmonized census series.',
-    dataStatusP3: "Scientific citations shaped the schema and plausible ranges — they don't certify any single figure. Don't use Cityle for research, policy, health, investment or planning decisions.",
+    dataStatusP1: "Cityle is a game, not a database — profiles are curated for play. Climate, air quality, mobility, economy, heat-risk and 2050 figures are directional estimates, not verified point data.",
+    dataStatusP2: 'Population figures use metropolitan or functional urban-area definitions, not a single harmonized census series.',
+    dataStatusP3: "Scientific citations shaped the schema and plausible ranges but certify no single figure — don't use Cityle for research, policy, health, investment or planning.",
     referencesAndAttribution: 'References and map attribution',
     osmCartoAttribution: 'The Guess 4 basemap uses © OpenStreetMap contributors and © CARTO. It is a label-free street map, not satellite imagery.',
     whoTransportGuidance: 'WHO urban transport guidance',
@@ -547,6 +598,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     futureEstimatesDisclaimer: '2050 fields are scenario-based, directional estimates used to create clues; they are not city forecasts.',
     directionalInequality: 'Directional inequality context',
     footerTagline: 'CITYLE · a curated urban-climate deduction game',
+    madeByLabel: 'Made by',
     methodologySources: 'Methodology & sources',
     guessMap: 'Guess map',
     cluesFraction: 'Clues',
@@ -629,6 +681,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     // Header wiring: Archive button + Hard Mode toggle
     openArchiveLabel: 'Open Daily Archive',
     openAtlasLabel: 'Open Atlas mode',
+    exploreMenuLabel: 'Explore',
+    openAlmanacLabel: 'Open City Almanac',
+    openMarathonLabel: 'Open Marathon of the Day',
     difficultyStandard: 'Standard',
     difficultyHard: 'Hard',
     difficultyToggleHint: 'Hard Mode: every clue group arrives one guess later',
@@ -664,13 +719,52 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     clueTabPlaceMap: 'Place & Map',
     clueTabBonusInsight: 'Bonus Insight',
     clueTabsAriaLabel: 'Choose a clue category',
-    chooseYourClueBanner: 'Every guess mints an Intel Token. Spend it on a locked category now, or bank it for later.',
+    chooseYourClueBanner: 'Each guess earns an Intel Token — spend it now, or bank it for later.',
     spendTokenCta: 'Spend token',
     bankedTokensStatus: '{n} banked — spend anytime',
     lockedTabTooltipNextToken: 'Unlocks with your next token',
     lockedTabTooltipSpendNow: 'Spend a token to unlock',
     bonusInsightLockedTooltip: 'Unlocks on your final guess, or with a leftover token',
     bonusInsightDisclaimer: 'Bonus data for players who like to dig deeper — not required to win, just extra context.',
+
+    // Phase 4 — Almanac (Workstream U)
+    almanacTitle: 'City Almanac',
+    almanacSubtitle: 'Browse the whole curated pool — photo, flag, and Köppen class only. No spoilers, no stats.',
+    almanacFilterContinentLabel: 'Continent',
+    almanacFilterKoppenLabel: 'Köppen group',
+    almanacFilterPopulationLabel: 'Population',
+    almanacTierMegacity: 'Megacity (10M+)',
+    almanacTierLarge: 'Large (3–10M)',
+    almanacTierMid: 'Mid (1–3M)',
+    almanacTierSmallMid: 'Small-mid (250K–1M)',
+    almanacSearchPlaceholder: 'Search by city or country...',
+    almanacCompareCta: 'Compare',
+    almanacClearFilters: 'Clear filters',
+    almanacResultsCount: '{n} of {total} cities',
+    almanacEmptyState: 'No cities match these filters. Try clearing one.',
+
+    // Phase 4 — Photo mode (Workstream V)
+    photo: 'PHOTO',
+    photoModePinnedHint: 'Your only free clue — everything else costs a token.',
+
+    // Phase 4 — Marathon mode (Workstream T)
+    marathonEyebrow: 'MARATHON #{n}',
+    marathonPageTitle: 'Marathon of the Day',
+    marathonIntro:
+      'Five curated cities, one guess sequence, the same order for every player today. Solve as many as you can — your total score is directly comparable to anyone else who runs it.',
+    marathonRoundProgress: 'City {current} of {total}',
+    marathonSummaryEyebrow: 'MARATHON COMPLETE',
+    marathonSummaryTitle: 'Run Complete',
+    marathonSummarySubtitle: "Here's how today's five-city run went.",
+    marathonTotalScoreLabel: 'Total Score',
+    marathonTableCity: 'City',
+    marathonTableGuesses: 'Guesses',
+    marathonTableResult: 'Result',
+    marathonResultWon: 'Solved',
+    marathonResultLost: 'Unsolved',
+    marathonShareCta: 'Share Marathon Result',
+    marathonComeBackTomorrow: "Tomorrow's Marathon is a fresh five-city sequence.",
+    marathonBackToCityle: '← Back to Cityle',
   },
   es: {
     appName: 'CITYLE',
@@ -724,7 +818,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     clueStart: 'Base Climática y Aire (Köppen, Temp, Lluvia, PM2.5, Elevación, Climograma)',
     clueG1: 'Personas y Desigualdad (Población, Densidad, Gini, Edad)',
     clueG2: 'Movilidad, Cuidados e Infraestructura Compartida',
-    clueG3: 'Proyecciones 2050 y Ciudad Análoga 2050 (Köppen 2050, Olas de calor, Gemela Futura)',
+    clueG3: 'Proyecciones 2050 y Ciudad Análoga 2050',
     clueG4: 'Mapa Urbano sin Etiquetas',
     clueG5: 'Pista de Planificación Urbana (Geografía / historia urbana)',
     tilesAndDirection: 'CASILLAS Y DIRECCIÓN',
@@ -815,7 +909,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     formContextDelta: 'Canales fluviales, puentes y áreas inundables pueden interrumpir trayectos de proximidad.',
     socialInfrastructureTitle: 'Infraestructura social esencial',
     socialInfrastructureDesc: 'Alimentación asequible · salud pública · escuelas e infantil · bibliotecas · parques · transporte público · cuidados y servicios cívicos',
-    accessUnscoredNote: 'No le ponemos nota de caminabilidad a esta ciudad. Un número no te dice si lo que tienes cerca es asequible, seguro o si abre cuando lo necesitas—ni a quién deja fuera la falta de accesibilidad universal y la desigualdad entre barrios que ese número escondería.',
+    accessUnscoredNote: 'Esta ciudad no tiene nota de caminabilidad: un número no dice si el cuidado cercano es asequible, seguro o abre a tiempo, ni a quién excluye la falta de accesibilidad universal y la desigualdad.',
     collectiveLeversTitle: 'Palancas colectivas',
     collectiveLeversDesc: 'Transporte público frecuente · vivienda social y asequible junto a servicios · sanidad, cuidados y educación públicas · calles seguras · sombra y espacio público · planificación democrática de barrio',
 
@@ -842,7 +936,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
 
     // Victory Modal & Debrief
     theSharedCity: 'La ciudad compartida',
-    sharedCityDesc: 'Los promedios enmascaran quién dispone de vivienda segura, cuidados cercanos, aire limpio, tiempo libre, sombra y transporte eficaz. Los resultados urbanos son fruto de presupuestos públicos, régimen del suelo y poder colectivo. La mejora debe ensanchar el acceso sin expulsar a la población.',
+    sharedCityDesc: 'Los resultados urbanos son fruto de presupuestos públicos, régimen del suelo y poder colectivo—no solo de decisiones individuales. La mejora debe ensanchar el acceso sin expulsar a la población.',
     gameplayDisclaimer: 'Los valores son estimaciones orientativas para el juego. Consulta metodología y fuentes.',
     statClimate: 'Clima',
     statMeanTemp: 'Temp. media',
@@ -855,19 +949,19 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     // Help Modal
     howToReadCity: 'Cómo leer una ciudad',
     readCityPoint1Title: 'Comienza por la distribución.',
-    readCityPoint1Desc: 'Un promedio metropolitano suele ocultar diferencias abismales en exposición, tiempo, renta y acceso entre barrios.',
+    readCityPoint1Desc: 'Grandes diferencias en exposición, tiempo, renta y acceso — ocultas tras un solo promedio.',
     readCityPoint2Title: 'Trata lo esencial como infraestructura compartida.',
-    readCityPoint2Desc: 'Vivienda, cuidados, salud, educación, agua, movilidad, sombra y espacio público vertebran la libertad cotidiana.',
+    readCityPoint2Desc: 'Vivienda, cuidados, salud, educación, agua, movilidad, sombra, espacio público.',
     readCityPoint3Title: 'Mira más allá de la elección individual.',
-    readCityPoint3Desc: 'El consumo y la movilidad están condicionados por salarios, jornadas laborales, alquileres, ubicación de servicios y diseño viario.',
+    readCityPoint3Desc: 'Consumo y movilidad, condicionados por salarios, jornadas, alquileres, ubicación de servicios, diseño viario.',
     readCityPoint4Title: 'Pregúntate quién decide.',
-    readCityPoint4Desc: 'La propiedad del suelo, los presupuestos, las condiciones laborales y la participación democrática definen a quién sirve el urbanismo.',
+    readCityPoint4Desc: 'Propiedad del suelo, presupuestos, condiciones laborales, participación democrática — a quién sirve el urbanismo.',
     readCityPoint5Title: 'Evita el desplazamiento verde.',
-    readCityPoint5Desc: 'Las mejoras climáticas y ambientales deben beneficiar a los vecindarios existentes sin volverlos inasequibles.',
+    readCityPoint5Desc: 'Mejoras climáticas que benefician a quien ya vive ahí, sin encarecer sus casas.',
     dataStatusTitle: 'Estado de los datos',
-    dataStatusP1: 'Cityle es un juego, no una base de datos. Cada perfil está curado para jugar—el clima, la calidad del aire, la movilidad, la economía, el riesgo de calor y las cifras de 2050 son estimaciones orientativas, no datos verificados al detalle.',
-    dataStatusP2: 'Las cifras de población emplean definiciones de área funcional o metropolitana y años de referencia variables, constituyendo comparaciones orientativas.',
-    dataStatusP3: 'Las citas científicas dieron forma al esquema y a sus rangos plausibles—no certifican ninguna cifra concreta. No uses Cityle para investigación, políticas públicas, salud, inversión ni planificación.',
+    dataStatusP1: 'Cityle es un juego, no una base de datos — cada perfil está curado para jugar. Clima, calidad del aire, movilidad, economía, riesgo de calor y cifras de 2050 son estimaciones orientativas, no datos verificados al detalle.',
+    dataStatusP2: 'Las cifras de población usan definiciones de área metropolitana o funcional, con años de referencia variables: son comparaciones orientativas.',
+    dataStatusP3: 'Las citas científicas dieron forma al esquema y sus rangos plausibles, pero no certifican ninguna cifra—no uses Cityle para investigación, políticas públicas, salud, inversión ni planificación.',
     referencesAndAttribution: 'Referencias y atribución cartográfica',
     osmCartoAttribution: 'El mapa base del Intento 4 utiliza © OpenStreetMap contributors y © CARTO. Es un mapa viario mudo, no fotografía satelital.',
     whoTransportGuidance: 'Guía de transporte urbano saludable de la OMS',
@@ -878,6 +972,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     futureEstimatesDisclaimer: 'Los campos de 2050 son estimaciones orientativas basadas en escenarios; no son previsiones puntuales.',
     directionalInequality: 'Contexto orientativo de desigualdad',
     footerTagline: 'CITYLE · juego de deducción urbana y climática curado',
+    madeByLabel: 'Hecho por',
     methodologySources: 'Metodología y fuentes',
     guessMap: 'Mapa de intentos',
     cluesFraction: 'Pistas',
@@ -960,6 +1055,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     // Cabecera: botón de Archivo + interruptor de Modo Difícil
     openArchiveLabel: 'Abrir archivo diario',
     openAtlasLabel: 'Abrir modo Atlas',
+    exploreMenuLabel: 'Explorar',
+    openAlmanacLabel: 'Abrir Almanaque de Ciudades',
+    openMarathonLabel: 'Abrir Maratón del Día',
     difficultyStandard: 'Estándar',
     difficultyHard: 'Difícil',
     difficultyToggleHint: 'Modo Difícil: cada grupo de pistas llega un intento más tarde',
@@ -995,13 +1093,52 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     clueTabPlaceMap: 'Lugar y Mapa',
     clueTabBonusInsight: 'Dato Extra',
     clueTabsAriaLabel: 'Elige una categoría de pista',
-    chooseYourClueBanner: 'Cada intento genera un Token de Inteligencia. Gástalo ahora en una categoría bloqueada, o guárdalo para después.',
+    chooseYourClueBanner: 'Cada intento genera un Token de Inteligencia — gástalo ahora o guárdalo para después.',
     spendTokenCta: 'Gastar token',
     bankedTokensStatus: '{n} en reserva — gástalos cuando quieras',
     lockedTabTooltipNextToken: 'Se desbloquea con tu próximo token',
     lockedTabTooltipSpendNow: 'Gasta un token para desbloquear',
     bonusInsightLockedTooltip: 'Se desbloquea en tu último intento, o con un token sobrante',
     bonusInsightDisclaimer: 'Datos extra para quienes quieren profundizar — no hacen falta para ganar, solo dan más contexto.',
+
+    // Fase 4 — Almanaque (Workstream U)
+    almanacTitle: 'Almanaque de Ciudades',
+    almanacSubtitle: 'Explora todo el catálogo curado — foto, bandera y clase Köppen, nada más. Sin pistas de más.',
+    almanacFilterContinentLabel: 'Continente',
+    almanacFilterKoppenLabel: 'Grupo Köppen',
+    almanacFilterPopulationLabel: 'Población',
+    almanacTierMegacity: 'Megaciudad (10M+)',
+    almanacTierLarge: 'Grande (3-10M)',
+    almanacTierMid: 'Media (1-3M)',
+    almanacTierSmallMid: 'Media-pequeña (250K-1M)',
+    almanacSearchPlaceholder: 'Busca por ciudad o país...',
+    almanacCompareCta: 'Comparar',
+    almanacClearFilters: 'Quitar filtros',
+    almanacResultsCount: '{n} de {total} ciudades',
+    almanacEmptyState: 'Ningún resultado con estos filtros. Prueba a quitar alguno.',
+
+    // Fase 4 — Modo Foto (Workstream V)
+    photo: 'FOTO',
+    photoModePinnedHint: 'Tu única pista gratis — el resto cuesta un token.',
+
+    // Fase 4 — Modo Maratón (Workstream T)
+    marathonEyebrow: 'MARATÓN #{n}',
+    marathonPageTitle: 'Maratón del Día',
+    marathonIntro:
+      'Cinco ciudades curadas, una secuencia de intentos, el mismo orden para todos hoy. Resuelve las que puedas — tu puntuación total es directamente comparable con la de cualquier otro jugador.',
+    marathonRoundProgress: 'Ciudad {current} de {total}',
+    marathonSummaryEyebrow: 'MARATÓN COMPLETADO',
+    marathonSummaryTitle: 'Recorrido Completado',
+    marathonSummarySubtitle: 'Así te fue en el recorrido de cinco ciudades de hoy.',
+    marathonTotalScoreLabel: 'Puntuación Total',
+    marathonTableCity: 'Ciudad',
+    marathonTableGuesses: 'Intentos',
+    marathonTableResult: 'Resultado',
+    marathonResultWon: 'Resuelta',
+    marathonResultLost: 'Sin resolver',
+    marathonShareCta: 'Compartir Resultado del Maratón',
+    marathonComeBackTomorrow: 'Mañana llega una secuencia de cinco ciudades totalmente nueva.',
+    marathonBackToCityle: '← Volver a Cityle',
   },
   it: {
     appName: 'CITYLE',
@@ -1055,7 +1192,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     clueStart: 'Base Climatica e Aria (Köppen, Temp, Pioggia, PM2.5, Elevazione, Climogramma)',
     clueG1: 'Persone e Disuguaglianza (Popolazione, Densità, Gini, Età)',
     clueG2: 'Mobilità, Cura e Infrastrutture Condivise',
-    clueG3: 'Proiezioni 2050 e Città Analoga 2050 (Köppen 2050, Ondate di calore, Gemella Futura)',
+    clueG3: 'Proiezioni 2050 e Città Analoga 2050',
     clueG4: 'Mappa Urbana Senza Etichette',
     clueG5: 'Curiosità Urbanistica e Geografica',
     tilesAndDirection: 'CASELLE E DIREZIONE',
@@ -1146,7 +1283,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     formContextDelta: 'Canali fluviali, ponti e terreni alluvionali possono interrompere tragitti di prossimità altrimenti brevi.',
     socialInfrastructureTitle: 'Infrastruttura sociale essenziale',
     socialInfrastructureDesc: 'Cibo accessibile · sanità pubblica · scuole e asili · biblioteche · parchi · trasporto pubblico · cura e servizi civici',
-    accessUnscoredNote: "Non diamo un punteggio di camminabilità a questa città. Un numero non ti dice se ciò che hai vicino è accessibile, sicuro o aperto quando ti serve—né chi resta escluso per mancanza di accessibilità per disabili e per le disuguaglianze di quartiere che quel numero nasconderebbe.",
+    accessUnscoredNote: "Questa città non ha un punteggio di camminabilità: un numero non dice se i servizi vicini sono accessibili, sicuri o aperti quando serve, né chi esclude la mancanza di accessibilità per disabili e la disuguaglianza.",
     collectiveLeversTitle: 'Leve collettive',
     collectiveLeversDesc: 'Trasporto pubblico frequente · edilizia residenziale sociale vicina ai servizi · sanità, cura e istruzione pubbliche · strade sicure · ombra e spazio pubblico · pianificazione democratica di quartiere',
 
@@ -1173,7 +1310,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
 
     // Victory Modal & Debrief
     theSharedCity: 'La città condivisa',
-    sharedCityDesc: 'Le medie nascondono chi ha una casa sicura, servizi di cura vicini, aria pulita, tempo libero, ombra e trasporti affidabili. I risultati urbani riflettono bilanci pubblici, regole sul suolo e potere collettivo. Il miglioramento deve ampliare l\'accesso senza espellere le persone.',
+    sharedCityDesc: 'I risultati urbani riflettono bilanci pubblici, regole sul suolo e potere collettivo—non solo scelte individuali. Il miglioramento deve ampliare l\'accesso senza espellere le persone.',
     gameplayDisclaimer: 'I valori sono stime indicative per il gioco. Vedi metodologia e fonti.',
     statClimate: 'Clima',
     statMeanTemp: 'Temp. media',
@@ -1186,19 +1323,19 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     // Help Modal
     howToReadCity: 'Come leggere una città',
     readCityPoint1Title: 'Inizia dalla distribuzione.',
-    readCityPoint1Desc: 'Una media cittadina può celare enormi differenze di esposizione, tempo, ricchezza e accesso tra quartieri.',
+    readCityPoint1Desc: 'Grandi differenze di esposizione, tempo, ricchezza e accesso — nascoste dietro una sola media.',
     readCityPoint2Title: 'Tratta i beni essenziali come infrastrutture condivise.',
-    readCityPoint2Desc: 'Casa, cura, salute, istruzione, acqua, mobilità, ombra e spazio pubblico plasmano la libertà quotidiana.',
+    readCityPoint2Desc: 'Casa, cura, salute, istruzione, acqua, mobilità, ombra, spazio pubblico.',
     readCityPoint3Title: 'Guarda oltre la scelta individuale.',
-    readCityPoint3Desc: 'Viaggi e consumi sono vincolati da salari, orari di lavoro, affitti, posizione dei servizi e sicurezza stradale.',
+    readCityPoint3Desc: 'Viaggi e consumi, condizionati da salari, orari di lavoro, affitti, posizione dei servizi, sicurezza stradale.',
     readCityPoint4Title: 'Chiediti chi decide.',
-    readCityPoint4Desc: 'Proprietà fondiaria, bilanci, condizioni di lavoro e partecipazione democratica determinano i fini della pianificazione.',
+    readCityPoint4Desc: "Proprietà fondiaria, bilanci, condizioni di lavoro, partecipazione democratica — a chi serve l'urbanistica.",
     readCityPoint5Title: 'Evita lo spiazzamento verde.',
-    readCityPoint5Desc: 'I miglioramenti climatici devono andare a beneficio delle comunità esistenti senza renderne inaccessibili le case.',
+    readCityPoint5Desc: 'Miglioramenti climatici a beneficio di chi già vive lì, senza rendere le case inaccessibili.',
     dataStatusTitle: 'Stato dei dati',
-    dataStatusP1: "Cityle è un gioco, non un database. Ogni profilo è curato per il gioco—clima, qualità dell'aria, mobilità, economia, rischio di calore e cifre 2050 sono stime indicative, non dati verificati punto per punto.",
-    dataStatusP2: 'I dati sulla popolazione utilizzano definizioni di area metropolitana o funzionale con anni di riferimento variabili.',
-    dataStatusP3: "Le citazioni scientifiche hanno dato forma allo schema e agli intervalli plausibili—non certificano nessuna cifra singola. Non usare Cityle per ricerca, politiche pubbliche, salute, investimenti o pianificazione.",
+    dataStatusP1: "Cityle è un gioco, non un database — ogni profilo è curato per il gioco. Clima, qualità dell'aria, mobilità, economia, rischio di calore e cifre 2050 sono stime indicative, non dati verificati punto per punto.",
+    dataStatusP2: 'I dati sulla popolazione usano definizioni di area metropolitana o funzionale, con anni di riferimento variabili.',
+    dataStatusP3: "Le citazioni scientifiche hanno dato forma allo schema e agli intervalli plausibili, ma non certificano nessuna cifra—non usare Cityle per ricerca, politiche pubbliche, salute, investimenti o pianificazione.",
     referencesAndAttribution: 'Riferimenti e attribuzione cartografica',
     osmCartoAttribution: 'La mappa di sfondo del Tentativo 4 usa dati © OpenStreetMap contributors e © CARTO. È una mappa stradale senza etichette, non una foto satellitare.',
     whoTransportGuidance: 'Linee guida OMS sui trasporti urbani salutari',
@@ -1209,6 +1346,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     futureEstimatesDisclaimer: 'I campi del 2050 sono stime indicative basate su scenari; non sono previsioni puntuali.',
     directionalInequality: 'Contesto indicativo di disuguaglianza',
     footerTagline: 'CITYLE · gioco di deduzione urbana e climatica curato',
+    madeByLabel: 'Creato da',
     methodologySources: 'Metodologia e fonti',
     guessMap: 'Mappa tentativi',
     cluesFraction: 'Indizi',
@@ -1291,6 +1429,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     // Intestazione: pulsante Archivio + interruttore Modalità Difficile
     openArchiveLabel: 'Apri archivio giornaliero',
     openAtlasLabel: 'Apri modalità Atlas',
+    exploreMenuLabel: 'Esplora',
+    openAlmanacLabel: 'Apri Almanacco delle Città',
+    openMarathonLabel: 'Apri Maratona del Giorno',
     difficultyStandard: 'Standard',
     difficultyHard: 'Difficile',
     difficultyToggleHint: 'Modalità Difficile: ogni gruppo di indizi arriva un tentativo più tardi',
@@ -1326,13 +1467,52 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     clueTabPlaceMap: 'Luogo e Mappa',
     clueTabBonusInsight: 'Approfondimento Extra',
     clueTabsAriaLabel: 'Scegli una categoria di indizio',
-    chooseYourClueBanner: 'Ogni tentativo genera un Token Informativo. Spendilo subito su una categoria bloccata, oppure conservalo per dopo.',
+    chooseYourClueBanner: 'Ogni tentativo genera un Token Informativo — spendilo subito o conservalo per dopo.',
     spendTokenCta: 'Spendi token',
     bankedTokensStatus: '{n} in riserva — spendili quando vuoi',
     lockedTabTooltipNextToken: 'Si sblocca con il tuo prossimo token',
     lockedTabTooltipSpendNow: 'Spendi un token per sbloccare',
     bonusInsightLockedTooltip: "Si sblocca al tuo ultimo tentativo, o con un token avanzato",
     bonusInsightDisclaimer: 'Dati extra per chi vuole approfondire — non servono per vincere, danno solo più contesto.',
+
+    // Fase 4 — Almanacco (Workstream U)
+    almanacTitle: 'Almanacco delle Città',
+    almanacSubtitle: 'Sfoglia tutto il catalogo curato — foto, bandiera e classe Köppen, niente di più. Zero spoiler.',
+    almanacFilterContinentLabel: 'Continente',
+    almanacFilterKoppenLabel: 'Gruppo Köppen',
+    almanacFilterPopulationLabel: 'Popolazione',
+    almanacTierMegacity: 'Megalopoli (10M+)',
+    almanacTierLarge: 'Grande (3-10M)',
+    almanacTierMid: 'Media (1-3M)',
+    almanacTierSmallMid: 'Medio-piccola (250K-1M)',
+    almanacSearchPlaceholder: 'Cerca per città o paese...',
+    almanacCompareCta: 'Confronta',
+    almanacClearFilters: 'Rimuovi filtri',
+    almanacResultsCount: '{n} di {total} città',
+    almanacEmptyState: 'Nessuna città con questi filtri. Prova a rimuoverne uno.',
+
+    // Fase 4 — Modalità Foto (Workstream V)
+    photo: 'FOTO',
+    photoModePinnedHint: 'Il tuo unico indizio gratuito — il resto costa un token.',
+
+    // Fase 4 — Modalità Maratona (Workstream T)
+    marathonEyebrow: 'MARATONA #{n}',
+    marathonPageTitle: 'Maratona del Giorno',
+    marathonIntro:
+      'Cinque città curate, una sequenza di tentativi, lo stesso ordine per tutti oggi. Risolvi quelle che puoi — il tuo punteggio totale è direttamente confrontabile con quello di chiunque altro giochi.',
+    marathonRoundProgress: 'Città {current} di {total}',
+    marathonSummaryEyebrow: 'MARATONA COMPLETATA',
+    marathonSummaryTitle: 'Percorso Completato',
+    marathonSummarySubtitle: "Ecco com'è andato il tuo percorso di cinque città di oggi.",
+    marathonTotalScoreLabel: 'Punteggio Totale',
+    marathonTableCity: 'Città',
+    marathonTableGuesses: 'Tentativi',
+    marathonTableResult: 'Risultato',
+    marathonResultWon: 'Risolta',
+    marathonResultLost: 'Non risolta',
+    marathonShareCta: 'Condividi Risultato Maratona',
+    marathonComeBackTomorrow: 'Domani arriva una nuova sequenza di cinque città.',
+    marathonBackToCityle: '← Torna a Cityle',
   }
 };
 

@@ -317,7 +317,7 @@ export const VictoryModal = ({
             </button>
           </div>
 
-          {mode === 'unlimited' && onPlayNextUnlimited && (
+          {(mode === 'unlimited' || mode === 'photo') && onPlayNextUnlimited && (
             <button onClick={onPlayNextUnlimited} className="nothing-button flex items-center justify-center gap-2 border border-white/15 bg-white/5 text-[#F4F6F8] hover:bg-white/10">
               {t.playNextRandom} <ArrowRight className="h-4 w-4" />
             </button>
