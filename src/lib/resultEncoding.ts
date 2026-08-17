@@ -1,3 +1,4 @@
+import { isDayAgnosticMode } from './gameLogic';
 import { GameMode } from './types';
 
 /**
@@ -52,8 +53,7 @@ export function encodeResult(
   guessIds: string[]
 ): string {
   const modeChar = MODE_TO_CHAR[mode];
-  const safeDailyNumber =
-    mode === 'unlimited' || mode === 'challenge' || mode === 'photo' ? 0 : dailyNumber;
+  const safeDailyNumber = isDayAgnosticMode(mode) ? 0 : dailyNumber;
   return `v1.${modeChar}.${safeDailyNumber}.${targetId}.${guessIds.join('_')}`;
 }
 

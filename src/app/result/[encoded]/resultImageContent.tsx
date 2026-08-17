@@ -25,6 +25,7 @@ import citiesData from '../../../data/curated-cities.json';
 import worldData from '../../../data/worldMapData.json';
 // @ts-expect-error d3-geo-projection lacks official types
 import { geoRobinson } from 'd3-geo-projection';
+import { assertNever } from '../../../lib/exhaustive';
 import { evaluateGuess } from '../../../lib/gameLogic';
 import { decodeResult, DecodedResult } from '../../../lib/resultEncoding';
 import { City, GuessResult } from '../../../lib/types';
@@ -64,7 +65,25 @@ export function resolveResult(encoded: string): ResolvedResult | null {
   return { decoded, targetCity, guesses, won };
 }
 
-/** `DAILY #42` / `ARCHIVE #17` / `UNLIMITED` / `CHALLENGE` */
+/**
+ * `DAILY #42` / `ARCHIVE #17` / `UNLIMITED` / `CHALLENGE` / `PHOTO`
+ *
+ * Ends in a hard `assertNever` (not a defensive string fallback) — this is
+ * safe specifically because `decoded` only ever reaches here via a
+ * `DecodedResult` produced by `decodeResult()`/`resolveResult()`, and
+ * `decodeResult()` looks up the mode character through `CHAR_TO_MODE`
+ * (`Record<string, GameMode>`) and returns `null` on any unrecognized
+ * character (`if (!mode) return null`) *before* ever constructing a
+ * `DecodedResult` — see resultEncoding.ts. Both call sites of this function
+ * (this file's `buildResultLayout` and `../page.tsx`) only call it with a
+ * `decoded` that already passed that null check. So a malformed/garbage
+ * mode character in a corrupted `/result/[encoded]` URL never reaches this
+ * switch at all — it's rejected upstream, not here — making `decoded.mode`
+ * a genuinely trustworthy `GameMode` by this point, not just an asserted
+ * one. If that upstream contract ever changes, prefer a defensive fallback
+ * over a throw, since a crash from external input is worse than a wrong
+ * label.
+ */
 export function formatModeBadge(decoded: DecodedResult): string {
   switch (decoded.mode) {
     case 'daily':
@@ -76,8 +95,9 @@ export function formatModeBadge(decoded: DecodedResult): string {
     case 'photo':
       return 'PHOTO';
     case 'unlimited':
-    default:
       return 'UNLIMITED';
+    default:
+      return assertNever(decoded.mode, 'formatModeBadge');
   }
 }
 

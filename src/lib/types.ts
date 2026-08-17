@@ -204,6 +204,28 @@ export interface MarathonState {
   status: 'playing' | 'complete';
 }
 
+// Curated Playlists (Phase 5, Workstream AA): same round-by-round shape as
+// MarathonState above (a sequence of targetCityIds worked through one at a
+// time via MarathonRound, accumulating one roundResults entry per completed
+// city), but keyed by `playlistId` instead of `marathonNumber` since a
+// playlist run isn't day-locked or shared across players — it's freely
+// repeatable anytime, like Unlimited mode. Storage is single-slot
+// (getSavedPlaylistState/savePlaylistState in storage.ts): only the
+// most-recently-played playlist's in-progress run is kept, so switching to a
+// different playlist simply abandons/overwrites any prior one.
+export interface PlaylistState {
+  playlistId: string;
+  targetCityIds: string[];
+  currentIndex: number;
+  roundResults: {
+    targetCityId: string;
+    guesses: GuessResult[];
+    guessesUsed: number;
+    won: boolean;
+  }[];
+  status: 'playing' | 'complete';
+}
+
 // Unlimited mode has no daily cadence, so instead of a streak it tracks a
 // "current unbeaten run" — consecutive wins since the last loss.
 export interface UnlimitedStats {

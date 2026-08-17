@@ -11,11 +11,18 @@ import { ArchiveModal } from './Modals/ArchiveModal';
 import { HelpModal } from './Modals/HelpModal';
 import { StatsModal } from './Modals/StatsModal';
 import { VictoryModal } from './Modals/VictoryModal';
+import { WelcomeModal } from './Modals/WelcomeModal';
 import { MissionBriefing } from './MissionBriefing';
 import { RobinsonMap } from './RobinsonMap';
 import { SearchInput } from './SearchInput';
 import { createDefaultAchievementsState, evaluateAchievements } from '../lib/achievements';
-import { evaluateGuess, getDailyGameNumber, getDailyTargetCity, getUnlockedClues } from '../lib/gameLogic';
+import {
+  evaluateGuess,
+  getDailyGameNumber,
+  getDailyTargetCity,
+  getUnlockedClues,
+  isDayAgnosticMode,
+} from '../lib/gameLogic';
 import { getTranslation, Locale } from '../lib/i18n';
 import {
   createDefaultStats,
@@ -27,6 +34,8 @@ import {
   getSavedPhotoState,
   getSavedUnlimitedState,
   getSettings,
+  hasSeenWelcome,
+  markWelcomeSeen,
   recordDailyResult,
   recordUnlimitedResult,
   saveAchievementsState,
@@ -84,6 +93,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
   const [isArchiveModalOpen, setIsArchiveModalOpen] = useState(false);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
   const [stats, setStats] = useState<GameStats>(() => createDefaultStats());
   const [achievements, setAchievements] = useState(() => createDefaultAchievementsState());
   const [newlyUnlockedBadges, setNewlyUnlockedBadges] = useState<string[]>([]);
@@ -142,6 +152,22 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     });
     return () => cancelAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // First-run onboarding (Phase 5, Workstream BB). Marks the flag the moment
+  // the modal is shown, not on dismiss — so a player who closes the tab or
+  // navigates away mid-modal never sees it re-trigger on a later visit.
+  // Deferred via requestAnimationFrame, matching the mount effect above —
+  // calling setState synchronously in the effect body trips the
+  // react-hooks/set-state-in-effect lint rule.
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (!hasSeenWelcome()) {
+        setIsWelcomeModalOpen(true);
+        markWelcomeSeen();
+      }
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   function startNewUnlimitedGame() {
@@ -309,7 +335,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       mode,
       // Challenge and Photo have no daily cadence, same as unlimited — 0 is a deliberate
       // sentinel, not a real day number.
-      dailyNumber: mode === 'unlimited' || mode === 'challenge' || mode === 'photo' ? 0 : activeDailyNumber,
+      dailyNumber: isDayAgnosticMode(mode) ? 0 : activeDailyNumber,
       targetCityId: targetCity.id,
       guesses: updatedGuesses,
       status: nextStatus,
@@ -486,7 +512,12 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         t={t}
       />
       <StatsModal isOpen={isStatsModalOpen} onClose={() => setIsStatsModalOpen(false)} stats={stats} achievements={achievements} mode={mode} t={t} />
-      <HelpModal isOpen={isHelpModalOpen} onClose={() => setIsHelpModalOpen(false)} t={t} />
+      <HelpModal
+        isOpen={isHelpModalOpen}
+        onClose={() => setIsHelpModalOpen(false)}
+        onOpenWelcome={() => setIsWelcomeModalOpen(true)}
+        t={t}
+      />
       <ArchiveModal
         isOpen={isArchiveModalOpen}
         onClose={() => setIsArchiveModalOpen(false)}
@@ -495,6 +526,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         onSelectDay={handleSelectArchiveDay}
         t={t}
       />
+      <WelcomeModal isOpen={isWelcomeModalOpen} onClose={() => setIsWelcomeModalOpen(false)} t={t} />
     </div>
   );
 }

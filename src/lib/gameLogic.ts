@@ -12,6 +12,7 @@ import {
   getCompassDirection,
   calculateClosenessPct,
 } from './geo';
+import { assertNever } from './exhaustive';
 
 /**
  * Returns the day number since project epoch (e.g. Aug 1, 2026).
@@ -316,6 +317,25 @@ export function getUnlockedClues(
 }
 
 /**
+ * Whether `mode` has no daily cadence of its own, i.e. there's no real
+ * calendar day to associate a game with (unlike 'daily'/'archive', which
+ * both key off a genuine day number). Used wherever code needs to decide
+ * whether to zero out a stored/encoded `dailyNumber` sentinel.
+ *
+ * Deliberately NOT an exhaustive switch — this is an intentional "opt-in"
+ * predicate, not a "every mode must be handled" one. A future day-agnostic
+ * mode has to be added here explicitly; there's no compiler nudge for that
+ * by design, since most new modes (like 'archive') should NOT be added here.
+ * The single source of truth is what matters: this used to be duplicated as
+ * an inline `mode === 'unlimited' || mode === 'challenge' || mode === 'photo'`
+ * OR-chain in both GameApp.tsx and resultEncoding.ts, which could silently
+ * drift out of sync.
+ */
+export function isDayAgnosticMode(mode: GameMode): boolean {
+  return mode === 'unlimited' || mode === 'challenge' || mode === 'photo';
+}
+
+/**
  * Generates a shareable Wordle-like text summary for social media or clipboard.
  */
 export function generateShareText(
@@ -330,16 +350,31 @@ export function generateShareText(
   // never looks like a genuine same-day share. Challenge shares (Workstream G)
   // get their own tag too, since they're neither a real daily result nor an
   // Unlimited run.
-  const title =
-    mode === 'daily'
-      ? `🏙️ Cityle #${dailyNumber} ${scoreText}`
-      : mode === 'archive'
-        ? `🏙️ Cityle #${dailyNumber} (Archive) ${scoreText}`
-        : mode === 'challenge'
-          ? `🏙️ Cityle Challenge ${scoreText}`
-          : mode === 'photo'
-            ? `🏙️ Cityle Photo Mode ${scoreText}`
-            : `🏙️ Cityle Unlimited ${scoreText}`;
+  //
+  // This is a real switch (not a ternary chain) specifically so TypeScript
+  // enforces exhaustiveness: adding a new GameMode value without a case here
+  // fails to compile at the `assertNever` branch below, instead of silently
+  // falling through to the wrong share text (see src/lib/exhaustive.ts).
+  let title: string;
+  switch (mode) {
+    case 'daily':
+      title = `🏙️ Cityle #${dailyNumber} ${scoreText}`;
+      break;
+    case 'archive':
+      title = `🏙️ Cityle #${dailyNumber} (Archive) ${scoreText}`;
+      break;
+    case 'challenge':
+      title = `🏙️ Cityle Challenge ${scoreText}`;
+      break;
+    case 'photo':
+      title = `🏙️ Cityle Photo Mode ${scoreText}`;
+      break;
+    case 'unlimited':
+      title = `🏙️ Cityle Unlimited ${scoreText}`;
+      break;
+    default:
+      return assertNever(mode, 'generateShareText');
+  }
 
   const rows = guesses.map((g) => {
     if (g.isCorrect) return '🟩🟩🟩🎯 SOLVED!';

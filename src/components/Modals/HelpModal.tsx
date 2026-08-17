@@ -7,10 +7,11 @@ import { useDialogA11y } from '../../lib/useDialogA11y';
 interface HelpModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenWelcome: () => void;
   t: Translations;
 }
 
-export const HelpModal = ({ isOpen, onClose, t }: HelpModalProps) => {
+export const HelpModal = ({ isOpen, onClose, onOpenWelcome, t }: HelpModalProps) => {
   const dialogRef = useDialogA11y<HTMLDivElement>(isOpen, onClose);
   if (!isOpen) return null;
 
@@ -31,6 +32,17 @@ export const HelpModal = ({ isOpen, onClose, t }: HelpModalProps) => {
           <HelpCircle className="h-5 w-5 text-[#9cad84]" />
           <h2 id="help-title" className="text-xl font-semibold">{t.helpTitle}</h2>
         </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            onOpenWelcome();
+          }}
+          className="mt-2 text-xs text-[#b5c69b] underline underline-offset-2 hover:text-[#dce5d1]"
+        >
+          {t.replayWelcomeGuide}
+        </button>
 
         <div className="mt-5 space-y-5 text-sm leading-relaxed">
           <section>

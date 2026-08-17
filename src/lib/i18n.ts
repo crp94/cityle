@@ -295,6 +295,8 @@ export interface Translations {
   exploreMenuLabel: string;
   openAlmanacLabel: string;
   openMarathonLabel: string;
+  // Header wiring (Phase 5, Workstream AA): Explore menu's 4th link.
+  openPlaylistsLabel: string;
   difficultyStandard: string;
   difficultyHard: string;
   difficultyToggleHint: string;
@@ -389,6 +391,36 @@ export interface Translations {
   marathonShareCta: string;
   marathonComeBackTomorrow: string;
   marathonBackToCityle: string;
+
+  // Phase 5 — Onboarding (Workstream BB): first-run Welcome modal, shown
+  // automatically once (storage.ts's hasSeenWelcome/markWelcomeSeen) and
+  // replayable afterward via a link in HelpModal.
+  welcomeTitle: string;
+  welcomeIntro: string;
+  welcomeGuessFeedback: string;
+  welcomeClueMechanic: string;
+  welcomeDismissCta: string;
+  replayWelcomeGuide: string;
+
+  // Phase 5 — Playlists (Workstream AA): /playlists picker +
+  // /playlists/[playlistId] play-through, reusing MarathonRound as the
+  // per-round leaf (see src/lib/playlists.ts). Not day-locked — freely
+  // repeatable anytime, like Unlimited mode, not compared across players
+  // like the daily Marathon. Playlist name/blurb strings themselves live in
+  // playlists.ts (data, not UI chrome) and are intentionally not
+  // per-locale, matching how city urban_fact/educational_debrief already
+  // aren't translated either.
+  playlistsPageTitle: string;
+  playlistsPageIntro: string;
+  playlistCityCount: string;
+  playlistPlayCta: string;
+  playlistPageEyebrow: string;
+  playlistNotFoundTitle: string;
+  playlistNotFoundMessage: string;
+  playlistSummaryEyebrow: string;
+  playlistSummarySubtitle: string;
+  playlistShareCta: string;
+  playlistComeBackAnytime: string;
 }
 
 export const TRANSLATIONS: Record<Locale, Translations> = {
@@ -684,6 +716,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     exploreMenuLabel: 'Explore',
     openAlmanacLabel: 'Open City Almanac',
     openMarathonLabel: 'Open Marathon of the Day',
+    openPlaylistsLabel: 'Open Curated Playlists',
     difficultyStandard: 'Standard',
     difficultyHard: 'Hard',
     difficultyToggleHint: 'Hard Mode: every clue group arrives one guess later',
@@ -765,6 +798,29 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     marathonShareCta: 'Share Marathon Result',
     marathonComeBackTomorrow: "Tomorrow's Marathon is a fresh five-city sequence.",
     marathonBackToCityle: '← Back to Cityle',
+
+    // Phase 5 — Onboarding (Workstream BB)
+    welcomeTitle: 'WELCOME TO CITYLE',
+    welcomeIntro: 'Somewhere on Earth, a real city is waiting to be identified. You have six guesses to find it.',
+    welcomeGuessFeedback: 'Each guess reveals distance, direction, and whether the population and climate roughly match.',
+    welcomeClueMechanic: 'Every guess also earns an Intel Token — spend it to unlock one category of clues about the city, or bank it for later.',
+    welcomeDismissCta: "Let's Play",
+    replayWelcomeGuide: 'New here? Replay the welcome guide',
+
+    // Phase 5 — Playlists (Workstream AA)
+    playlistsPageTitle: 'Curated Playlists',
+    playlistsPageIntro:
+      'Themed runs through the city pool — same guess-and-clue mechanics as Marathon, built around one climate or urban angle at a time. Play any playlist, in any order, whenever you like.',
+    playlistCityCount: '{n} cities',
+    playlistPlayCta: 'Play',
+    playlistPageEyebrow: 'CURATED PLAYLIST',
+    playlistNotFoundTitle: "This playlist doesn't exist.",
+    playlistNotFoundMessage:
+      "It may have been mistyped or removed. Head back to see every playlist that's actually live.",
+    playlistSummaryEyebrow: 'PLAYLIST COMPLETE',
+    playlistSummarySubtitle: "Here's how your run through {name} went.",
+    playlistShareCta: 'Share Playlist Result',
+    playlistComeBackAnytime: "Playlists aren't day-locked — play this one again anytime.",
   },
   es: {
     appName: 'CITYLE',
@@ -1058,6 +1114,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     exploreMenuLabel: 'Explorar',
     openAlmanacLabel: 'Abrir Almanaque de Ciudades',
     openMarathonLabel: 'Abrir Maratón del Día',
+    openPlaylistsLabel: 'Abrir Listas Seleccionadas',
     difficultyStandard: 'Estándar',
     difficultyHard: 'Difícil',
     difficultyToggleHint: 'Modo Difícil: cada grupo de pistas llega un intento más tarde',
@@ -1139,6 +1196,29 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     marathonShareCta: 'Compartir Resultado del Maratón',
     marathonComeBackTomorrow: 'Mañana llega una secuencia de cinco ciudades totalmente nueva.',
     marathonBackToCityle: '← Volver a Cityle',
+
+    // Fase 5 — Onboarding (Workstream BB)
+    welcomeTitle: 'BIENVENIDO A CITYLE',
+    welcomeIntro: 'En algún lugar del mundo te espera una ciudad real. Tienes seis intentos para identificarla.',
+    welcomeGuessFeedback: 'Cada intento te da distancia, dirección, y si la población y el clima se parecen a los de la ciudad misteriosa.',
+    welcomeClueMechanic: 'Además, cada intento genera un Token de Inteligencia — gástalo para desbloquear una categoría de datos sobre la ciudad, o guárdalo para más adelante.',
+    welcomeDismissCta: 'A Jugar',
+    replayWelcomeGuide: '¿Nuevo por aquí? Repasa la guía de bienvenida',
+
+    // Fase 5 — Listas seleccionadas (Workstream AA)
+    playlistsPageTitle: 'Listas Seleccionadas',
+    playlistsPageIntro:
+      'Recorridos temáticos por el catálogo de ciudades — la misma mecánica de intentos y pistas que el Maratón, centrada cada vez en un ángulo climático o urbano distinto. Juega cualquier lista, en cualquier orden, cuando quieras.',
+    playlistCityCount: '{n} ciudades',
+    playlistPlayCta: 'Jugar',
+    playlistPageEyebrow: 'LISTA SELECCIONADA',
+    playlistNotFoundTitle: 'Esta lista no existe.',
+    playlistNotFoundMessage:
+      'Puede que el enlace esté mal escrito o que se haya eliminado. Vuelve para ver todas las listas disponibles.',
+    playlistSummaryEyebrow: 'LISTA COMPLETADA',
+    playlistSummarySubtitle: 'Así te fue en tu recorrido por {name}.',
+    playlistShareCta: 'Compartir Resultado de la Lista',
+    playlistComeBackAnytime: 'Las listas no están ligadas a un día — juega esta de nuevo cuando quieras.',
   },
   it: {
     appName: 'CITYLE',
@@ -1432,6 +1512,7 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     exploreMenuLabel: 'Esplora',
     openAlmanacLabel: 'Apri Almanacco delle Città',
     openMarathonLabel: 'Apri Maratona del Giorno',
+    openPlaylistsLabel: 'Apri Playlist Curate',
     difficultyStandard: 'Standard',
     difficultyHard: 'Difficile',
     difficultyToggleHint: 'Modalità Difficile: ogni gruppo di indizi arriva un tentativo più tardi',
@@ -1513,6 +1594,29 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     marathonShareCta: 'Condividi Risultato Maratona',
     marathonComeBackTomorrow: 'Domani arriva una nuova sequenza di cinque città.',
     marathonBackToCityle: '← Torna a Cityle',
+
+    // Fase 5 — Onboarding (Workstream BB)
+    welcomeTitle: 'BENVENUTO SU CITYLE',
+    welcomeIntro: 'Da qualche parte nel mondo ti aspetta una città reale. Hai sei tentativi per scoprirla.',
+    welcomeGuessFeedback: 'Ogni tentativo ti dà distanza, direzione, e se popolazione e clima si avvicinano a quelli reali.',
+    welcomeClueMechanic: 'Ogni tentativo genera anche un Token Informativo — spendilo per sbloccare una categoria di indizi sulla città, oppure conservalo per dopo.',
+    welcomeDismissCta: 'Iniziamo',
+    replayWelcomeGuide: 'Nuovo qui? Rivedi la guida di benvenuto',
+
+    // Fase 5 — Playlist curate (Workstream AA)
+    playlistsPageTitle: 'Playlist Curate',
+    playlistsPageIntro:
+      'Percorsi tematici nel catalogo di città — stessa meccanica di tentativi e indizi della Maratona, incentrata ogni volta su un solo aspetto climatico o urbano. Gioca qualsiasi playlist, in qualsiasi ordine, quando vuoi.',
+    playlistCityCount: '{n} città',
+    playlistPlayCta: 'Gioca',
+    playlistPageEyebrow: 'PLAYLIST CURATA',
+    playlistNotFoundTitle: 'Questa playlist non esiste.',
+    playlistNotFoundMessage:
+      'Potrebbe essere stata scritta male o rimossa. Torna indietro per vedere tutte le playlist disponibili.',
+    playlistSummaryEyebrow: 'PLAYLIST COMPLETATA',
+    playlistSummarySubtitle: 'Ecco come è andato il tuo percorso in {name}.',
+    playlistShareCta: 'Condividi Risultato Playlist',
+    playlistComeBackAnytime: 'Le playlist non sono legate a un giorno — rigiocala quando vuoi.',
   }
 };
 

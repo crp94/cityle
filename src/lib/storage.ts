@@ -1,16 +1,26 @@
 import { createDefaultAchievementsState, type AchievementsState } from './achievements';
 import { getMarathonNumber } from './marathonLogic';
-import { Difficulty, GameState, GameStats, GameStatus, MarathonState, UnlimitedStats } from './types';
+import {
+  Difficulty,
+  GameState,
+  GameStats,
+  GameStatus,
+  MarathonState,
+  PlaylistState,
+  UnlimitedStats,
+} from './types';
 
 const DAILY_STATE_KEY = 'cityle_daily_state_v1';
 const UNLIMITED_STATE_KEY = 'cityle_unlimited_state_v1';
 const CHALLENGE_STATE_KEY = 'cityle_challenge_state_v1';
 const PHOTO_STATE_KEY = 'cityle_photo_state_v1';
 const MARATHON_STATE_KEY = 'cityle_marathon_state_v1';
+const PLAYLIST_STATE_KEY = 'cityle_playlist_state_v1';
 const STATS_KEY = 'cityle_player_stats_v1';
 const ARCHIVE_STATE_KEY = 'cityle_archive_state_v1';
 const SETTINGS_KEY = 'cityle_settings_v1';
 const ACHIEVEMENTS_KEY = 'cityle_achievements_v1';
+const WELCOME_SEEN_KEY = 'cityle_welcome_seen_v1';
 
 export function getSavedDailyState(dailyNumber: number): GameState | null {
   if (typeof window === 'undefined') return null;
@@ -132,6 +142,42 @@ export function saveMarathonState(state: MarathonState): void {
     localStorage.setItem(MARATHON_STATE_KEY, JSON.stringify(state));
   } catch (err) {
     console.error('Failed to save marathon state to localStorage', err);
+  }
+}
+
+// --- Curated Playlists (Phase 5, Workstream AA) -----------------------------
+//
+// Single-slot, like getSavedUnlimitedState/saveUnlimitedState above — only
+// the most-recently-played playlist's in-progress run is kept. Switching to
+// a different playlist mid-run simply abandons/overwrites whatever was
+// saved here; this is intentional, acceptable UX for a casual/practice
+// feature, not a bug (mirrors how Unlimited's single-slot state already
+// works). Unlike getSavedMarathonState, there's no "is this stale" check
+// against a current day/number — playlists aren't day-locked, so a saved
+// run stays valid until the player picks a *different* playlist, at which
+// point the caller simply overwrites this slot with a fresh PlaylistState
+// for the new playlistId rather than reading the stale one back.
+export function getSavedPlaylistState(playlistId: string): PlaylistState | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(PLAYLIST_STATE_KEY);
+    if (!raw) return null;
+    const state: PlaylistState = JSON.parse(raw);
+    if (state.playlistId === playlistId) {
+      return state;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export function savePlaylistState(playlistId: string, state: PlaylistState): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(PLAYLIST_STATE_KEY, JSON.stringify({ ...state, playlistId }));
+  } catch (err) {
+    console.error('Failed to save playlist state to localStorage', err);
   }
 }
 
@@ -457,5 +503,29 @@ export function saveAchievementsState(state: AchievementsState): void {
     localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(state));
   } catch (err) {
     console.error('Failed to save achievements state to localStorage', err);
+  }
+}
+
+// --- Onboarding (Phase 5, Workstream BB) ------------------------------------
+//
+// A single boolean flag, set the moment the first-run Welcome modal is
+// shown (not just when it's dismissed) so a player who closes the tab or
+// navigates away mid-modal never sees it re-trigger on a later visit.
+
+export function hasSeenWelcome(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return localStorage.getItem(WELCOME_SEEN_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function markWelcomeSeen(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(WELCOME_SEEN_KEY, 'true');
+  } catch {
+    // Non-fatal: worst case the welcome modal reappears on a later visit.
   }
 }
