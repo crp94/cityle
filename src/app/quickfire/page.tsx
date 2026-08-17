@@ -94,7 +94,7 @@ function QuestionCard({
       <p className="text-center text-lg font-semibold text-[#F4F6F8] sm:text-xl">{questionText}</p>
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
         {question.cities.map((city) => {
-          const isCorrectCity = city.id === question.correctCityId;
+          const isCorrectCity = question.correctCityIds.includes(city.id);
           const isSelected = feedback?.selectedCityId === city.id;
           const showCorrectMark = !!feedback && isCorrectCity;
           const showIncorrectMark = !!feedback && isSelected && !isCorrectCity;
@@ -248,14 +248,17 @@ export default function QuickfirePage() {
     (cityId: string) => {
       if (!question || feedback) return; // Ignore taps once an answer's already locked in.
 
-      const correct = cityId === question.correctCityId;
+      const correct = question.correctCityIds.includes(cityId);
       setFeedback({ selectedCityId: cityId });
 
       if (correct) {
         setScore((prev) => prev + 1);
         setAnnouncement(t.quickfireCorrectAnnounce);
       } else {
-        const correctCity = question.cities.find((city) => city.id === question.correctCityId);
+        // Ties are possible (e.g. several cities share the same elevation) —
+        // name just the first tied city, matching how the tap feedback only
+        // highlights one "the correct answer was X" example.
+        const correctCity = question.cities.find((city) => question.correctCityIds.includes(city.id));
         setAnnouncement(t.quickfireIncorrectAnnounce.replace('{city}', correctCity?.name ?? ''));
       }
 

@@ -47,7 +47,7 @@ describe('generateQuestion', () => {
 
     expect(question.field.key).toBe('population_metro');
     expect(question.higherIsAnswer).toBe(true);
-    expect(question.correctCityId).toBe('b'); // highest population_metro
+    expect(question.correctCityIds).toEqual(['b']); // highest population_metro
   });
 
   it('computes the correct answer from real field values for a "lowest" question, not hardcoded', () => {
@@ -67,7 +67,7 @@ describe('generateQuestion', () => {
 
     expect(question.field.key).toBe('elevation_m');
     expect(question.higherIsAnswer).toBe(false);
-    expect(question.correctCityId).toBe('b'); // lowest elevation_m
+    expect(question.correctCityIds).toEqual(['b']); // lowest elevation_m
   });
 
   it('equator_distance field: lower |lat| wins a "lowest" (closest-to-equator) question', () => {
@@ -83,5 +83,26 @@ describe('generateQuestion', () => {
       const ids = question.cities.map((c) => c.id);
       expect(new Set(ids).size).toBe(ids.length);
     }
+  });
+
+  it('marks every tied city as correct when two cities share the extreme value, not just the shuffle-order winner', () => {
+    // Real dataset has frequent exact ties (e.g. several cities share
+    // elevation_m === 5) — a naive "first city wins" comparison would mark
+    // an equally-correct tap as wrong.
+    const a = makeCity({ id: 'a', lat: 0, elevation_m: 300 });
+    const b = makeCity({ id: 'b', lat: 1, elevation_m: 5 });
+    const c = makeCity({ id: 'c', lat: 2, elevation_m: 800 });
+    const d = makeCity({ id: 'd', lat: 3, elevation_m: 5 }); // tied with b
+    const pool = [a, b, c, d];
+
+    const fieldIndex = QUICKFIRE_FIELDS.findIndex((f) => f.key === 'elevation_m');
+    const fieldRngValue = fieldIndex / QUICKFIRE_FIELDS.length;
+    const rng = sequenceRng([0, 0, 0, fieldRngValue, 0.9]); // "lowest" framing
+
+    const question = generateQuestion(pool, rng);
+
+    expect(question.field.key).toBe('elevation_m');
+    expect(question.higherIsAnswer).toBe(false);
+    expect(question.correctCityIds.sort()).toEqual(['b', 'd']);
   });
 });

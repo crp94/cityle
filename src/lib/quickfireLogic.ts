@@ -87,8 +87,13 @@ export interface QuickfireQuestion {
   field: QuickfireField;
   /** true = "which is highest" framing, false = "which is lowest". */
   higherIsAnswer: boolean;
-  /** The id of the city that actually wins the round, computed from real field values (never hardcoded). */
-  correctCityId: string;
+  /**
+   * Ids of every city tied for the winning value, computed from real field
+   * values (never hardcoded) — usually one city, but the real dataset has
+   * frequent exact ties on these fields (e.g. several cities share
+   * elevation_m === 5), so more than one id can legitimately be correct.
+   */
+  correctCityIds: string[];
 }
 
 const QUESTION_CITY_COUNT = 4;
@@ -124,14 +129,21 @@ export function generateQuestion(cities: City[], rng: () => number = Math.random
   const field = QUICKFIRE_FIELDS[Math.floor(rng() * QUICKFIRE_FIELDS.length)];
   const higherIsAnswer = rng() < 0.5;
 
-  let correctCity = roundCities[0];
-  let correctValue = field.getValue(correctCity);
+  // Collect every city tied for the winning value, not just the first one
+  // encountered — the real dataset has frequent exact ties on these fields
+  // (e.g. 9 cities share elevation_m === 5), and picking only the
+  // shuffle-order winner would mark an equally-correct tap as wrong.
+  let correctCities = [roundCities[0]];
+  let correctValue = field.getValue(roundCities[0]);
   for (const city of roundCities.slice(1)) {
     const value = field.getValue(city);
     const isBetter = higherIsAnswer ? value > correctValue : value < correctValue;
+    const isTie = value === correctValue;
     if (isBetter) {
-      correctCity = city;
+      correctCities = [city];
       correctValue = value;
+    } else if (isTie) {
+      correctCities.push(city);
     }
   }
 
@@ -139,6 +151,6 @@ export function generateQuestion(cities: City[], rng: () => number = Math.random
     cities: roundCities,
     field,
     higherIsAnswer,
-    correctCityId: correctCity.id,
+    correctCityIds: correctCities.map((city) => city.id),
   };
 }

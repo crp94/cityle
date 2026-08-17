@@ -52,15 +52,25 @@ export default function NotesPage() {
   const locale = useNotesLocale();
   const t = useMemo(() => getTranslation(locale), [locale]);
 
-  // Deterministic by day, same "compute directly during render, no
-  // placeholder frame" tradeoff buildFreshMarathonState (marathon/page.tsx)
-  // already accepts — safe here too since getCuratorNoteForDay is a pure
-  // function of the current date and the fixed CURATOR_NOTES pool.
-  const dailyNumber = useMemo(() => getDailyGameNumber(), []);
-  const featuredNote = useMemo(
-    () => getCuratorNoteForDay(dailyNumber, CURATOR_NOTES),
-    [dailyNumber]
-  );
+  // Unlike buildFreshMarathonState (marathon/page.tsx), this page has no
+  // dynamic API forcing server-side rendering, so `npm run build` prerenders
+  // it as a fully static route — a `useMemo(() => getDailyGameNumber(), [])`
+  // computed directly during render would run ONCE at build time and get
+  // baked into the static HTML, freezing "today's featured note" at
+  // whatever day the last deploy happened to run on and hydration-mismatching
+  // against the client's real current date on every subsequent visit. Defer
+  // to a client-only effect instead (same rAF-deferred pattern as
+  // useNotesLocale above) so the server/first-paint HTML and the client's
+  // initial render agree on a stable default, and the real featured note
+  // swaps in immediately after mount using the actual current date.
+  const [featuredNote, setFeaturedNote] = useState<CuratorNote>(CURATOR_NOTES[0]);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const dailyNumber = getDailyGameNumber();
+      setFeaturedNote(getCuratorNoteForDay(dailyNumber, CURATOR_NOTES));
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
   const otherNotes = useMemo(
     () => CURATOR_NOTES.filter((note) => note.id !== featuredNote.id),
     [featuredNote]

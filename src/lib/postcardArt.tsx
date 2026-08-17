@@ -55,6 +55,7 @@
 // functional radial tile map: this is a poster, not a diagram.
 
 import type { ReactNode } from 'react';
+import { getCountryFlag } from './geo';
 import { City, MorphologyProfile } from './types';
 
 /** Virtual coordinate system every shape below is authored against. Both
@@ -587,7 +588,7 @@ const LAYER_SPECS: Record<'back' | 'mid' | 'front', LayerSpec> = {
  * from the single `rng` closure seeded from it, pulled in a fixed order, so
  * the same city always renders pixel-identical art.
  */
-export function buildPostcardLayout(city: City) {
+export function buildPostcardLayout(city: City, options?: { showCaption?: boolean }) {
   const { seed, type, sprawlScaleKm, ringsCount, waterOrientation, primaryWater } = city.morphology;
   const rng = createRng(seed);
 
@@ -814,7 +815,7 @@ export function buildPostcardLayout(city: City) {
   } else if (type === 'coastal-bay') {
     // Headland hill on the water (low) side of the taper.
     const hh = H * (0.12 + rng() * 0.08);
-    const onLeft = mirror; // taper authored low→high L→R; mirror puts low side right→left
+    const onLeft = !mirror; // taper authored low→high L→R; mirror puts low side right→left, so headland goes on the opposite (low) side
     children.push(
       <g key="headland">
         {onLeft ? (
@@ -1086,6 +1087,7 @@ export function buildPostcardLayout(city: City) {
   return (
     <div
       style={{
+        position: 'relative',
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -1096,6 +1098,32 @@ export function buildPostcardLayout(city: City) {
       <svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: 'flex' }}>
         {children}
       </svg>
+      {/* Only the OG/Twitter image routes opt into this — page.tsx renders
+          its own richer caption (name/flag/country/Köppen) as sibling divs
+          below the art, so embedding one here too would double it up. The
+          OG/Twitter routes have no such wrapper (an ImageResponse's content
+          IS the whole image), so without this the social-preview PNG showed
+          an anonymous skyline with no indication of which city it was. */}
+      {options?.showCaption && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 40,
+            bottom: 36,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 40, fontWeight: 700, color: INK }}>
+            <span>{getCountryFlag(city.countryCode)}</span>
+            <span>{city.name}</span>
+          </div>
+          <div style={{ display: 'flex', fontSize: 22, color: 'rgba(244,246,248,0.75)' }}>
+            {city.country}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

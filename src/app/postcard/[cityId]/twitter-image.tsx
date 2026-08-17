@@ -24,5 +24,5 @@ export default async function Image({ params }: { params: Promise<{ cityId: stri
     return new ImageResponse(buildOgLayout(), { ...size });
   }
 
-  return new ImageResponse(buildPostcardLayout(city), { ...size });
+  return new ImageResponse(buildPostcardLayout(city, { showCaption: true }), { ...size });
 }
