@@ -157,7 +157,7 @@ function AtlasPickerPageContent() {
 
         <div className="text-center">
           <Link href="/" className="text-xs font-semibold text-[#3FD17C] hover:text-[#34D67E]">
-            ← Back to Cityle
+            {t.marathonBackToCityle}
           </Link>
         </div>
       </div>

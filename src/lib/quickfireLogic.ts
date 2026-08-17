@@ -99,19 +99,31 @@ export interface QuickfireQuestion {
 const QUESTION_CITY_COUNT = 4;
 
 /**
- * Fisher-Yates shuffle using an injectable RNG (defaults to Math.random) so
- * tests can pass a seeded generator for deterministic assertions — mirrors
- * the shuffle-with-injectable-randomness shape already used by
- * gameLogic.ts/marathonLogic.ts, just without the day-locked seeding since
- * Quickfire is a freely-repeatable session, not a shared daily puzzle.
+ * Partial Fisher-Yates selection using an injectable RNG (defaults to
+ * Math.random) so tests can pass a seeded generator for deterministic
+ * assertions — mirrors the shuffle-with-injectable-randomness shape already
+ * used by gameLogic.ts/marathonLogic.ts, just without the day-locked seeding
+ * since Quickfire is a freely-repeatable session, not a shared daily puzzle.
+ *
+ * Unlike a full shuffle, this only performs `count` swap steps: for
+ * i = 0..count-1, swap element i with a uniformly random element from
+ * i..n-1, then return the first `count` elements. That still yields a
+ * uniform, unbiased sample of `count` distinct items (it's the standard
+ * partial Fisher-Yates / selection-sampling proof: after i swaps the first i
+ * slots hold a uniform random permutation of i items drawn from the whole
+ * pool), but does O(count) work and exactly `count` rng() calls instead of
+ * O(n) work and n-1 calls. That matters here because every call only ever
+ * needs 4 cities out of a pool that can hold up to 255 — a 60-second timed
+ * mode calling this repeatedly was doing up to ~64x more shuffle work than
+ * necessary. Callers must ensure items.length >= count.
  */
-function shuffle<T>(items: T[], rng: () => number): T[] {
-  const shuffled = [...items];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(rng() * (index + 1));
-    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+function pickRandomItems<T>(items: T[], count: number, rng: () => number): T[] {
+  const pool = [...items];
+  for (let index = 0; index < count; index += 1) {
+    const swapIndex = index + Math.floor(rng() * (pool.length - index));
+    [pool[index], pool[swapIndex]] = [pool[swapIndex], pool[index]];
   }
-  return shuffled;
+  return pool.slice(0, count);
 }
 
 /**
@@ -125,7 +137,7 @@ export function generateQuestion(cities: City[], rng: () => number = Math.random
     throw new Error(`generateQuestion needs at least ${QUESTION_CITY_COUNT} cities, got ${cities.length}`);
   }
 
-  const roundCities = shuffle(cities, rng).slice(0, QUESTION_CITY_COUNT);
+  const roundCities = pickRandomItems(cities, QUESTION_CITY_COUNT, rng);
   const field = QUICKFIRE_FIELDS[Math.floor(rng() * QUICKFIRE_FIELDS.length)];
   const higherIsAnswer = rng() < 0.5;
 

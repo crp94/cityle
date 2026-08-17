@@ -8,7 +8,12 @@ export type AchievementId =
   | 'streak-keeper'
   | 'marathoner'
   | 'deep-diver'
-  | 'hard-mode-cartographer';
+  | 'hard-mode-cartographer'
+  | 'streak-legend'
+  | 'century-club'
+  | 'undefeated'
+  | 'sharpshooter'
+  | 'never-say-die';
 
 export const ACHIEVEMENT_IDS: AchievementId[] = [
   'first-flight',
@@ -19,6 +24,11 @@ export const ACHIEVEMENT_IDS: AchievementId[] = [
   'marathoner',
   'deep-diver',
   'hard-mode-cartographer',
+  'streak-legend',
+  'century-club',
+  'undefeated',
+  'sharpshooter',
+  'never-say-die',
 ];
 
 export interface AchievementsState {
@@ -118,6 +128,21 @@ export function evaluateAchievements(
 
   if (stats.currentStreak >= 7) unlock('streak-keeper');
   if (stats.played + stats.unlimited.played >= 50) unlock('marathoner');
+
+  // Longer-horizon tiers above the four badges just above — for veteran
+  // players past the first couple of weeks. Every check here reads only
+  // fields already present on GameStats/UnlimitedStats (no new dedup state,
+  // unlike continentsWon/koppenGroupsWon above), so these fire correctly
+  // even on rounds that don't win (cumulative counters simply don't grow).
+  if (stats.currentStreak >= 30) unlock('streak-legend');
+  if (stats.played + stats.unlimited.played >= 100) unlock('century-club');
+  if (stats.unlimited.bestRun >= 20) unlock('undefeated');
+
+  const firstGuessWins = (stats.guessDistribution[1] || 0) + (stats.unlimited.guessDistribution[1] || 0);
+  if (firstGuessWins >= 10) unlock('sharpshooter');
+
+  const sixthGuessWins = (stats.guessDistribution[6] || 0) + (stats.unlimited.guessDistribution[6] || 0);
+  if (sixthGuessWins >= 10) unlock('never-say-die');
 
   return {
     next: {

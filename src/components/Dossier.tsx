@@ -10,6 +10,8 @@ import {
   Flame,
   Footprints,
   Gauge,
+  Globe,
+  Globe2,
   Landmark,
   Leaf,
   Lightbulb,
@@ -528,6 +530,34 @@ const DossierGame = ({ city, guessCount, difficulty, isPhotoMode = false, t, loc
           />
         )}
       </div>
+      {/* Climate analogues (Bastin et al. 2019, PLOS ONE): fully authored,
+          per-city data that had no home anywhere in the app until now. Both
+          fields are optional — a handful of cities lack one or both — so
+          each chip (and the whole block) is omitted rather than showing a
+          placeholder when its analogue is missing. */}
+      {(city.analogue_current || city.analogue_2050) && (
+        <div className="flex flex-col gap-1.5">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {city.analogue_current && (
+              <MetricChip
+                label={t.currentClimateTwin}
+                value={city.analogue_current.cityName}
+                subtext={`${city.analogue_current.country} · ${city.analogue_current.similarityPct}% match`}
+                icon={<Globe className="h-3.5 w-3.5" />}
+              />
+            )}
+            {city.analogue_2050 && (
+              <MetricChip
+                label={t.futureClimateAnalogue}
+                value={city.analogue_2050.cityName}
+                subtext={`${city.analogue_2050.country} · ${city.analogue_2050.similarityPct}% match`}
+                icon={<Globe2 className="h-3.5 w-3.5" />}
+              />
+            )}
+          </div>
+          <p className="text-[0.62rem] leading-relaxed text-[#6b7684]">{t.sourceAnalogues}</p>
+        </div>
+      )}
       <p className="text-xs leading-relaxed text-[#8f9dac]">{t.bonusInsightDisclaimer}</p>
     </Section>
   );

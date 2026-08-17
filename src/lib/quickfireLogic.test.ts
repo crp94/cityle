@@ -37,12 +37,15 @@ describe('generateQuestion', () => {
     const d = makeCity({ id: 'd', lat: 3, population_metro: 500_000 });
     const pool = [a, b, c, d];
 
-    // generateQuestion consumes exactly 5 rng() calls for a 4-city pool:
-    // 3 for the Fisher-Yates shuffle, 1 for the field pick, 1 for the
-    // highest/lowest framing (higherIsAnswer = rng() < 0.5, so a *low*
-    // draw here forces "highest"). Field index 0 is population_metro (see
-    // QUICKFIRE_FIELDS above).
-    const rng = sequenceRng([0, 0, 0, 0, 0.1]);
+    // generateQuestion consumes exactly 6 rng() calls for a 4-city pool:
+    // 4 for the partial Fisher-Yates city selection (one swap step per
+    // picked city, i = 0..3 — see pickRandomItems), 1 for the field pick,
+    // 1 for the highest/lowest framing (higherIsAnswer = rng() < 0.5, so a
+    // *low* draw here forces "highest"). All-zero draws in the selection
+    // step leave pool order untouched (each swap is a no-op: swapIndex ===
+    // index). Field index 0 is population_metro (see QUICKFIRE_FIELDS
+    // above).
+    const rng = sequenceRng([0, 0, 0, 0, 0, 0.1]);
     const question = generateQuestion(pool, rng);
 
     expect(question.field.key).toBe('population_metro');
@@ -57,12 +60,13 @@ describe('generateQuestion', () => {
     const d = makeCity({ id: 'd', lat: 3, elevation_m: 1200 });
     const pool = [a, b, c, d];
 
-    // 3 shuffle calls (all 0, leaving pool order untouched), then a field
-    // draw landing on elevation_m's slot in QUICKFIRE_FIELDS, then a
-    // >= 0.5 draw to force the "lowest" framing (higherIsAnswer = rng() < 0.5).
+    // 4 partial-Fisher-Yates selection calls (all 0, leaving pool order
+    // untouched — see pickRandomItems), then a field draw landing on
+    // elevation_m's slot in QUICKFIRE_FIELDS, then a >= 0.5 draw to force
+    // the "lowest" framing (higherIsAnswer = rng() < 0.5).
     const fieldIndex = QUICKFIRE_FIELDS.findIndex((f) => f.key === 'elevation_m');
     const fieldRngValue = fieldIndex / QUICKFIRE_FIELDS.length;
-    const rng = sequenceRng([0, 0, 0, fieldRngValue, 0.9]);
+    const rng = sequenceRng([0, 0, 0, 0, fieldRngValue, 0.9]);
     const question = generateQuestion(pool, rng);
 
     expect(question.field.key).toBe('elevation_m');
@@ -95,9 +99,13 @@ describe('generateQuestion', () => {
     const d = makeCity({ id: 'd', lat: 3, elevation_m: 5 }); // tied with b
     const pool = [a, b, c, d];
 
+    // 4 partial-Fisher-Yates selection calls (all 0, leaving pool order
+    // untouched — see pickRandomItems), then the field draw, then the
+    // framing draw — see the "lowest" question test above for the full
+    // rng()-call breakdown.
     const fieldIndex = QUICKFIRE_FIELDS.findIndex((f) => f.key === 'elevation_m');
     const fieldRngValue = fieldIndex / QUICKFIRE_FIELDS.length;
-    const rng = sequenceRng([0, 0, 0, fieldRngValue, 0.9]); // "lowest" framing
+    const rng = sequenceRng([0, 0, 0, 0, fieldRngValue, 0.9]); // "lowest" framing
 
     const question = generateQuestion(pool, rng);
 

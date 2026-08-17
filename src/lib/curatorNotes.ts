@@ -139,6 +139,69 @@ export const CURATOR_NOTES: CuratorNote[] = [
       "If a riddle in this game ever states something about a city that's flatly false, that's a mistake, not a style choice. Poetic license covers phrasing, not facts.",
     ],
   },
+  {
+    id: 'the-score-this-game-refuses-to-compute',
+    title: 'The score this game refuses to compute',
+    paragraphs: [
+      "Houston's GDP per capita in this dataset is $106,500 (PPP) — nearly double Stockholm's $62,000. Stockholm's transit-and-active-commute share is 55%, more than three times Houston's 15%. Houston's per-capita carbon footprint is 13.5 tonnes CO2-equivalent a year; Stockholm's is 3. Houston's Gini tier reads High (0.40–0.50); Stockholm's reads Low (<0.30). Line those four numbers up and ask which city is \"better,\" and the honest answer is: it depends entirely on which one you decide matters most.",
+      "That's the reason this game has never shipped a single overall score. Averaging income, transit share, carbon, and inequality into one number wouldn't remove the judgment call buried in that comparison — it would just hide it inside a weighting scheme nobody gets to see or argue with. Whoever picked the weights would have quietly decided that a dollar of income matters exactly as much as a percentage point of transit share, for every player, in every city, forever. I don't trust myself to make that call on your behalf, and I'd trust an unlabeled dashboard doing it silently even less.",
+      "Showing the raw numbers instead doesn't dodge the judgment — it just leaves it where it belongs, with you. You'll form an opinion about Houston and Stockholm regardless. This way you're doing the weighting yourself, in the open, instead of trusting a formula I never showed you.",
+    ],
+  },
+  {
+    id: 'one-letter-cant-hold-a-climate',
+    title: "One letter can't hold a climate",
+    paragraphs: [
+      "Bratislava and Asunción share a Köppen code in this dataset: Cfa, Humid Subtropical. Bratislava's mean annual temperature is 11.1°C, with 750 cooling degree days a year. Asunción's is 23.7°C, with 2,500 cooling degree days — more than three times Bratislava's. Two cities, one four-character code, and a gap in day-to-day thermal experience wide enough to swallow most of this game's other clues.",
+      "Köppen classification was built to draw defensible boundaries between broad climate types, not to rank how those types feel to live in. A \"Cfa\" city can be a Central European one where winter coats are standard gear, or a South American one where they mostly aren't. The letters are doing real, useful classificatory work — they're just not doing the work a player might assume a single code is doing when a game clue hands it over on its own.",
+      "I kept the code in this game's clue set anyway, because a coarse signal is still a signal, and it's paired everywhere with the raw temperature and precipitation numbers specifically to correct for this. But guess off the letter alone, without reading the numbers next to it, and you're guessing off less than you think you are.",
+    ],
+  },
+  {
+    id: 'population-is-not-a-shape',
+    title: 'Population is not a shape',
+    paragraphs: [
+      "Canberra's metro population in this dataset is 484,630. Iquitos, Peru's is 491,000 — a difference of under 7,000 people, comfortably inside 1.5% either way. By population alone, they're near-twins. By nearly everything else in their profiles, they aren't. Canberra's urban density is 206 people per square kilometre; Iquitos's is 3,400 — over sixteen times denser. Canberra's transit-and-active-commute share is 14%; Iquitos's is 82%.",
+      "Canberra was built outward: a planned radial capital ringed around an artificial lake, with room to sprawl and the road network to match. Iquitos was built along a river, hemmed in by Amazon rainforest with nowhere to sprawl to, so it grew dense along a linear corridor instead. Two cities can land on the same population figure for completely unrelated reasons — one had land to spread across and used it, the other didn't and built up and inward instead — and a single population number has no way to signal which story you're looking at.",
+      "I don't think population is a useless clue. It correlates with plenty, just not with form, and definitely not on its own. If a guess in this game leans on \"a metro of about half a million probably looks like X,\" that's a bet on a pattern that holds often enough to be worth making — and breaks badly enough that Canberra and Iquitos sit almost exactly on top of each other in this dataset while looking nothing alike.",
+    ],
+  },
+  {
+    id: 'walkability-gets-zero-not-a-guess',
+    title: 'Walkability gets zero, not a guess',
+    paragraphs: [
+      "Open this game's city data schema and there's no walkability field anywhere in it — not a score, not a tier, not a placeholder waiting to be filled in. Every one of the 255 cities gets a morphology type instead: one of seven built-form categories, from radial-concentric to grid-sprawl to island-archipelago, a description of shape, not a rating of it. That's a deliberate omission, not an oversight I haven't gotten around to fixing.",
+      "Compare that to Gini or per-capita carbon, both of which get a real number in this game despite their own documented flaws — a coarse tier, a supply-chain blind spot, each flagged elsewhere in these notes. Those get included anyway because a flawed, honestly-labelled number still beats nothing. Walkability, scored the way it usually is elsewhere, collapses proximity to amenities with affordability, safety, and whether disability access actually reaches a given block — dimensions that don't average into one figure without somebody quietly deciding whose experience of \"walkable\" the score is describing. That's not a coarse flaw. It's a misleading one.",
+      "This game says as much directly, in the one section built to hold that number if it existed: a note on everyday access that names exactly what a walkability score would paper over, rather than pretend a single figure could speak for all of it. I'd rather hand you a sentence you have to read than a number that would let you stop reading.",
+    ],
+  },
+  {
+    id: 'an-analogue-city-is-a-match-not-a-fate',
+    title: 'An analogue city is a match, not a fate',
+    paragraphs: [
+      "Every city in this game's 2050 profile gets a climate analogue: a real place today whose climate resembles what the model projects for that city by mid-century. The tightest match anywhere in this 255-city pool belongs to Johannesburg, at 95% similarity to Pretoria. The loosest belongs to Kashgar, at 84% similarity to Mary, Turkmenistan. Neither hits 100 — not even the single closest match this entire dataset can produce.",
+      "That percentage measures one thing: a projected temperature-and-precipitation profile against a real one, on the same kind of climate-classification terms this game already flags as coarse elsewhere in these notes. It isn't measuring economy, governance, culture, or cost of living — nothing that would make \"Johannesburg in 2050 will basically be Pretoria\" a claim I'd actually stand behind. Pretoria sits close enough to Johannesburg that the two are sometimes described as one stretched-out metropolitan region, sharing plenty for reasons that have nothing to do with a climate model. A city on the other side of the planet with an 85% match shares almost none of that.",
+      "Read the analogue as exactly what it's built to be: the closest available real-world reference point for a projected climate signature, capped at whatever the model's own confidence actually supports. Never a claim about the city itself — and, even at its tightest match in this entire pool, never a perfect one either.",
+    ],
+  },
+  {
+    id: 'the-modes-that-dont-touch-your-streak',
+    title: "The modes that don't touch your streak",
+    paragraphs: [
+      "Daily is the only one of this game's modes that feeds your streak counter. Play Unlimited, Archive, Challenge, or Photo mode — or the separate Climate Time Machine — as many times as you want, win or lose, and your streak won't move by a single day in either direction.",
+      "That's not an accident of what got built first. Unlimited keeps its own separate counter, a \"current run\" that resets on a loss exactly the way a streak would, precisely so it never gets confused with the real one. Archive replays a genuine calendar day — any of the 255 this game has run — but counting a win there as if it happened today would let anyone quietly backfill a streak that never actually held. Challenge and Photo modes don't have a calendar day to anchor to at all, and Climate Time Machine was built from the ground up as a freely repeatable practice mode that doesn't track wins or losses in the first place.",
+      "I get why that's occasionally annoying — a strong run in Archive or Unlimited can feel like it should count for something more lasting. But the streak is supposed to mean one specific, narrow thing: you showed up and solved today's city, on today's actual date, for however many days running. Let anything else feed it, and that specific meaning is the first thing to go.",
+    ],
+  },
+  {
+    id: 'the-smog-season-the-annual-number-cant-show',
+    title: "The smog season the annual number can't show",
+    paragraphs: [
+      "Vancouver's annual PM2.5 reading in this dataset is 5.6 µg/m³ — a \"Good\" tier, one of the cleanest in the whole pool. Sydney's is 7.5, also \"Good.\" Both profiles carry a second field describing when each city's air actually gets worst: for Vancouver, late-summer Pacific Northwest wildfire smoke; for Sydney, summer bushfire smoke and basin ozone buildup. Neither description sounds like a typical \"Good\" air-quality year, because an annual average was never built to describe one specific week.",
+      "This game's own notes have already covered what a metro-wide average hides across a city's neighbourhoods. This is the same move in a different direction: an annual average smooths a full year of daily readings — the ordinary weeks and the acute ones alike — down to a single figure, and the acute weeks are exactly what a yearly average is built to erase. The peak-smog-season field exists in this dataset for no other reason than that erasure being worth naming.",
+      "None of that makes the annual number wrong. It's still the right answer to \"what's a typical day here like.\" It's the wrong answer to \"what's the worst week here like,\" and this game hands you both fields specifically so you're not left guessing which question the single number in front of you was actually answering.",
+    ],
+  },
 ];
 
 /**

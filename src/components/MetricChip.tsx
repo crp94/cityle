@@ -17,6 +17,39 @@ interface MetricChipProps {
   interactive?: boolean;
 }
 
+// Ratings colorGrading.ts treats as "the good end" of a metric (emerald/olive
+// badges) vs. "the bad end" (amber/red badges). 'moderate' badges render in
+// the same brownish/gold family as 'warning', so it's grouped with the
+// unfavorable side rather than treated as a true midpoint. This mirrors — not
+// recomputes — the same good/bad call getBadgeClass already makes from
+// grade.rating, so the percentile framing below never contradicts the badge
+// color sitting right next to it.
+const FAVORABLE_RATINGS = new Set(['optimal', 'good']);
+const UNFAVORABLE_RATINGS = new Set(['moderate', 'warning', 'critical']);
+
+// All 255 cities in the pool (see curatorNotes.ts) — the denominator behind
+// every grade's percentileApprox.
+const CITY_POOL_SIZE = 255;
+
+/**
+ * Turns a grade's percentileApprox (0-100, where higher always means
+ * "further toward the good end of this metric") into a short "top/bottom X%"
+ * footnote. Ratings 'neutral' has no inherent good/bad direction (e.g.
+ * elevation), so it falls back to whichever half of the pool the percentile
+ * itself lands in.
+ */
+function percentileNote(grade: MetricGrade): string {
+  const { rating, percentileApprox } = grade;
+  const leansTop = FAVORABLE_RATINGS.has(rating)
+    ? true
+    : UNFAVORABLE_RATINGS.has(rating)
+      ? false
+      : percentileApprox >= 50;
+
+  const pct = Math.min(99, Math.max(1, Math.round(leansTop ? 100 - percentileApprox : percentileApprox)));
+  return leansTop ? `Top ${pct}% of ${CITY_POOL_SIZE}` : `Bottom ${pct}% of ${CITY_POOL_SIZE}`;
+}
+
 export const MetricChip: React.FC<MetricChipProps> = ({
   label,
   value,
@@ -61,11 +94,23 @@ export const MetricChip: React.FC<MetricChipProps> = ({
           <span className="min-w-0 truncate">{label}</span>
           {interactive && <Info className="h-3 w-3 shrink-0 text-[#3FD17C]" aria-hidden />}
         </span>
-        {displayBadge && (
-          <span
-            className={`mono max-w-[50%] shrink-0 truncate rounded border px-1.5 py-0.5 text-[0.62rem] font-semibold ${getBadgeClass()}`}
-          >
-            {displayBadge}
+        {(displayBadge || grade) && (
+          <span className="flex min-w-0 max-w-[50%] shrink-0 flex-col items-end gap-0.5">
+            {displayBadge && (
+              <span
+                className={`mono w-full min-w-0 shrink-0 truncate rounded border px-1.5 py-0.5 text-[0.62rem] font-semibold ${getBadgeClass()}`}
+              >
+                {displayBadge}
+              </span>
+            )}
+            {grade && (
+              <span
+                className="mono w-full min-w-0 truncate text-right text-[0.56rem] font-medium leading-none text-[#5c6773]"
+                title="Approximate percentile among this game's city pool"
+              >
+                {percentileNote(grade)}
+              </span>
+            )}
           </span>
         )}
       </div>

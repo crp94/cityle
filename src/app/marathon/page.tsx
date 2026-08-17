@@ -244,6 +244,20 @@ function MarathonSummary({
         </div>
       )}
 
+      {/* Quiet cross-promotion to sibling modes — deliberately not styled as
+          a button so it never competes with the share CTAs above. Shares
+          its label/color treatment with the same strip on
+          quickfire/playlists/notes (see t.relatedModesLabel). */}
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
+        <span className="text-xs text-[#5c6773]">{t.relatedModesLabel}</span>
+        <Link href="/playlists" className="text-xs font-semibold text-[#8f9dac] hover:text-[#F4F6F8]">
+          {t.playlistsPageTitle}
+        </Link>
+        <Link href="/quickfire" className="text-xs font-semibold text-[#8f9dac] hover:text-[#F4F6F8]">
+          {t.quickfireTitle}
+        </Link>
+      </div>
+
       <div className="text-center">
         <Link href="/" className="text-xs font-semibold text-[#3FD17C] hover:text-[#34D67E]">
           {t.marathonBackToCityle}

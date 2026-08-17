@@ -22,6 +22,8 @@ import {
   getDailyTargetCity,
   getUnlockedClues,
   isDayAgnosticMode,
+  LIVES_MODE_START_COUNT,
+  shouldLoseLife,
 } from '../lib/gameLogic';
 import { getTranslation, Locale } from '../lib/i18n';
 import {
@@ -87,6 +89,15 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   // static 'standard' default corrected a frame later left Hard Mode games permanently stuck with
   // Climate & Air pre-unlocked for the rest of that game.
   const [difficulty, setDifficulty] = useState<Difficulty>(() => getSettings().difficulty);
+  // Lives mode (GameSettings.livesMode in storage.ts): resolved once per fresh game exactly
+  // like difficulty above, and re-resolved the same way whenever a fresh/resumed game is set
+  // up elsewhere in this file (startNewUnlimitedGame, startNewPhotoGame, handleToggleMode,
+  // handleSelectArchiveDay, and the mount-effect resume below) — never re-read mid-game.
+  // undefined means Lives mode is off for this run, in which case the shouldLoseLife/decrement
+  // logic in handleSelectCity is a no-op.
+  const [livesRemaining, setLivesRemaining] = useState<number | undefined>(() =>
+    getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined
+  );
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
   const [status, setStatus] = useState<GameStatus>('playing');
   const [isVictoryModalOpen, setIsVictoryModalOpen] = useState(false);
@@ -137,6 +148,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
           setGuesses(savedChallenge.guesses);
           setStatus(savedChallenge.status);
           setDifficulty(savedChallenge.difficulty ?? getSettings().difficulty);
+          setLivesRemaining(
+            savedChallenge.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+          );
         }
         return;
       }
@@ -148,6 +162,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         // A resumed game's own recorded difficulty takes precedence over the current settings
         // default (the player may have changed the global setting after this game started).
         setDifficulty(savedDaily.difficulty ?? getSettings().difficulty);
+        setLivesRemaining(
+          savedDaily.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+        );
       }
     });
     return () => cancelAnimationFrame(frame);
@@ -173,10 +190,12 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   function startNewUnlimitedGame() {
     const nextCity = randomCity(targetCity.id);
     const nextDifficulty = getSettings().difficulty;
+    const nextLivesRemaining = getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined;
     setTargetCity(nextCity);
     setGuesses([]);
     setStatus('playing');
     setDifficulty(nextDifficulty);
+    setLivesRemaining(nextLivesRemaining);
     setIsVictoryModalOpen(false);
     setNewlyUnlockedBadges([]);
     saveUnlimitedState({
@@ -187,6 +206,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       status: 'playing',
       maxGuesses: MAX_GUESSES,
       difficulty: nextDifficulty,
+      livesRemaining: nextLivesRemaining,
     });
   }
 
@@ -196,10 +216,12 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
   function startNewPhotoGame() {
     const nextCity = randomCity(targetCity.id);
     const nextDifficulty = getSettings().difficulty;
+    const nextLivesRemaining = getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined;
     setTargetCity(nextCity);
     setGuesses([]);
     setStatus('playing');
     setDifficulty(nextDifficulty);
+    setLivesRemaining(nextLivesRemaining);
     setIsVictoryModalOpen(false);
     setNewlyUnlockedBadges([]);
     savePhotoState({
@@ -210,6 +232,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       status: 'playing',
       maxGuesses: MAX_GUESSES,
       difficulty: nextDifficulty,
+      livesRemaining: nextLivesRemaining,
     });
   }
 
@@ -228,6 +251,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setGuesses(validSaved?.guesses ?? []);
       setStatus(validSaved?.status ?? 'playing');
       setDifficulty(validSaved?.difficulty ?? getSettings().difficulty);
+      setLivesRemaining(
+        validSaved?.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+      );
       return;
     }
 
@@ -241,6 +267,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
         setGuesses(savedPhoto.guesses);
         setStatus('playing');
         setDifficulty(savedPhoto.difficulty ?? getSettings().difficulty);
+        setLivesRemaining(
+          savedPhoto.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+        );
       } else {
         startNewPhotoGame();
       }
@@ -254,6 +283,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setGuesses(saved.guesses);
       setStatus('playing');
       setDifficulty(saved.difficulty ?? getSettings().difficulty);
+      setLivesRemaining(
+        saved.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+      );
     } else {
       startNewUnlimitedGame();
     }
@@ -281,6 +313,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       setGuesses(validSaved?.guesses ?? []);
       setStatus(validSaved?.status ?? 'playing');
       setDifficulty(validSaved?.difficulty ?? getSettings().difficulty);
+      setLivesRemaining(
+        validSaved?.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+      );
       return;
     }
 
@@ -293,6 +328,9 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
     setGuesses(validSaved?.guesses ?? []);
     setStatus(validSaved?.status ?? 'playing');
     setDifficulty(validSaved?.difficulty ?? getSettings().difficulty);
+    setLivesRemaining(
+      validSaved?.livesRemaining ?? (getSettings().livesMode ? LIVES_MODE_START_COUNT : undefined)
+    );
   }
 
   // Changing difficulty mid-game would desync already-unlocked clues, so the toggle only
@@ -320,14 +358,30 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
 
     const result = evaluateGuess(city, targetCity, guesses.length + 1);
     const updatedGuesses = [...guesses, result];
+
+    // Lives mode: livesRemaining is only ever defined for a run that started with Lives mode on
+    // (see the fresh-game initializers above) — a guess below LIVES_MODE_CLOSENESS_THRESHOLD
+    // costs a life whenever that's the case. shouldLoseLife(100) is always false, so a correct
+    // guess never costs a life here.
+    const nextLivesRemaining =
+      livesRemaining !== undefined && shouldLoseLife(result.closenessPct)
+        ? livesRemaining - 1
+        : livesRemaining;
+
+    // Hitting 0 lives ends the game as an immediate loss, regardless of how many of the normal
+    // MAX_GUESSES guesses remain — feeds the exact same loss branch a normal 6-guess loss
+    // already uses below, so no parallel game-over path is needed.
     const nextStatus: GameStatus = result.isCorrect
       ? 'won'
-      : updatedGuesses.length === MAX_GUESSES
+      : nextLivesRemaining !== undefined && nextLivesRemaining <= 0
         ? 'lost'
-        : 'playing';
+        : updatedGuesses.length === MAX_GUESSES
+          ? 'lost'
+          : 'playing';
 
     setGuesses(updatedGuesses);
     setStatus(nextStatus);
+    setLivesRemaining(nextLivesRemaining);
 
     const activeDailyNumber = mode === 'archive' ? archiveDayNumber ?? dailyNumber : dailyNumber;
 
@@ -341,6 +395,7 @@ export function GameApp({ forcedMode, challengeTargetCity }: GameAppProps = {}) 
       status: nextStatus,
       maxGuesses: MAX_GUESSES,
       difficulty,
+      livesRemaining: nextLivesRemaining,
       ...(nextStatus !== 'playing' ? { completedAt: new Date().toISOString() } : {}),
     };
 

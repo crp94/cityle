@@ -107,6 +107,19 @@ function TimeMachineReveal({
       >
         <RotateCw className="h-4 w-4" /> {t.timeMachinePlayAgain}
       </button>
+
+      {/* Quiet, secondary — small text links, not buttons, so this never
+          competes with "Play Again" above for attention. */}
+      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#8f9dac]">
+        <span>{t.timeMachineRelatedLabel}</span>
+        <Link href="/quickfire" className="underline decoration-white/20 underline-offset-2 hover:text-[#F4F6F8]">
+          {t.timeMachineRelatedQuickfire}
+        </Link>
+        <span aria-hidden="true">·</span>
+        <Link href="/notes" className="underline decoration-white/20 underline-offset-2 hover:text-[#F4F6F8]">
+          {t.timeMachineRelatedNotes}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -128,7 +141,16 @@ export default function TimeMachinePage() {
   // profile below is rendered until a real target has actually been picked.
   const [realTarget, setRealTarget] = useState<City | null>(null);
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
-  const [status, setStatus] = useState<'playing' | 'won' | 'lost'>('playing');
+  // Derived from guesses rather than tracked as its own state: won iff the
+  // most recent guess matched the target, lost iff MAX_GUESSES have been
+  // used up without a match, playing otherwise. Keeping this derived (instead
+  // of a separately-set 'playing' | 'won' | 'lost' state) rules out the two
+  // ever disagreeing.
+  const status: 'playing' | 'won' | 'lost' = useMemo(() => {
+    if (guesses[guesses.length - 1]?.isCorrect) return 'won';
+    if (guesses.length >= MAX_GUESSES) return 'lost';
+    return 'playing';
+  }, [guesses]);
   // Bumped on every "Play Again" so <SearchInput>'s internal query/dropdown
   // state remounts fresh for the new round, the same remount-via-key trick
   // MarathonRound relies on (`key={city.id}`) between rounds elsewhere.
@@ -156,20 +178,11 @@ export default function TimeMachinePage() {
     if (!syntheticTarget || status !== 'playing' || guesses.length >= MAX_GUESSES) return;
 
     const result = evaluateGuess(guessCity, syntheticTarget, guesses.length + 1);
-    const updatedGuesses = [...guesses, result];
-    const nextStatus: 'playing' | 'won' | 'lost' = result.isCorrect
-      ? 'won'
-      : updatedGuesses.length === MAX_GUESSES
-        ? 'lost'
-        : 'playing';
-
-    setGuesses(updatedGuesses);
-    setStatus(nextStatus);
+    setGuesses([...guesses, result]);
   }
 
   function handlePlayAgain() {
     setGuesses([]);
-    setStatus('playing');
     setRealTarget(getRandomTimeMachineTarget(cities));
     setRoundKey((key) => key + 1);
   }

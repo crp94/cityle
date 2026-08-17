@@ -14,9 +14,22 @@ interface ExploreLink {
   label: string;
 }
 
+interface ExploreLinkGroup {
+  id: string;
+  caption: string;
+  links: ExploreLink[];
+}
+
 // Matches the menu panel's `w-56` Tailwind class below — kept as a named
 // constant since the overflow check needs the same number in JS.
 const MENU_WIDTH_PX = 224;
+
+// Caps the dropdown's visible height so a future 8th link (or a long
+// locale's captions) can't silently push the panel past the viewport —
+// mirrors SearchInput.tsx's autocomplete dropdown (`max-h-72
+// overflow-y-auto`), the existing convention for scrollable floating
+// panels in this codebase.
+const MENU_MAX_HEIGHT_CLASS = 'max-h-72 overflow-y-auto';
 
 /**
  * Consolidates Atlas/Almanac/Marathon behind a single header icon (Phase 4,
@@ -46,14 +59,35 @@ export const ExploreMenu = ({ t }: ExploreMenuProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-  const links: ExploreLink[] = [
-    { href: '/atlas', label: t.openAtlasLabel },
-    { href: '/almanac', label: t.openAlmanacLabel },
-    { href: '/marathon', label: t.openMarathonLabel },
-    { href: '/playlists', label: t.openPlaylistsLabel },
-    { href: '/time-machine', label: t.openTimeMachineLabel },
-    { href: '/quickfire', label: t.openQuickfireLabel },
-    { href: '/notes', label: t.openNotesLabel },
+  // Same 7 destinations as before, just clustered under quiet dividers so
+  // the flat list gets some visual hierarchy. Grouping is purely visual —
+  // hrefs, labels, and the order within each group are unchanged, and
+  // group wrapper elements don't affect [role="menuitem"] traversal below
+  // (querySelectorAll walks DOM order regardless of nesting).
+  const groups: ExploreLinkGroup[] = [
+    {
+      id: 'reference',
+      caption: t.exploreGroupReferenceLabel,
+      links: [
+        { href: '/atlas', label: t.openAtlasLabel },
+        { href: '/almanac', label: t.openAlmanacLabel },
+      ],
+    },
+    {
+      id: 'play',
+      caption: t.exploreGroupPlayLabel,
+      links: [
+        { href: '/marathon', label: t.openMarathonLabel },
+        { href: '/playlists', label: t.openPlaylistsLabel },
+        { href: '/time-machine', label: t.openTimeMachineLabel },
+        { href: '/quickfire', label: t.openQuickfireLabel },
+      ],
+    },
+    {
+      id: 'read',
+      caption: t.exploreGroupReadLabel,
+      links: [{ href: '/notes', label: t.openNotesLabel }],
+    },
   ];
 
   const openMenu = () => {
@@ -113,10 +147,18 @@ export const ExploreMenu = ({ t }: ExploreMenuProps) => {
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      items[(currentIndex + 1) % items.length]?.focus();
+      const next = items[(currentIndex + 1) % items.length];
+      next?.focus();
+      // The list now scrolls (MENU_MAX_HEIGHT_CLASS), so wrapping from the
+      // last item back to the first — or just moving past the visible
+      // edge — needs an explicit scroll; focus() alone doesn't reposition
+      // the panel's scroll offset.
+      next?.scrollIntoView({ block: 'nearest' });
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      items[(currentIndex - 1 + items.length) % items.length]?.focus();
+      const prev = items[(currentIndex - 1 + items.length) % items.length];
+      prev?.focus();
+      prev?.scrollIntoView({ block: 'nearest' });
     } else if (event.key === 'Tab' && !event.shiftKey && currentIndex === items.length - 1) {
       // Tabbing forward off the last item — let focus continue naturally,
       // just close the now-orphaned menu behind it.
@@ -146,21 +188,29 @@ export const ExploreMenu = ({ t }: ExploreMenuProps) => {
         <div
           role="menu"
           aria-label={t.exploreMenuLabel}
-          className={`absolute top-full z-50 mt-1 w-56 overflow-hidden rounded border border-[rgba(232,236,240,0.18)] bg-[#10141C] shadow-2xl backdrop-blur-md ${
+          className={`absolute top-full z-50 mt-1 w-56 rounded border border-[rgba(232,236,240,0.18)] bg-[#10141C] shadow-2xl backdrop-blur-md ${MENU_MAX_HEIGHT_CLASS} ${
             menuAnchor === 'left' ? 'left-0' : 'right-0'
           }`}
         >
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              role="menuitem"
-              onClick={() => setIsOpen(false)}
-              onKeyDown={handleItemKeyDown}
-              className="block w-full border-b border-[rgba(232,236,240,0.05)] px-3.5 py-2.5 text-left text-sm font-semibold text-[#aab6c2] transition-colors last:border-b-0 hover:bg-[#18212e] hover:text-[#F4F6F8] focus:bg-[#18212e] focus:text-[#F4F6F8] focus:outline-none"
+          {groups.map((group, groupIndex) => (
+            <div
+              key={group.id}
+              className={groupIndex > 0 ? 'border-t border-[rgba(232,236,240,0.08)]' : undefined}
             >
-              {link.label}
-            </Link>
+              <p className="stamp px-3.5 pb-1 pt-2.5 text-[0.58rem]">{group.caption}</p>
+              {group.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  role="menuitem"
+                  onClick={() => setIsOpen(false)}
+                  onKeyDown={handleItemKeyDown}
+                  className="block w-full border-b border-[rgba(232,236,240,0.05)] px-3.5 py-2.5 text-left text-sm font-semibold text-[#aab6c2] transition-colors last:border-b-0 hover:bg-[#18212e] hover:text-[#F4F6F8] focus:bg-[#18212e] focus:text-[#F4F6F8] focus:outline-none"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           ))}
         </div>
       )}

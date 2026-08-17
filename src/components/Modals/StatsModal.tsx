@@ -38,6 +38,11 @@ const BADGE_COPY: Record<AchievementId, { name: keyof Translations; desc: keyof 
     name: 'badgeHardModeCartographerName',
     desc: 'badgeHardModeCartographerDesc',
   },
+  'streak-legend': { name: 'badgeStreakLegendName', desc: 'badgeStreakLegendDesc' },
+  'century-club': { name: 'badgeCenturyClubName', desc: 'badgeCenturyClubDesc' },
+  undefeated: { name: 'badgeUndefeatedName', desc: 'badgeUndefeatedDesc' },
+  sharpshooter: { name: 'badgeSharpshooterName', desc: 'badgeSharpshooterDesc' },
+  'never-say-die': { name: 'badgeNeverSayDieName', desc: 'badgeNeverSayDieDesc' },
 };
 
 function GuessDistributionChart({

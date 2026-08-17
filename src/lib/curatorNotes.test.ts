@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { CURATOR_NOTES, CuratorNote, getCuratorNoteForDay } from './curatorNotes';
 
 describe('CURATOR_NOTES pool', () => {
-  it('has between 10 and 15 notes', () => {
-    expect(CURATOR_NOTES.length).toBeGreaterThanOrEqual(10);
-    expect(CURATOR_NOTES.length).toBeLessThanOrEqual(15);
+  it('has between 18 and 24 notes', () => {
+    expect(CURATOR_NOTES.length).toBeGreaterThanOrEqual(18);
+    expect(CURATOR_NOTES.length).toBeLessThanOrEqual(24);
   });
 
   it('every note has a unique id', () => {

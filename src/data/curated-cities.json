@@ -89,6 +89,7 @@
       "note": "Hot semi-arid conditions with prolonged summer heatwaves >40°C."
     },
     "urban_fact": "A ring-and-radial street system surrounds a dense centre set on Spain’s elevated central plateau.",
+    "educational_debrief": "Madrid's location on Spain's dry central plateau, the meseta, far from any navigable river or coast, was chosen more for its central position on the peninsula than for any natural advantage of terrain or water — a rare case among European capitals. Its ring-and-radial street pattern shows centuries of growth outward from a single royal center, most recently the M-30 and M-40 ring roads that now encircle a metropolitan area far larger than the historic core. Hot, dry Mediterranean summers combined with that inland, riverless setting make the city's mountain-reservoir water supply an unusually exposed resource for a European capital of its size.",
     "cryptic_clue": "A stone slab in a crowded plaza marks the zero point from which every road on the peninsula radiates. Fitting, since no capital in Western Europe sits higher above sea level.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Madrid_-_Plaza_Mayor_01.jpg/960px-Madrid_-_Plaza_Mayor_01.jpg",
     "image_caption": "Historic Plaza Mayor in central Madrid, Spain",
@@ -121,8 +122,7 @@
       18.4,
       12.7,
       9.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "barcelona-es",
@@ -214,6 +214,7 @@
       "note": "Warmer, drier Mediterranean climate regime."
     },
     "urban_fact": "The Eixample’s chamfered grid sits between the Mediterranean coast and the Collserola hills.",
+    "educational_debrief": "Barcelona's grid-like Eixample district, with its distinctive chamfered street corners, was the deliberate design of 19th-century engineer Ildefons Cerdà, who angled the corners to improve sightlines, ventilation, and space for the streetcars and traffic of his day — a plan built to expand beyond the cramped medieval old town rather than replace it. For much of the 20th century the city's industrial waterfront cut it off from its own beaches; hosting the 1992 Summer Olympics gave Barcelona the occasion to demolish that industrial shoreline and reorient the city back toward the Mediterranean it sits on. Wedged between the sea and the Collserola hills, the city has limited room to expand outward, which is part of why it is one of the densest urban areas in Western Europe.",
     "cryptic_clue": "A basilica begun in the 1880s has never stopped rising — one architect's death, a civil war, and well over a century later, it's still ringed by cranes.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Aerial_view_of_La_Sagrada_Familia_and_Agbar_Tower_in_Barcelona%2C_Spain_%2851227306750%29.jpg/960px-Aerial_view_of_La_Sagrada_Familia_and_Agbar_Tower_in_Barcelona%2C_Spain_%2851227306750%29.jpg",
     "image_caption": "Aerial view of La Sagrada Família and the Torre Glòries in Barcelona",
@@ -246,8 +247,7 @@
       20.2,
       15.6,
       12.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "london-gb",
@@ -339,6 +339,7 @@
       "note": "Shifts toward warmer Mediterranean-like summers."
     },
     "urban_fact": "A polycentric metropolis grew around the Thames, layered rail networks, and former village centres.",
+    "educational_debrief": "London grew not as a single planned city but as a patchwork of once-separate villages and market towns that fused together along the Thames as rail and Underground lines linked them, which is why it still reads as a polycentric city of local high streets rather than one dense core. The Thames Barrier, completed downstream of the city center in the 1980s, exists precisely because a tidal river running through a low-lying basin leaves central London exposed to storm surge pushed in from the North Sea. That same river gave the city its reason for being in the first place: Roman Londinium was founded where the Thames could still be bridged but remained deep enough for seagoing ships.",
     "cryptic_clue": "Legend holds that if the ravens ever leave the riverside fortress on its eastern edge, the kingdom falls. So for centuries, someone has kept their wings clipped.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg/960px-Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg",
     "image_caption": "Palace of Westminster and River Thames in London, UK",
@@ -371,8 +372,7 @@
       14.4,
       10.5,
       8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "paris-fr",
@@ -464,6 +464,7 @@
       "note": "Warm temperate climate with significantly hotter summer peaks."
     },
     "urban_fact": "A compact core shaped by boulevards is encircled by the périphérique and a much larger regional rail city.",
+    "educational_debrief": "Paris's dense, uniform street wall of cream-colored stone buildings dates largely to a single sweeping 19th-century renovation ordered by Napoleon III and carried out by Baron Haussmann, who cut wide boulevards through the old medieval street pattern to improve traffic flow, sanitation, and sightlines. That historic core is now ringed by the Boulevard Périphérique, a ring road built along the path of the city's demolished 19th-century fortifications, beyond which a much larger and far less dense metropolitan region continues to grow. Because the boundaries of Paris proper have barely changed since Haussmann's era, the city remains unusually compact and dense compared with its sprawling wider region.",
     "cryptic_clue": "An iron tower thrown up for a single World's Fair was meant to come down after twenty years. Instead it became the skyline's signature and one of the most-visited monuments on Earth.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/960px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
     "image_caption": "Haussmannian urban fabric and Eiffel Tower over the Seine, Paris",
@@ -496,8 +497,7 @@
       15.5,
       10.8,
       8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "berlin-de",
@@ -589,6 +589,7 @@
       "note": "Warm temperate climate with drier summer periods."
     },
     "urban_fact": "Multiple historic centres, lakes, waterways, and extensive green space give the city a dispersed form.",
+    "educational_debrief": "Berlin's dispersed, multi-centered layout owes much to its 20th-century history: the city was split into occupation sectors after World War II and then physically divided by the Berlin Wall for nearly three decades, forcing East and West Berlin to each develop their own downtown, transit network, and infrastructure that the reunified city has spent decades stitching back together. The surrounding landscape of lakes, rivers, and forests is a legacy of the last Ice Age, whose retreating glaciers carved the flat, water-rich terrain of the North German Plain the city sits on. That abundance of surface water is part of why, despite a temperate oceanic climate, Berlin's water utility already flags long-term supply as a growing concern amid rising demand and drier summers.",
     "cryptic_clue": "For 28 years, one street could put you in two different worlds. Then one night in 1989, crowds took hammers to the concrete seam between them.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/960px-Brandenburger_Tor_abends.jpg",
     "image_caption": "Brandenburg Gate at Pariser Platz in Berlin, Germany",
@@ -621,8 +622,7 @@
       12.9,
       8.2,
       5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "rome-it",
@@ -714,6 +714,7 @@
       "note": "Eastern Mediterranean hot subtropical conditions."
     },
     "urban_fact": "Ancient routes and later ring roads structure a low-rise metropolis around the Tiber.",
+    "educational_debrief": "Rome's skyline stays famously low-rise in large part because of strict height and zoning limits, and because any major excavation risks running into archaeological remains — a practical constraint from building continuously on the same site for roughly 2,800 years. The city still draws on many of the same spring-fed sources its ancient aqueducts once tapped, including the restored Acqua Vergine that still feeds the Trevi Fountain today, and a Mediterranean climate of hot, increasingly dry summers is expected to put growing pressure on that historic water supply. Modern Rome's ring roads and radial arteries largely follow the lines of ancient Roman roads that once radiated out from the city to every corner of the empire, a layout that has shaped the region's transport network for two millennia.",
     "cryptic_clue": "Legend has twin brothers, raised by a she-wolf, founding a city on seven hills. Toss a coin over your shoulder into a fountain here and, they say, you're bound to return.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/960px-Colosseo_2020.jpg",
     "image_caption": "The Flavian Amphitheatre (Colosseum) in central Rome, Italy",
@@ -746,8 +747,7 @@
       19.7,
       14.7,
       10.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "tokyo-jp",
@@ -839,6 +839,7 @@
       "note": "Humid subtropical with intensified summer heat and rainfall."
     },
     "urban_fact": "An immense rail-oriented urban region wraps around Tokyo Bay with many strong subcentres.",
+    "educational_debrief": "Tokyo's sprawling, rail-oriented form comes from a development pattern in which private railway companies built lines out toward the edges of the Kanto Plain and then developed the land and department stores around their own stations, producing a metropolis organized around dozens of dense rail hubs rather than one downtown. The city took its current name and role only when the site of the shogunate's Edo Castle became the emperor's seat in the 19th century, displacing the older imperial capital of Kyoto. Much of central and eastern Tokyo sits on low-lying land reclaimed from Tokyo Bay and river deltas, which is a key reason the city and national government invest so heavily in flood and storm-surge infrastructure.",
     "cryptic_clue": "Renamed 'Eastern Capital' when the emperor moved in, this city's best-known intersection can flood with thousands of pedestrians every time the lights change.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/960px-Skyscrapers_of_Shinjuku_2009_January.jpg",
     "image_caption": "Shinjuku high-density skyscraper cluster in Tokyo, Japan",
@@ -871,8 +872,7 @@
       20.6,
       15.1,
       10
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "seoul-kr",
@@ -964,6 +964,7 @@
       "note": "Subtropical shift with warmer winters and heavier summer monsoon."
     },
     "urban_fact": "Dense districts occupy the Han River basin, constrained and divided by steep wooded mountains.",
+    "educational_debrief": "Seoul's rapid transformation from a war-damaged city in the 1950s into one of the world's largest metropolitan economies is often called, in Korea, the 'Miracle on the Han River' — a period of concentrated industrial growth and dense apartment-block construction that gave the city its now-familiar skyline of high-rise housing towers. The surrounding terrain of steep, forested mountains leaves relatively little flat, buildable land within the Han River basin, which is part of why the city grew so vertically rather than sprawling outward like many other capitals of similar population. Seoul's location only tens of kilometers south of the heavily fortified Demilitarized Zone dividing the Korean Peninsula has also long shaped its urban planning and infrastructure around the reality of that nearby border.",
     "cryptic_clue": "Its own name simply means 'capital' in the local tongue — the only one of its kind with no other meaning behind it. A viral song about one of its glossier districts was the first video ever to cross a billion views.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Skyline_view_from_Seoul_City_%28South_Korea%29.jpg/960px-Skyline_view_from_Seoul_City_%28South_Korea%29.jpg",
     "image_caption": "Skyline view from Namsan over central Seoul, South Korea",
@@ -996,8 +997,7 @@
       17.7,
       10.2,
       2.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "beijing-cn",
@@ -1089,6 +1089,7 @@
       "note": "Semi-arid warming with hotter summer extremes."
     },
     "urban_fact": "Concentric ring roads extend from an historic north–south axis across a broad inland plain.",
+    "educational_debrief": "Beijing's urban plan still follows a strict north–south axis inherited from imperial-era cosmology, which held that the emperor's throne should align with the pole star; that axis, running through the old Forbidden City, has been extended in modern times by new administrative and Olympic districts built along the same line. Sitting on a dry inland plain far from any major river, the city has long struggled to supply water to its enormous population, a shortage severe enough that China built a system of long-distance canals and tunnels to pipe water north from the Yangtze basin. Beijing's position near the edge of the Gobi and Mongolian steppe also exposes it to seasonal dust storms, a challenge distinct from — but sometimes compounding — its more chronic urban air-pollution problems.",
     "cryptic_clue": "Its name translates to 'Northern Capital.' At its center sits a moated, walled palace complex so vast, and once so restricted, that emperors called it forbidden for five centuries.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Skyline_of_Beijing_CBD_from_the_southeast_%2820210907094201%29.jpg/960px-Skyline_of_Beijing_CBD_from_the_southeast_%2820210907094201%29.jpg",
     "image_caption": "Beijing CBD skyline with CITIC Tower, viewed from the southeast",
@@ -1121,8 +1122,7 @@
       16.3,
       7.8,
       1.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "shanghai-cn",
@@ -1214,6 +1214,7 @@
       "note": "Hotter tropical-trending summers and typhoons."
     },
     "urban_fact": "A dense river-and-port metropolis spreads across the flat Yangtze delta around the Huangpu River.",
+    "educational_debrief": "Shanghai's waterfront Bund, lined with early-20th-century European-style banks and trading houses, is a physical remnant of the era when the city operated as a treaty port carved into foreign concessions rather than a single unified Chinese city — a split administrative history that shaped its early street patterns near the historic core. Built on the soft, waterlogged sediment of the Yangtze delta, the city has experienced significant land subsidence from decades of groundwater pumping and construction pressure, compounding its already high exposure to flooding on famously flat, low-lying terrain. That combination of low elevation, delta location, and dense construction is why Shanghai now relies on an extensive network of levees, floodgates, and storm-surge defenses along the Huangpu River to protect the city center.",
     "cryptic_clue": "Its name simply means 'upon the sea.' A row of colonial-era banks along the waterfront now stares across the river at a forest of towers that didn't exist forty years ago.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Shanghai_skyline_waterfront_pudong_5166168_69_70.jpg/960px-Shanghai_skyline_waterfront_pudong_5166168_69_70.jpg",
     "image_caption": "Pudong skyline and waterfront viewed from the Bund, Shanghai, China",
@@ -1246,8 +1247,7 @@
       21.9,
       15.9,
       9.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "hong-kong-hk",
@@ -1339,6 +1339,7 @@
       "note": "Tropical monsoonal temperatures year-round."
     },
     "urban_fact": "Very dense urban districts are compressed between steep mountains, islands, and Victoria Harbour.",
+    "educational_debrief": "Hong Kong's extreme vertical density is largely a function of geography: with steep mountainsides covering most of its land area, only a narrow fringe around Victoria Harbour was ever easily buildable, pushing the city to build upward rather than outward and to reclaim large amounts of new land directly from the harbour itself. The territory's return to China in 1997 followed the expiry of a 99-year lease Britain had held over the New Territories, the rural hinterland that makes up most of Hong Kong's land area beyond the dense urban core on Hong Kong Island and Kowloon. Because so much of the population is concentrated on reclaimed, low-lying harbourfront land, the city remains exposed to storm surge from the typhoons that regularly track through the South China Sea each summer and autumn.",
     "cryptic_clue": "Its name translates to 'Fragrant Harbour.' A former colony returned to its mainland neighbor in 1997, its skyline now climbs a steep peak served by a century-old funicular.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Central_Skyline_with_IFC_building_from_Star_Ferry_in_Victoria_Harbour%2C_Hong_Kong_2.jpg/960px-Central_Skyline_with_IFC_building_from_Star_Ferry_in_Victoria_Harbour%2C_Hong_Kong_2.jpg",
     "image_caption": "Central skyline and IFC building seen from the Star Ferry crossing Victoria Harbour, Hong Kong",
@@ -1371,8 +1372,7 @@
       27.6,
       24.1,
       20.1
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "singapore-sg",
@@ -1464,6 +1464,7 @@
       "note": "Intensified equatorial heat and extreme humidity."
     },
     "urban_fact": "A planned island city combines high-density transit corridors, reservoirs, and a major global port.",
+    "educational_debrief": "Despite sitting in a wet tropical climate, Singapore has long faced real water insecurity because its small land area leaves little room for reservoirs, and for decades the city depended heavily on imported water from Malaysia under long-standing bilateral agreements. In response, Singapore built out a strategy — officially described as its 'Four National Taps' — that combines local catchment, imported water, reclaimed wastewater, and desalination to reduce that historic dependency. The city-state has also physically grown through extensive land reclamation, expanding its territory well beyond its original coastline, a process closely tied to its role as one of the world's busiest shipping ports at the narrow, strategic chokepoint of the Strait of Malacca.",
     "cryptic_clue": "Its name means 'Lion City' in an old Sanskrit-derived tongue — though the beast guarding its harbourfront comes spliced with a fish's tail instead.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Central_Business_District_skyline_viewed_from_the_Lower_Boardwalk_of_Marina_Bay%2C_Singapore_-_20120730.jpg/960px-Central_Business_District_skyline_viewed_from_the_Lower_Boardwalk_of_Marina_Bay%2C_Singapore_-_20120730.jpg",
     "image_caption": "Central Business District skyline viewed from the Lower Boardwalk of Marina Bay, Singapore",
@@ -1496,8 +1497,7 @@
       29.4,
       28.8,
       28.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "mumbai-in",
@@ -1589,6 +1589,7 @@
       "note": "Heavy tropical monsoons with extreme pre-monsoon heat."
     },
     "urban_fact": "The metropolis occupies a narrow coastal peninsula and islands, creating a strongly linear north–south form.",
+    "educational_debrief": "Mumbai began as an archipelago of seven marshy islands that the British East India Company gradually joined through centuries of land reclamation, which is why the metropolis today reads as a long, narrow spine running north from the historic port rather than a compact, circular city. That reclaimed, low-lying geography leaves large parts of the city just above sea level, and the annual monsoon regularly floods the streets and rail lines its dense population depends on for its daily commute. Mumbai's role as India's main financial and port center, inherited from its colonial position as capital of the Bombay Presidency, is also why so much of its urban growth has concentrated along a narrow coastal strip rather than a spread-out metro region.",
     "cryptic_clue": "Named for a local goddess, this city began as seven separate islands, reclaimed and stitched into one. It's now home to a film industry whose nickname rhymes with Hollywood's.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Mumbai_Skyline_Wide.jpg/960px-Mumbai_Skyline_Wide.jpg",
     "image_caption": "Wide skyline view of South Mumbai, India",
@@ -1621,8 +1622,7 @@
       30.7,
       29.7,
       27.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "dubai-ae",
@@ -1714,6 +1714,7 @@
       "note": "Extreme summer heat surpassing 48°C wet-bulb limits."
     },
     "urban_fact": "A fast-growing desert metropolis stretches along the Gulf coast and major highway corridors.",
+    "educational_debrief": "Dubai grew from a small pearling and fishing settlement on a tidal creek into a major regional trade and finance hub over just a few decades, a transformation driven initially by port and free-trade policies rather than the oil wealth more associated with neighboring emirates. Because it sits in a hot desert climate with almost no reliable freshwater source, the city depends on energy-intensive seawater desalination for most of its drinking water, leaving it acutely exposed to any future stress on that supply chain. Its urban form — a long ribbon of development stretched along the coast and major highways rather than a compact core — reflects how quickly the city expanded outward once large-scale land reclamation and highway building began in earnest.",
     "cryptic_clue": "The world's tallest building anchors a desert skyline that also hosts an indoor ski slope and a palm-shaped island reclaimed from the open sea.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg/960px-Dubai_Skyline_mit_Burj_Khalifa_%28cropped%29.jpg",
     "image_caption": "Downtown Dubai skyline with the Burj Khalifa, seen from a helicopter",
@@ -1746,8 +1747,7 @@
       32.4,
       27.9,
       23.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "cairo-eg",
@@ -1839,6 +1839,7 @@
       "note": "Hot desert with severe summer temperatures >43°C."
     },
     "urban_fact": "The urban region is concentrated along the Nile and delta edge, sharply bordered by desert.",
+    "educational_debrief": "Cairo's entire urban footprint is possible only because of the Nile: the city and its farmland give way abruptly to open desert just beyond the river's floodplain and irrigation reach, producing one of the sharpest urban–desert boundaries of any major city on Earth. Egypt draws the overwhelming majority of its fresh water from the Nile, and with population growth, a hot desert climate, and competing demands upstream all bearing on that single source, Cairo is considered one of the more water-stressed major cities anywhere. The city's core still reflects more than a thousand years of continuous settlement as an Islamic capital, layered beneath a 20th-century wave of rapid, often informal expansion that made greater Cairo one of the most densely populated urban regions in the world.",
     "cryptic_clue": "On its outskirts stand the last of antiquity's seven wonders still mostly intact. Their afternoon shadows fall toward a capital whose name means 'the victorious.'",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Cairo_Skyline_%282020%29.jpg/960px-Cairo_Skyline_%282020%29.jpg",
     "image_caption": "Skyline of Cairo, Egypt, viewed from Cairo Tower",
@@ -1871,8 +1872,7 @@
       26.4,
       21.9,
       17.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "cape-town-za",
@@ -1964,6 +1964,7 @@
       "note": "Hotter Mediterranean summers with reduced winter rain."
     },
     "urban_fact": "Table Mountain, the Atlantic coast, and False Bay divide the city into distinct urban corridors.",
+    "educational_debrief": "Cape Town was founded in 1652 as a supply station for Dutch East India Company ships rounding the Cape on the route to Asia, making it one of the oldest colonial port settlements in southern Africa and the origin point of the city's historic core beneath Table Mountain. Apartheid-era planning laws forcibly separated communities by race and relocated many non-white residents to new townships on the flat, sandy Cape Flats well outside the city center, a spatial pattern that still shapes commuting patterns and inequality across the metro today. In 2018, Cape Town came close to becoming the first major city to run out of municipal water entirely, a crisis known as 'Day Zero' that was narrowly averted through severe rationing — a stark preview of the water stress its dry-summer Mediterranean climate keeps putting on the city.",
     "cryptic_clue": "A flat-topped mountain looks down on a bay where a small offshore island once held the twentieth century's most famous political prisoner for eighteen of his twenty-seven years behind bars.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Cape_Town_skyline_with_Table_Mountain.jpg/960px-Cape_Town_skyline_with_Table_Mountain.jpg",
     "image_caption": "Cape Town skyline with Table Mountain, South Africa",
@@ -1996,8 +1997,7 @@
       18,
       20.1,
       21.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "nairobi-ke",
@@ -2089,6 +2089,7 @@
       "note": "Mild highland climate with increased rainfall intensity."
     },
     "urban_fact": "A high-elevation inland city has expanded outward from a rail-era centre beside a national park.",
+    "educational_debrief": "Nairobi began in 1899 as a supply depot and railhead on the line then being built between Mombasa and Kampala, sited on the plateau roughly halfway along the route for its cool climate and reliable water rather than around any existing settlement. That founding logic still shows: sitting well over 1,600 meters above sea level keeps the city mild and spring-like year-round despite lying almost exactly on the equator, nothing like the tropical heat its latitude alone would suggest. Nairobi also hosts the headquarters of two United Nations agencies, UNEP and UN-Habitat, making it one of the relatively few UN headquarters cities located outside Europe or North America.",
     "cryptic_clue": "Its name comes from a Maasai phrase for 'cool water.' It's the only capital on the planet with a national park — lions included — inside the city limits.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Nairobi_skyline_from_Uhuru_Park.jpg/960px-Nairobi_skyline_from_Uhuru_Park.jpg",
     "image_caption": "Nairobi skyline from Uhuru Park, with the KICC building and Times Tower, Kenya",
@@ -2121,8 +2122,7 @@
       21.5,
       20.8,
       20.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "lagos-ng",
@@ -2214,6 +2214,7 @@
       "note": "Intensified tropical coastal humidity and precipitation."
     },
     "urban_fact": "A low-lying lagoon metropolis spans islands, wetlands, bridges, and a rapidly expanding mainland.",
+    "educational_debrief": "Lagos was Nigeria's capital until the government relocated to the purpose-built city of Abuja near the end of the 20th century, a move partly intended to ease pressure on a city that, even then, was already outgrowing its lagoon-and-island geography. Much of the metropolis sits barely above sea level around Lagos Lagoon, with newer growth pushing onto reclaimed land and low-lying wetlands that leave the city highly exposed to flooding from both storm surge and heavy rain. As West Africa's largest commercial and port city, Lagos has kept drawing migrants from across the region even after losing its status as the seat of government, making it one of the fastest-growing large cities in the world.",
     "cryptic_clue": "Portuguese sailors named it for its lagoons. Now the continent's most populous city sprawls across islands stitched together by bridges — and isn't even its own country's capital anymore.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Lagos_skyline.jpg/960px-Lagos_skyline.jpg",
     "image_caption": "Skyline of Lagos, Nigeria",
@@ -2246,8 +2247,7 @@
       28.4,
       29.2,
       29.2
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "johannesburg-za",
@@ -2339,6 +2339,7 @@
       "note": "Shifts toward warmer subtropical climate."
     },
     "urban_fact": "A high-altitude, inland urban region grew from a mining belt into a dispersed polycentric metropolis.",
+    "educational_debrief": "Johannesburg is often cited as the largest city in the world not built beside a river, lake, or coastline — it sits on a watershed divide on the high veld, which is why its water has always had to be piped in from elsewhere, today largely via the Vaal River system and the Lesotho Highlands Water Project rather than any local source. The 1886 discovery of gold on the Witwatersrand reef drew prospectors so fast that a mining camp grew into a city almost before it had a plan, and the mine dumps and tailings left behind by more than a century of gold mining still ring parts of the metro and add to its wintertime dust. Economic activity has since dispersed away from that original mining-era core into newer nodes such as Sandton, leaving greater Johannesburg with a decentralized, multi-centered form rather than one dominant downtown.",
     "cryptic_clue": "A gold reef discovered in 1886 conjured this city out of the high veld almost overnight. Locals still call it the City of Gold, though no navigable river runs through it.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Johannesburg-city-skyline-night.jpg/960px-Johannesburg-city-skyline-night.jpg",
     "image_caption": "Johannesburg city skyline at night, South Africa",
@@ -2371,8 +2372,7 @@
       20.2,
       20.7,
       22
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "alexandria-eg",
@@ -2464,6 +2464,7 @@
       "note": "Warmer coastal desert with reduced winter storms."
     },
     "urban_fact": "A long, narrow city follows the Mediterranean shoreline between the sea and inland lakes.",
+    "educational_debrief": "Alexandria was founded in 331 BCE by Alexander the Great on the narrow strip of land between the Mediterranean and Lake Mariout, and under the Ptolemaic dynasty that followed him it grew into one of the ancient world's great centers of learning, home to the Library of Alexandria and the research institute, the Musaeum, built around it. That same low, narrow coastal position — barely above sea level today — leaves the modern city acutely exposed to Mediterranean storm surge and long-term sea-level rise, and Egyptian authorities have already reinforced long stretches of its shoreline with concrete breakwaters to slow erosion. The city's Corniche waterfront and its dense, elongated footprint both still trace the same narrow coastal strip that shaped Alexandria's layout in antiquity.",
     "cryptic_clue": "A conqueror founded this Mediterranean port and stamped it with his own name. Its ancient lighthouse, once one of antiquity's great wonders, is gone; divers now explore what's left of it offshore.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Egypt%2C_Alexandria%2C_The_Corniche_of_Alexandria%2C_Mediterranean_Sea.jpg/960px-Egypt%2C_Alexandria%2C_The_Corniche_of_Alexandria%2C_Mediterranean_Sea.jpg",
     "image_caption": "The Corniche of Alexandria along the Mediterranean Sea, Egypt",
@@ -2496,8 +2497,7 @@
       25.7,
       21.7,
       17.3
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "new-york-city-us",
@@ -2589,6 +2589,7 @@
       "note": "Southern humid subtropical conditions with higher humidity."
     },
     "urban_fact": "A harbour metropolis spans islands and peninsulas, linked by an extensive rail and bridge network.",
+    "educational_debrief": "New York City's five boroughs were once separate municipalities — including the City of Brooklyn, then one of the largest cities in the US in its own right — before they consolidated into a single city at the very end of the 19th century. Much of Manhattan's regular street grid dates to an 1811 plan that imposed a uniform grid over the island's hills and streams well ahead of the development that would eventually fill it. Built across islands, peninsulas, and reclaimed shoreline at the mouth of the Hudson, the city sits low against the harbor, and Hurricane Sandy in 2012 demonstrated just how exposed its subway tunnels and coastal neighborhoods are to storm surge.",
     "cryptic_clue": "A copper-green matron has greeted harbour-bound ships for over a century; the boroughs at her back still carry a duke's borrowed name.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/New_york_times_square-terabass.jpg/960px-New_york_times_square-terabass.jpg",
     "image_caption": "Midtown Manhattan Commissioners' grid in New York City, USA",
@@ -2621,8 +2622,7 @@
       16.9,
       11.3,
       6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "los-angeles-us",
@@ -2714,6 +2714,7 @@
       "note": "Arid shift with hotter inland valley extremes."
     },
     "urban_fact": "A broad polycentric basin is bounded by mountains and the Pacific, with development following freeways.",
+    "educational_debrief": "Los Angeles grew first along an extensive early-20th-century streetcar network — the Pacific Electric 'Red Car' system, once one of the largest interurban rail systems in the world — before that network was dismantled and the region rebuilt itself around the freeway and the private automobile, producing the sprawling, polycentric urban form the city is known for today. Because the local basin receives relatively little natural rainfall for a metropolis its size, Los Angeles has depended since the early 1900s on water imported from hundreds of kilometers away, most famously the Los Angeles Aqueduct that diverted water from the Owens Valley — a project so contentious it triggered decades of legal and physical conflict over water rights. That reliance on imported water, combined with a Mediterranean climate of dry summers, is central to why the city faces some of the most acute long-term water-stress projections of any major US metro.",
     "cryptic_clue": "Spanish founders named it for the angels. Today the hills above spell out a global entertainment industry’s name in giant white letters, while Ice Age fossils still bubble out of tar pits in a park downtown.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Skyline_of_Los_Angeles%2C_Downtown_Los_Angeles%2C_California_13.jpg/960px-Skyline_of_Los_Angeles%2C_Downtown_Los_Angeles%2C_California_13.jpg",
     "image_caption": "Skyline of Downtown Los Angeles, California, USA",
@@ -2746,8 +2747,7 @@
       23,
       19.5,
       16.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "chicago-us",
@@ -2839,6 +2839,7 @@
       "note": "Midwest humid subtropical shift with hotter summers."
     },
     "urban_fact": "A strong orthogonal grid meets Lake Michigan, with radial rail lines converging on the central business district.",
+    "educational_debrief": "Chicago is often credited as the birthplace of the modern skyscraper: after the Great Fire of 1871 leveled much of the city, architects rebuilding it pioneered steel-frame construction techniques — beginning with buildings like the Home Insurance Building in the 1880s — that let structures rise far higher than traditional load-bearing walls allowed. The 1909 Plan of Chicago, one of the first comprehensive city plans in the United States, deliberately reserved the entire lakefront for public parks rather than private development, which is why the city's Lake Michigan shoreline remains largely open green space instead of the private waterfronts common in many other lakeside or coastal cities. That combination of a rigid inland street grid and a preserved public lakefront still defines Chicago's layout, with rail lines converging radially on the downtown Loop, which took its name from the elevated tracks encircling it.",
     "cryptic_clue": "Its name comes from a Native word for wild onion, once abundant along its river. A lakefront blaze levelled it in 1871, and it rose again home to some of the world’s first skyscrapers.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chicago_skyline_from_the_North_Avenue_Beach_Pier.jpg/960px-Chicago_skyline_from_the_North_Avenue_Beach_Pier.jpg",
     "image_caption": "Chicago skyline from North Avenue Beach Pier on Lake Michigan, USA",
@@ -2871,8 +2872,7 @@
       15,
       7.7,
       1.1
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "toronto-ca",
@@ -2964,6 +2964,7 @@
       "note": "Significantly warmer winters and hot continental summers."
     },
     "urban_fact": "A lakefront core anchors a larger polycentric region structured by ravines, railways, and highways.",
+    "educational_debrief": "Toronto's spread-out grid is really a patchwork of neighbourhoods stitched together across dozens of wooded ravines, carved by post-glacial meltwater rivers that still thread through the city today. Waves of immigration have made roughly half its residents foreign-born, a pattern visible in the ethnic commercial strips lining its arterial roads outside the lakefront core. Lake Ontario currently moderates its humid continental climate, but that climate is projected to shift toward the hot-summer subtype more typical of cities further south by 2050.",
     "cryptic_clue": "A slender concrete needle just over 500 metres tall stood as the world’s tallest freestanding structure for more than three decades. Roughly half the people living beneath it today were born somewhere else entirely.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Toronto_skyline%2C_at_dawn%2C_2017_06_12.jpg/960px-Toronto_skyline%2C_at_dawn%2C_2017_06_12.jpg",
     "image_caption": "Toronto skyline looking west at dawn, with the CN Tower, Canada",
@@ -2996,8 +2997,7 @@
       13.7,
       7.9,
       2.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "mexico-city-mx",
@@ -3089,6 +3089,7 @@
       "note": "Warm subtropical highland with intensified water scarcity."
     },
     "urban_fact": "One of the world’s largest high-altitude urban regions occupies a mountain-ringed former lake basin.",
+    "educational_debrief": "Mexico City rises on the drained bed of Lake Texcoco, the shallow basin the Aztecs turned into the island capital Tenochtitlan using causeways and chinampas before Spanish colonizers drained the lake outright to control flooding. Because much of the city still sits on that former lakebed, groundwater pumping from the aquifer beneath it causes ongoing subsidence, visible in tilted buildings across the historic center. Its high-altitude basin, ringed by volcanoes, already traps pollution, and by 2050 the same closed geography is projected to concentrate severe water stress as demand keeps outpacing a shrinking aquifer.",
     "cryptic_clue": "Legend says an eagle perched on a cactus, devouring a serpent, told wandering Aztec settlers where to build their island capital. Centuries later, a colonial cathedral rose from the stones of the great pyramid it replaced.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Mexico_City_Reforma_skyline.jpg/960px-Mexico_City_Reforma_skyline.jpg",
     "image_caption": "Paseo de la Reforma skyline and Chapultepec Park, Mexico City",
@@ -3121,8 +3122,7 @@
       18.8,
       17.2,
       16.1
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "vancouver-ca",
@@ -3214,6 +3214,7 @@
       "note": "Drier, sunnier Mediterranean-trending summers."
     },
     "urban_fact": "Dense centres and suburbs fit between the Pacific, the Fraser River, and steep coastal mountains.",
+    "educational_debrief": "Vancouver is boxed into a narrow strip of buildable land between the Pacific, the Fraser River delta, and the steep Coast Mountains, which is part of why its downtown grew densely vertical instead of sprawling outward like most North American cities. That mild, wet setting has also made it one of North America's busiest film and television production hubs, standing in on-screen for dozens of other cities. Climate models project its summers drying and warming toward a Mediterranean-type climate by mid-century, an unusual shift for a city this far north.",
     "cryptic_clue": "Named for the British captain who charted its coast, this Pacific film hub doubles for a hundred other cities on screen and once hosted the world under five interlocked rings in the snow.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Skyline_of_Vancouver%2C_Canada.jpg/960px-Skyline_of_Vancouver%2C_Canada.jpg",
     "image_caption": "Aerial view of downtown Vancouver, British Columbia, Canada",
@@ -3246,8 +3247,7 @@
       12.7,
       8.7,
       6.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "buenos-aires-ar",
@@ -3339,6 +3339,7 @@
       "note": "Subtropical marine climate with hotter summer peaks."
     },
     "urban_fact": "A vast regular grid spreads from the Río de la Plata, interrupted by rail corridors and suburban centres.",
+    "educational_debrief": "Buenos Aires spreads from the Río de la Plata as a strict, regular grid, a Spanish colonial planning pattern later broken up by rail lines and satellite town centers as the city grew outward. Its estuary setting exposes it to the sudestada, a southeasterly storm that pushes river water back into low-lying coastal barrios, a flood risk distinct from ordinary rainfall. The city's dense Italian and Spanish immigrant heritage also shaped its most famous cultural export, tango, which developed in its working-class port neighborhoods in the late 19th century.",
     "cryptic_clue": "Its own name translates to ‘fair winds.’ A pink presidential palace faces an avenue often called the widest in the world, in the city where tango was born.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Buenos_Aires_skyline_day.jpg/960px-Buenos_Aires_skyline_day.jpg",
     "image_caption": "Panorama of Puerto Madero, Buenos Aires, Argentina, in the morning",
@@ -3371,8 +3372,7 @@
       20.3,
       23.1,
       25.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "s-o-paulo-br",
@@ -3464,6 +3464,7 @@
       "note": "Warmer tropical highland with intense summer convection."
     },
     "urban_fact": "A huge inland metropolis covers a hilly plateau, with dense corridors following rivers and transport infrastructure.",
+    "educational_debrief": "São Paulo grew on an inland plateau far from any coast, so unlike Brazil's beach-facing cities its urban form follows rivers, rail lines, and highway corridors rather than a shoreline. Chronic gridlock across a metropolis of more than twenty million has pushed the wealthy toward helicopters for short hops between office towers, giving the city one of the largest private helicopter fleets in the world. It was founded by Jesuit missionaries in 1554 on the feast day marking the apostle Paul's conversion, a name that long outlasted its modest origins as a hilltop mission post.",
     "cryptic_clue": "Named for the apostle converted on the road to Damascus, this inland metropolis reportedly has more helicopters landing on its rooftops than almost anywhere else on Earth.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Sao_Paulo_Brazil_Skyline_Aerial%2C_December_2024.jpg/960px-Sao_Paulo_Brazil_Skyline_Aerial%2C_December_2024.jpg",
     "image_caption": "Aerial drone view of the São Paulo skyline above Parque da Aclimação, Brazil",
@@ -3496,8 +3497,7 @@
       22,
       23,
       24.2
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "rio-de-janeiro-br",
@@ -3589,6 +3589,7 @@
       "note": "Hotter tropical conditions with sustained humidity."
     },
     "urban_fact": "Mountains, bays, beaches, and lagoons divide the city into dramatic, discontinuous urban districts.",
+    "educational_debrief": "Rio de Janeiro's granite peaks, bays, and coastal lagoons carve the city into separated pockets of development rather than one continuous built-up area, a morphology dictated almost entirely by its geology. Portuguese explorers mistook the entrance to Guanabara Bay for a river mouth and named the settlement for the month they arrived, January — a naming error that stuck permanently. The Christ the Redeemer statue atop Corcovado mountain, completed in 1931, has become a defining symbol of a city where informal hillside favela settlements and formal beachfront neighborhoods sit within sight of each other yet remain sharply divided by elevation and access.",
     "cryptic_clue": "Sailors mistook a bay for a river’s mouth and named the place for the month they arrived. A stone giant with outstretched arms now watches its beaches from a mountain whose name means ‘hunchback.’",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Panorama_of_Rio_de_Janeiro.jpg/960px-Panorama_of_Rio_de_Janeiro.jpg",
     "image_caption": "Panoramic view of Rio de Janeiro captured from the top of Sugarloaf Mountain, Brazil",
@@ -3621,8 +3622,7 @@
       25.6,
       26.7,
       28.3
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "lima-pe",
@@ -3714,6 +3714,7 @@
       "note": "Warming coastal desert with persistent marine cloud."
     },
     "urban_fact": "A desert coastal metropolis expands across river valleys beneath persistent Pacific marine cloud.",
+    "educational_debrief": "Lima is a true desert capital: despite sitting almost on the Pacific and holding more than eleven million people, it receives so little rain that the city depends on rivers descending from the Andes and a near-permanent low cloud deck, the garúa, for what little moisture reaches it. The Spanish founded it as the 'City of Kings' in 1535, and the name Lima gradually wore down from Rímac, the indigenous name of the river cutting through the city. That colonial-era prominence also gave Lima the National University of San Marcos, founded in 1551 and among the oldest universities in the Americas.",
     "cryptic_clue": "Conquistadors called it the City of Kings, though everyday use wore that down into a mangled version of the river running through it. One of the oldest universities in the Americas has operated here since the 1550s.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Miraflores_Costa_Verde_Skyline_%28Lima%2C_Peru%29.jpg/960px-Miraflores_Costa_Verde_Skyline_%28Lima%2C_Peru%29.jpg",
     "image_caption": "Costa Verde coastline and skyline of the Miraflores district, Lima, Peru",
@@ -3746,8 +3747,7 @@
       19.7,
       21.3,
       23.1
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "bogota-co",
@@ -3839,6 +3839,7 @@
       "note": "Isothermal mountain climate with higher mean temperatures."
     },
     "urban_fact": "A dense high-altitude city stretches north–south along a plateau against the eastern Andes.",
+    "educational_debrief": "Bogotá sits on a high Andean plateau above 2,500 meters, cool enough year-round that its climate reads as oceanic despite lying almost on the equator — altitude, not latitude, sets its temperature here. The city's name descends from Bacatá, a Muisca chiefdom that ruled the plateau before Spanish conquest. Nearby Lake Guatavita, where Muisca leaders once ritually covered themselves in gold dust before bathing, gave rise to the El Dorado legend that drew European explorers across South America for generations.",
     "cryptic_clue": "A Muisca chiefdom’s name, worn down by Spanish tongues, became this plateau capital’s own. Nearby, a golden king once bathed in a mountain lake, seeding the legend of a lost city of gold.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Skyline_downtown_Bogota.jpg/960px-Skyline_downtown_Bogota.jpg",
     "image_caption": "Downtown Bogotá skyline at dusk, Colombia",
@@ -3871,8 +3872,7 @@
       15.6,
       15.6,
       15.2
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "sydney-au",
@@ -3964,6 +3964,7 @@
       "note": "Warmer subtropical summers with increased extreme heat days."
     },
     "urban_fact": "A branching drowned-river harbour, coastal bays, and sandstone terrain fragment the urban footprint.",
+    "educational_debrief": "Sydney's suburbs are broken into an unusually fragmented patchwork by the deeply indented, drowned river valley of its harbour and the sandstone ridges and gullies of the surrounding basin, forcing roads and rail lines to bend around bays and headlands rather than run in straight lines. The city began as a British penal colony at the harbour's edge in the late 18th century, and that original settlement site — chosen for its deep, sheltered anchorage — remains the dense heart of the modern metropolis. Because harbour and coastline border so much of the urban area, Sydney's bushfire-prone hinterland and beach-lined shore give it both scenic value and recurring exposure to fire and coastal weather extremes.",
     "cryptic_clue": "Named for a British home secretary, this harbour city’s coat-hanger-shaped bridge and a cluster of white sails on the water’s edge are recognised on sight almost anywhere.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Sydney_Opera_House_and_Harbour_Bridge_Dusk_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_2019-06-21.jpg",
     "image_caption": "Sydney Opera House and Harbour Bridge at dusk, Australia",
@@ -3996,8 +3997,7 @@
       20.7,
       22.4,
       24
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "melbourne-au",
@@ -4089,6 +4089,7 @@
       "note": "Warmer, drier conditions with sharp hot spikes."
     },
     "urban_fact": "A broad, relatively flat metropolis uses a strong central grid and radial rail corridors around Port Phillip.",
+    "educational_debrief": "Melbourne's central grid, laid out in the 1830s, expanded outward along radial rail and tram lines rather than a single dominant highway corridor, leaving it with one of the largest urban tram networks in the world. Named for a 19th-century British prime minister, the city grew rapidly during Victoria's gold rush and has since repeatedly topped global liveability rankings, a reputation often credited to that dense transit and green-space legacy around Port Phillip Bay. Its climate is projected to shift from oceanic toward humid subtropical by mid-century as its temperate summers warm.",
     "cryptic_clue": "Named for a British prime minister, this city runs one of the world’s largest urban tram networks and topped global liveability rankings for seven years running.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Melbourne_CBD_skyline_and_the_Yarra_river_as_seen_from_Southbank_%28iPhone%29_%2829845387643%29.jpg/960px-Melbourne_CBD_skyline_and_the_Yarra_river_as_seen_from_Southbank_%28iPhone%29_%2829845387643%29.jpg",
     "image_caption": "Melbourne CBD skyline and the Yarra River as seen from Southbank, Australia",
@@ -4121,8 +4122,7 @@
       17.4,
       19.5,
       21.2
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "auckland-nz",
@@ -4214,6 +4214,7 @@
       "note": "Warmer subtropical marine conditions."
     },
     "urban_fact": "A narrow volcanic isthmus between two harbours produces a linear, water-defined urban region.",
+    "educational_debrief": "Auckland occupies a narrow volcanic isthmus only a few kilometers wide at its narrowest point, squeezed between two harbours, which forces its urban area into a long, water-constrained shape rather than spreading freely in every direction. That isthmus is dotted with dozens of dormant volcanic cones, remnants of the same eruptions that built the land the city stands on. Auckland also holds the largest Polynesian population of any city on Earth, reflecting deep and ongoing ties across the Pacific alongside its more recent identity as the 'City of Sails.'",
     "cryptic_clue": "Nicknamed for its sails, this harbour city claims more boats per person than almost anywhere else, and its population makes it the largest Polynesian city on Earth.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Auckland_banner_City_Skyline.jpg/960px-Auckland_banner_City_Skyline.jpg",
     "image_caption": "Skyline of Auckland City with Mt. Eden in the foreground and the Harbour Bridge in the background, New Zealand",
@@ -4246,8 +4247,7 @@
       16.2,
       18,
       19.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "perth-au",
@@ -4339,6 +4339,7 @@
       "note": "Hot, dry Mediterranean regime with intensified summer drought."
     },
     "urban_fact": "A low-density coastal metropolis extends along the Indian Ocean between the Swan River and inland escarpment.",
+    "educational_debrief": "Perth is routinely cited as one of the most isolated major cities on Earth, with its nearest big-city neighbor lying more than two thousand kilometers away across largely empty desert. That isolation historically pushed the city toward low-density, car-oriented growth along the Swan River and Indian Ocean coast rather than a denser form. Its Mediterranean-type climate, with dry summers, already strains water supply, and the city responded by opening one of Australia's earliest large-scale seawater desalination plants to reduce reliance on a shrinking aquifer.",
     "cryptic_clue": "Named for a Scottish city on another continent, this is often called the most isolated major city on Earth — its nearest big-city neighbour lies over two thousand kilometres away.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Perth_skyline_from_Kings_Park_May_2018.jpg/960px-Perth_skyline_from_Kings_Park_May_2018.jpg",
     "image_caption": "Perth CBD skyline viewed from Kings Park, Western Australia",
@@ -4371,8 +4372,7 @@
       20,
       23.1,
       25.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "adelaide-au",
@@ -4464,6 +4464,7 @@
       "note": "Semi-arid transition with severe summer heatwaves."
     },
     "urban_fact": "A planned central grid is enclosed by a continuous park belt, with suburbs between the coast and Mount Lofty Ranges.",
+    "educational_debrief": "Adelaide was laid out in 1837 to a single deliberate plan by colonial surveyor William Light: a strict central grid completely encircled by a ring of parkland that remains intact today, one of the most intentional pieces of city planning from that era. Nicknamed the City of Churches for the density of 19th-century congregations it once supported, it now also hosts the Adelaide Fringe, the second-largest arts festival of its kind in the world after Edinburgh's. Its Mediterranean-type climate is projected to dry further into a semi-arid regime by 2050, consistent with the water stress already building across South Australia.",
     "cryptic_clue": "Named for a queen consort, this planned coastal capital is nicknamed the City of Churches and stages the second-largest fringe arts festival in the world every year.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Adelaide_skyline%2C_December_2022.jpg/960px-Adelaide_skyline%2C_December_2022.jpg",
     "image_caption": "Aerial view of the Adelaide skyline and the River Torrens, South Australia",
@@ -4496,8 +4497,7 @@
       18.8,
       21.5,
       23.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "stockholm-se",
@@ -4589,6 +4589,7 @@
       "note": "Milder oceanic winters as continental cold retreats."
     },
     "urban_fact": "Stockholm spans fourteen islands linked by more than fifty bridges where Lake Mälaren meets the Baltic archipelago.",
+    "educational_debrief": "Stockholm is built across fourteen islands where Lake Mälaren drains into the Baltic archipelago, a fragmented geography stitched together by more than fifty bridges. Its old town, Gamla Stan, still follows medieval street patterns dating to the city's founding as a fortified trading post in the 13th century. Each December the city hosts the Nobel Prize ceremonies, honoring laureates in science, literature, and peace under the terms of Swedish industrialist Alfred Nobel's will.",
     "cryptic_clue": "Its name is said to mean simply ‘log islet.’ Every December, this archipelago capital hosts the world’s most famous prize ceremony, honouring laureates in science, literature, and peace.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Skeppsbrokajen_Gamla_Stan_from_Skeppsholmen_Stockholm_2016_01.jpg/960px-Skeppsbrokajen_Gamla_Stan_from_Skeppsholmen_Stockholm_2016_01.jpg",
     "image_caption": "Skeppsbrokajen waterfront in Stockholm, seen from Skeppsholmen with Gamla Stan (Old Town) behind it, Sweden",
@@ -4621,8 +4622,7 @@
       10.8,
       6.2,
       3.1
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "moscow-ru",
@@ -4714,6 +4714,7 @@
       "note": "Hotter continental summers under a shorter, milder winter regime."
     },
     "urban_fact": "Concentric ring roads — the Boulevard Ring, Garden Ring, and outer MKAD — trace Moscow’s growth outward from the Kremlin along the Moskva River.",
+    "educational_debrief": "Moscow's ring-upon-ring street pattern — the Boulevard Ring, the Garden Ring, and the outer MKAD motorway — traces nearly nine centuries of growth outward from the Kremlin, interrupted by a roughly two-century stretch when Russia's capital moved to St. Petersburg and Moscow's growth slowed. The city's continental climate brings a wide swing between cold winters and warm summers, a seasonal extremity typical of interior cities far from any moderating coastline. Much of Moscow's Soviet-era growth beyond the historic ring roads took the form of large standardized housing districts, or microrayons, built rapidly to house a fast-expanding industrial workforce — a pattern that still shapes the outer city today.",
     "cryptic_clue": "Named for the river it sits beside, its central square is watched over by a candy-striped cathedral of onion domes, and its subway stations are ornate enough to double as museums.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Kremlin_Moscow.jpg/960px-Kremlin_Moscow.jpg",
     "image_caption": "View of the Moscow Kremlin from the river near Bolshoy Kamenny Bridge, Russia",
@@ -4746,8 +4747,7 @@
       8.7,
       2.5,
       -1.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "bucharest-ro",
@@ -4839,6 +4839,7 @@
       "note": "Po Valley humid subtropical regime with hot, muggy summers."
     },
     "urban_fact": "Broad boulevards radiate from a Belle Époque core once nicknamed “Little Paris,” later reshaped by Ceaușescu-era socialist redevelopment.",
+    "educational_debrief": "Bucharest's boulevards radiate outward from a core so lavishly rebuilt in the Belle Époque style that the city earned the nickname 'Little Paris' in the early 20th century. That fabric was cut through in the 1980s when Nicolae Ceaușescu demolished large parts of the historic center to build the monumental Palace of the Parliament, widely cited as the heaviest administrative building in the world, along with the wide socialist-era boulevards surrounding it. The city's own name is traditionally traced to Bucur, a legendary shepherd said to have founded a settlement on the site long before its first recorded mention.",
     "cryptic_clue": "Legend credits a shepherd named Bucur as its founder, and the city may still carry his name. A paranoid dictator later built what’s recognised as the heaviest building on Earth as his own palace.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bucharest-Skyline-01.jpg/960px-Bucharest-Skyline-01.jpg",
     "image_caption": "Bucharest skyline from the Intercontinental Hotel, showing University Square and the Palace of the Parliament, Romania",
@@ -4871,8 +4872,7 @@
       14.8,
       8.6,
       3.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "istanbul-tr",
@@ -4964,6 +4964,7 @@
       "note": "Anatolian semi-arid conditions with drier, hotter summers."
     },
     "urban_fact": "The Bosphorus strait splits the city between Europe and Asia, with the Golden Horn carving a historic harbour into the European side.",
+    "educational_debrief": "Istanbul is the only major city built across two continents, split by the Bosphorus strait connecting the Black Sea to the Sea of Marmara, with the Golden Horn inlet carving a natural harbor into its European side. Founded as Byzantium and later renamed Constantinople after the Roman emperor who made it his capital, the city's Hagia Sophia has served in turn as a cathedral, a mosque, a museum, and a mosque again since its completion in the 6th century. Its Mediterranean-type climate is projected to shift toward semi-arid conditions by 2050, adding pressure to a water system already straining to serve a metropolis of nearly sixteen million.",
     "cryptic_clue": "Once Byzantium, then a Roman emperor’s namesake, this is the only major city straddling two continents. A sixth-century domed cathedral-turned-mosque still dominates its skyline.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Historical_peninsula_and_modern_skyline_of_Istanbul.jpg/960px-Historical_peninsula_and_modern_skyline_of_Istanbul.jpg",
     "image_caption": "Aerial view of the historical peninsula and modern skyline of Istanbul, Turkey",
@@ -4996,8 +4997,7 @@
       19.2,
       14.9,
       11.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "lisbon-pt",
@@ -5089,6 +5089,7 @@
       "note": "Warmer, drier semi-arid regime with intensified summer heat."
     },
     "urban_fact": "Seven hills frame Lisbon’s amphitheatre-like waterfront where the wide Tagus estuary opens into the Atlantic.",
+    "educational_debrief": "Lisbon's seven hills frame an amphitheater-like waterfront where the wide Tagus estuary meets the Atlantic, a setting that once made the city a natural launch point for Portuguese Age of Discovery voyages. A massive earthquake and tsunami devastated Lisbon on All Saints' Day in 1755, and the chief minister who rebuilt it, the Marquês de Pombal, pioneered a timber-braced construction technique designed to flex rather than collapse in future tremors — among the earliest examples of engineered earthquake-resistant urban planning anywhere. Its Mediterranean climate is projected to shift toward semi-arid by 2050, part of a broader drying trend across the Iberian Peninsula.",
     "cryptic_clue": "A limestone tower once watched caravels sail west for coasts no European chart yet showed. When a Sunday earthquake and tsunami flattened the city in 1755, its chief minister rebuilt the center on a timber-braced grid engineered to sway, not shatter — one of the world's first quake-resistant downtowns.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Lisboa-lisbon-_panorama.jpg/960px-Lisboa-lisbon-_panorama.jpg",
     "image_caption": "Panoramic view of Lisbon and the Ponte 25 de Abril over the Tagus River, seen from Cristo Rei, Portugal",
@@ -5121,8 +5122,7 @@
       21,
       17.3,
       14.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "vienna-at",
@@ -5214,6 +5214,7 @@
       "note": "Warmer, more humid subtropical-leaning summers."
     },
     "urban_fact": "The Ringstrasse boulevard traces the line of Vienna’s medieval walls, encircling the historic core beside the Danube.",
+    "educational_debrief": "Vienna's Ringstrasse boulevard traces the exact footprint of the medieval fortifications that once encircled the city, demolished in the 1850s and replaced with grand public buildings and parks in a single coordinated redevelopment. Legend credits the retreating Ottoman army from the 1683 siege of Vienna with leaving behind sacks of coffee beans, seeding a coffeehouse culture the city still treats as a defining institution. That same dense, walkable core produced an outsized share of the Western classical music canon, from Mozart and Beethoven to the Strauss family waltzes.",
     "cryptic_clue": "Legend holds that when a besieging army fled in 1683, it left behind sacks of a strange bean — and the coffeehouse culture born from it is now protected as UNESCO intangible heritage. The same streets produced more waltzes, string quartets, and psychoanalysts per capita than seems reasonable for the size of the place.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Vienna_Skyline.jpg/960px-Vienna_Skyline.jpg",
     "image_caption": "The Vienna skyline as seen from the Alte Donau in Donaustadt, Austria",
@@ -5246,8 +5247,7 @@
       13.6,
       8.2,
       4.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "tehran-ir",
@@ -5339,6 +5339,7 @@
       "note": "Hotter, drier semi-arid conditions with intensified summer heat."
     },
     "urban_fact": "Tehran climbs the southern slopes of the Alborz range, its historic qanat channels once carrying mountain meltwater into a dry basin city.",
+    "educational_debrief": "Tehran climbs the southern slopes of the Alborz mountains, and that elevation gradient sorts the city both socially and thermally: wealthier neighborhoods sit higher on the cooler northern slopes, while poorer districts spread across the hotter, smog-trapped basin to the south. The city's historic qanats — gently sloping underground channels that carried mountain meltwater into the dry basin by gravity alone — once supplied much of its water before modern pumping took over. Its steppe climate is projected to shift from cold to hot semi-arid by 2050, compounding water stress in a city already relying on a shrinking supply.",
     "cryptic_clue": "A white marble arch, built to mark an empire's twenty-five-hundredth anniversary, guards the western approach to a capital pressed against a jagged mountain wall. Its wealthier quarters climb the cool northern slopes; the older, poorer half spreads south into the smog.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tehran_skyline_from_Milad_Tower_by_Mojnews_04.jpg/960px-Tehran_skyline_from_Milad_Tower_by_Mojnews_04.jpg",
     "image_caption": "Tehran skyline viewed from Milad Tower, Iran",
@@ -5371,8 +5372,7 @@
       21.8,
       14.8,
       9.2
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "almaty-kz",
@@ -5464,6 +5464,7 @@
       "note": "Warmer Central Asian continental climate with hotter summers."
     },
     "urban_fact": "A strict grid of tree-lined avenues climbs the alluvial slopes below the Tian Shan foothills, with mountain streams channelled along many streets.",
+    "educational_debrief": "Almaty's name translates roughly to 'father of apples,' and the wild apple forests in the Tian Shan foothills above the city are recognized by botanists as a likely ancestral source of the domesticated apples eaten worldwide today. The city's strict grid of tree-lined avenues climbs the alluvial slopes below those mountains, with meltwater streams historically channeled along many streets for irrigation and cooling. Almaty served as Kazakhstan's capital until 1997, when the government relocated to a purpose-built city, now Astana, further north on the steppe.",
     "cryptic_clue": "Its name translates roughly to 'father of apples,' and the wild orchards in the foothills above it are now recognized as the ancestral source of nearly every apple eaten on the planet. It was once its country's capital, before government moved to a newly built city out on the northern steppe.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Almaty_Skyline_from_the_K%C3%B6k_T%C3%B6be_hill.jpg/960px-Almaty_Skyline_from_the_K%C3%B6k_T%C3%B6be_hill.jpg",
     "image_caption": "City skyline of Almaty viewed from the Kök Töbe hilltop, Kazakhstan",
@@ -5496,8 +5497,7 @@
       12.6,
       5.3,
       -0.1
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "baku-az",
@@ -5589,6 +5589,7 @@
       "note": "Hotter semi-arid conditions with intensified summer heat."
     },
     "urban_fact": "A crescent-shaped natural harbour on the Caspian Sea shelters Baku’s walled Old City beside oil-boom-era boulevards.",
+    "educational_debrief": "Baku sits on a crescent-shaped natural harbor on the Caspian Sea and is widely cited as the only national capital in the world that lies below sea level. Naturally seeping underground gas has burned in spots around the region for centuries, giving rise to the old name 'land of fire' long before the city's 19th- and early 20th-century oil boom financed the grand boulevards that still ring its walled Old City. That oil wealth also underwrote the more recent Flame Towers skyline, a modern echo of the same fire imagery.",
     "cryptic_clue": "Long before its skyline sprouted three glass towers shaped like flames, natural gas seeping from the ground nearby burned steadily enough that early travelers called this the land of fire. It's also widely cited as the only national capital that sits below sea level.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Vista_de_Baku%2C_Azerbaiy%C3%A1n%2C_2016-09-26%2C_DD_101-106_PAN.jpg/960px-Vista_de_Baku%2C_Azerbaiy%C3%A1n%2C_2016-09-26%2C_DD_101-106_PAN.jpg",
     "image_caption": "Panoramic view of Baku, showing the Flame Towers and the Caspian Sea coastline, Azerbaijan",
@@ -5621,8 +5622,7 @@
       19.1,
       13.9,
       9.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "ulaanbaatar-mn",
@@ -5714,6 +5714,7 @@
       "note": "Warmer continental climate as extreme cold retreats."
     },
     "urban_fact": "Ulaanbaatar fills the Tuul River valley between four sacred mountains, its ger districts spreading up the surrounding slopes without formal infrastructure.",
+    "educational_debrief": "Ulaanbaatar fills the Tuul River valley surrounded by four mountains considered sacred, with informal ger districts — named for the traditional round felt tents many residents still live in — spreading up the surrounding slopes without much formal infrastructure. Before settling permanently on this site, the city began as a mobile Buddhist monastic center that relocated roughly twenty times over more than a century. Its current name, meaning 'Red Hero,' was adopted after the 1920s revolution, and by average annual temperature it remains the coldest national capital on Earth.",
     "cryptic_clue": "Its name translates to 'Red Hero,' adopted after a 1920s revolution — though for centuries before that it was a mobile Buddhist monastic center that relocated roughly twenty times before finally settling here for good. By average annual temperature, it's the coldest national capital on Earth.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Ulaanbaatar_skyline.jpg/960px-Ulaanbaatar_skyline.jpg",
     "image_caption": "Skyline of Ulaanbaatar, the capital of Mongolia",
@@ -5746,8 +5747,7 @@
       5.4,
       -6.4,
       -13.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "delhi-in",
@@ -9089,6 +9089,7 @@
       "note": "Warmer, more tropical-trending subtropical conditions."
     },
     "urban_fact": "Guangzhou was for centuries the only Chinese port open to Europeans under the restrictive Canton System, and today anchors the Pearl River Delta megaregion along the historic foreign-trade waterfront.",
+    "educational_debrief": "Guangzhou anchors the Pearl River Delta, one of the world's most densely built megaregions, where its urban footprint runs almost continuously into Shenzhen, Dongguan, and Hong Kong across the estuary. Sitting low and flat on the delta, the city faces recurring exposure to summer typhoons, storm surge, and monsoon flooding, which shapes ongoing drainage and coastal-defense planning. It has hosted the Canton Fair, one of the world's oldest and largest trade exhibitions, twice yearly since the 1950s, a modern echo of its centuries as China's principal port for foreign trade.",
     "cryptic_clue": "Known to old Western traders by an entirely different name — one still used today for its language and its cuisine — this river-delta city traces its founding to a legend of five rams sent by the gods bearing grain, memorialized in stone downtown. Its tradition of small steamed dishes over morning tea has gone global as shorthand for the whole regional cooking style.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Huacheng_Square_and_Zhujiang_New_Town_skyline%2C_Guangzhou%2C_July_2026.jpg/960px-Huacheng_Square_and_Zhujiang_New_Town_skyline%2C_Guangzhou%2C_July_2026.jpg",
     "image_caption": "Huacheng Square and the Zhujiang New Town skyline, Guangzhou, China",
@@ -9121,8 +9122,7 @@
       26.7,
       22.5,
       17.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "shenzhen-cn",
@@ -9214,6 +9214,7 @@
       "note": "Warmer, wetter tropical conditions year-round."
     },
     "urban_fact": "A fishing village of roughly 30,000 people in 1979, Shenzhen became China’s first Special Economic Zone in 1980 and grew into a migrant-driven tech and finance hub headquartering Huawei, Tencent, and DJI.",
+    "educational_debrief": "Shenzhen is one of the most compressed urbanization stories on record: what was farmland and fishing villages in the late 1970s grew, within a single generation, into a metropolis of well over ten million people through its status as China's first and most successful Special Economic Zone. Wedged into a coastal bay bordering Hong Kong, the city's low-lying, densely built terrain leaves it exposed to typhoon storm surge and heavy monsoon rainfall, prompting significant investment in flood defenses and drainage as the delta warms. Its population remains disproportionately young and migrant-heavy relative to older Chinese cities, a legacy of decades of labor drawn in by its manufacturing and now technology sectors.",
     "cryptic_clue": "A single river marks the border with a former British colony next door, crossed by one of the busiest land checkpoints on Earth. A giant roadside portrait of the reformist leader who picked this stretch of coast for the country's boldest economic experiment still watches over the boulevard named for him.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Skyline_in_Shenzhen_%2820250327%29.jpg/960px-Skyline_in_Shenzhen_%2820250327%29.jpg",
     "image_caption": "Modern skyline in the Longhua District of Shenzhen, China",
@@ -9246,8 +9247,7 @@
       27.7,
       23.9,
       19.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "chongqing-cn",
@@ -9339,6 +9339,7 @@
       "note": "Intensified summer \"furnace city\" heat extremes."
     },
     "urban_fact": "A genuinely vertical \"mountain city\" at the confluence of the Yangtze and Jialing rivers, Chongqing stacks buildings and roads across elevations linked by cable cars and escalators, earning it the nickname \"Fog City.\"",
+    "educational_debrief": "Chongqing's mountainous, river-carved terrain makes it one of the least sprawl-friendly major cities anywhere: rather than spreading outward, it has built vertically, stacking roads, subway lines, and buildings across many different elevations linked by escalators, funiculars, and cable cars. Frequent temperature inversions trap humidity and haze over the Yangtze-Jialing confluence, reinforcing its long-standing nickname as one of China's so-called 'Fog Cities,' alongside Wuhan and Nanjing. As a directly administered municipality rather than a conventional city, its official population figures cover a metropolitan area unusually large in land area, encompassing many rural and semi-rural counties around the dense urban core.",
     "cryptic_clue": "When invaders took the coast, the wartime government retreated deep into these hills and endured years of relentless bombing without falling. Punishingly spicy hotpot, said to be invented by riverside dockworkers keeping warm and disguising cheap cuts of meat, is now its most famous export — administratively, it's the single most populous city-level division in the country.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Chongqing%2C_January_23%2C_2024_%281%29.jpg/960px-Chongqing%2C_January_23%2C_2024_%281%29.jpg",
     "image_caption": "Cityscape of Chongqing, China, along the Yangtze/Jialing confluence",
@@ -9371,8 +9372,7 @@
       22,
       17.5,
       12.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "chengdu-cn",
@@ -9464,6 +9464,7 @@
       "note": "Warmer, wetter subtropical basin conditions."
     },
     "urban_fact": "The only major Chinese city to keep an unchanged location and name across imperial, republican, and communist eras, Chengdu pairs giant-panda conservation fame with a \"park city\" planning push for green, walkable ring roads.",
+    "educational_debrief": "Chengdu sprawls outward in concentric ring roads from an ancient core, a radial pattern planners are now trying to counterbalance with a 'park city' push for greenways and walkable districts rather than continuous outward sprawl. Sitting in the enclosed Sichuan Basin, the city experiences frequent haze and temperature inversions that trap pollution close to the ground, a recurring challenge distinct from coastal Chinese cities with better natural ventilation. It has kept the same name and roughly the same location for well over two thousand years, one of the longest continuous urban identities in East Asia.",
     "cryptic_clue": "A Tang-dynasty poet's thatched cottage still draws pilgrims here, beside a river once so vital to a booming silk-brocade trade that the city took its old nickname straight from the fabric. The black-and-white bears bred and shown off a short drive away have become the country's softest kind of ambassador.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Central_Chengdu_skyline_at_dawn_-_Flickr.jpg/960px-Central_Chengdu_skyline_at_dawn_-_Flickr.jpg",
     "image_caption": "Central Chengdu skyline at dawn, Sichuan, China",
@@ -9496,8 +9497,7 @@
       20.6,
       15.9,
       10.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "wuhan-cn",
@@ -9589,6 +9589,7 @@
       "note": "Intensified subtropical summer heat and humidity."
     },
     "urban_fact": "Historically three merged cities — Wuchang, Hankou, and Hanyang — at the confluence of the Han and Yangtze rivers, Wuhan grew into a major industrial and university hub still legible as distinct historic downtowns.",
+    "educational_debrief": "Wuhan grew from three once-separate cities — Wuchang, Hankou, and Hanyang — that merged into a single metropolis straddling the confluence of the Yangtze and Han rivers, and its urban core still reads as three distinct historic downtowns linked by bridges and ferries. Its position directly on the Yangtze has long made it one of China's most flood-exposed major cities, with serious summer floods recurring through the twentieth century before large-scale flood-control investment in recent decades. Today it anchors a university-dense metropolitan area at the rail and river crossroads of central China, a centrality that made it an early target for industrial development.",
     "cryptic_clue": "A 1911 military uprising here lit the fuse that toppled over two thousand years of imperial rule within months. Its edge holds a lake so large it's said to be the biggest found entirely within any city's limits nationwide, and each spring its most famous university draws crowds for a hillside blanketed in cherry blossoms.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Skyline_of_Wuhan.jpg/960px-Skyline_of_Wuhan.jpg",
     "image_caption": "View of the Wuhan skyline from the East Lake Greenway, China",
@@ -9621,8 +9622,7 @@
       20.8,
       14.5,
       8.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "tianjin-cn",
@@ -9714,6 +9714,7 @@
       "note": "Drying semi-arid trend under continued warming."
     },
     "urban_fact": "A treaty port after 1858, Tianjin hosted nine foreign concessions whose European-style architecture still lines the Hai River, while a second modern core has grown since 1994 at the coastal Binhai New Area.",
+    "educational_debrief": "Tianjin has grown as two distinct urban cores: the historic riverfront city shaped by its nineteenth-century treaty-port era, and the newer Binhai New Area built up along the coast since the 1990s as a separate deep-water port and industrial zone. Sitting barely above sea level near the river mouth, it faces meaningful coastal flood exposure, and projections point to it facing some of North China's most acute water stress by 2050 as groundwater and rainfall pressures intensify across the region. Its climate is also projected to trend drier and more semi-arid by mid-century, part of a broader aridification pattern expected across parts of the North China Plain.",
     "cryptic_clue": "The nearest seaport to a landlocked capital roughly 70 miles inland, this river city's colonial-era quarter left behind a full, walkable slice of Italy — the only authentic Italian-style town built outside Italy itself. A giant Ferris wheel today straddles the river directly on top of a highway bridge, a design found nowhere else on Earth.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Tianjin_Skyline_%286228618578%29.jpg/960px-Tianjin_Skyline_%286228618578%29.jpg",
     "image_caption": "Urban skyline of Tianjin, China",
@@ -9746,8 +9747,7 @@
       17.1,
       8.5,
       1.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "xian-cn",
@@ -9839,6 +9839,7 @@
       "note": "Drier continental conditions further inland."
     },
     "urban_fact": "Capital of ancient Chang’an for a succession of dynasties and the Silk Road’s eastern terminus, Xi’an keeps its 1370 Ming-dynasty city wall — an 11.9km circuit that still defines the old city’s grid.",
+    "educational_debrief": "During the Tang dynasty, Xi'an — then called Chang'an — is widely considered by historians to have been the largest and most cosmopolitan city in the world, a planned capital whose strict symmetrical grid of walled wards later served as a direct model for early Japanese capitals like Nara and Kyoto. The surviving Ming-dynasty city wall, an 11.9-kilometer rectangular circuit built centuries after Chang'an's peak, still defines the boundaries and grid orientation of Xi'an's old city today. As the eastern terminus of the Silk Road, the city built its historic wealth on overland trade with Central Asia and beyond, a role that faded as maritime trade routes came to dominate global commerce in later centuries.",
     "cryptic_clue": "Farmers digging a well in 1974 struck a buried army — thousands of life-sized clay soldiers guarding history's self-proclaimed 'First Emperor,' still sealed inside his unopened tomb. A pagoda across town once held the scriptures a monk hauled back from India, a real journey later reimagined as a tale of a mischievous monkey king.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Skyline_of_Xi%27an_CBD.jpg/960px-Skyline_of_Xi%27an_CBD.jpg",
     "image_caption": "Skyline of Xi'an's central business district, Shaanxi, China",
@@ -9871,8 +9872,7 @@
       16.4,
       9.6,
       3.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "nanjing-cn",
@@ -9964,6 +9964,7 @@
       "note": "Hotter subtropical summers further up the Yangtze basin."
     },
     "urban_fact": "Capital of the early Ming dynasty and later the Republic of China, Nanjing preserves the world’s longest surviving city-wall circuit alongside a historic palace and tomb complex on the Yangtze.",
+    "educational_debrief": "Nanjing sits on the lower Yangtze in a humid subtropical climate long associated, alongside Chongqing and Wuhan, with China's so-called 'Furnace Cities' for its intense, muggy summer heat. Its urban form runs along the river in a linear pattern, with the historic walled city, Ming-era palace ruins, and newer development threading between hills and water rather than spreading in a uniform ring. Having served as capital under several dynasties and again as the Republic of China's capital before 1949, it retains an unusually dense concentration of imperial and republican-era heritage sites for a city of its size.",
     "cryptic_clue": "When the foreign engineers who'd helped build the first bridge across this same great river withdrew, this downstream capital built its own crossing anyway — the first the country ever engineered entirely by itself, a lasting point of national pride. A mausoleum on a nearby purple mountain honors the revolutionary remembered as the father of the modern republic.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Nanjing_-_Skyline_from_Xuanwu_Lake.jpg/960px-Nanjing_-_Skyline_from_Xuanwu_Lake.jpg",
     "image_caption": "Nanjing skyline viewed across Xuanwu Lake, Jiangsu, China",
@@ -9996,8 +9997,7 @@
       20.5,
       14,
       7.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "hangzhou-cn",
@@ -10089,6 +10089,7 @@
       "note": "Warmer, more intense subtropical summer conditions."
     },
     "urban_fact": "Capital of the Southern Song dynasty when it was reputedly the world’s largest city, Hangzhou has been shaped ever since by UNESCO-listed West Lake, and today headquarters Alibaba and Ant Group.",
+    "educational_debrief": "Hangzhou's urban form radiates outward in rings from West Lake, a UNESCO World Heritage cultural landscape that has shaped city planning and height restrictions in its historic core for centuries. Its economy has shifted dramatically in the twenty-first century from silk and tea trade toward technology and e-commerce, anchored by Alibaba and Ant Group, drawing a wave of young, highly educated migrants into a metro area that was already one of the wealthiest per-capita in China. Though not directly on the open coast, it sits near Hangzhou Bay and faces moderate coastal flood exposure alongside the broader water-management challenges typical of the Yangtze Delta.",
     "cryptic_clue": "Locals have ranked ten official \"scenes\" along its lake for eight centuries — one of them, three small stone pagodas rising from still water, appears on the country's own paper currency. The hills above grow a green tea so prized it once counted as imperial tribute.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/20260424_West_Lake_and_Hangzhou_Skyline.jpg/960px-20260424_West_Lake_and_Hangzhou_Skyline.jpg",
     "image_caption": "West Lake and the Hangzhou skyline, Zhejiang, China",
@@ -10121,8 +10122,7 @@
       21.7,
       15.7,
       9.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "kunming-cn",
@@ -10214,6 +10214,7 @@
       "note": "Warmer highland tropical conditions."
     },
     "urban_fact": "Nicknamed the \"City of Eternal Spring\" for its narrow, mild year-round temperature range beside Dian Lake, Kunming has long served as China’s plateau gateway to Southeast Asia via the historic Tea Horse Road.",
+    "educational_debrief": "Kunming's high elevation on the Yunnan-Guizhou Plateau gives it a subtropical highland climate with an unusually narrow temperature range across the year, rare for a Chinese city at this latitude and the source of its 'City of Eternal Spring' nickname. Despite sitting beside Dian Lake, the city faces high projected water stress by 2050, a combination of plateau geography, growing demand, and decades of pollution that have degraded the lake as a reliable water source. Long a gateway city linking China's interior to Southeast Asia via the historic Tea Horse Road, it has grown into a regional hub for trade and transport toward Vietnam, Laos, and Myanmar.",
     "cryptic_clue": "Spring never quite leaves this plateau town, the seasons barely shifting from January to July. Just outside it, a forest grew from limestone instead of wood, rain and time carving its karst spires into needle-thin blades.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Kunming.%E6%98%86%E6%98%8E.skyline.sunset.2013.jpg/960px-Kunming.%E6%98%86%E6%98%8E.skyline.sunset.2013.jpg",
     "image_caption": "Kunming skyline at sunset, Yunnan, China",
@@ -10246,8 +10247,7 @@
       18.2,
       14.5,
       11.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "datong-cn",
@@ -10338,6 +10338,7 @@
       "note": "Drier, hotter semi-arid conditions further west."
     },
     "urban_fact": "Capital of the Northern Wei dynasty and home to the UNESCO-listed Yungang Grottoes’ 50,000 carved Buddhist statues, Datong later became a major coal-mining center on the Shanxi loess plateau.",
+    "educational_debrief": "Datong sits on the arid Shanxi loess plateau in a cold, semi-arid climate that leaves it facing high projected water stress by 2050, a common story across North China's coal belt. Long dependent on coal mining and coal-fired power, which brought both economic weight and some of China's worst historical air-quality problems, the city has more recently become a visible site for utility-scale solar power projects as the region works to diversify its energy base. Its grid-planned old town, walled and centered on its dynastic and Buddhist heritage, sits within a much larger municipal footprint still shaped by mining infrastructure.",
     "cryptic_clue": "A monastery clings to a cliff face nearby, its halls suspended on wooden pillars for close to 1,500 years. Below ground, the black seams this city was built on have kept furnaces lit across the country for generations.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/The_skyline_of_Datong%EF%BC%88Southgate%EF%BC%892019.jpg/960px-The_skyline_of_Datong%EF%BC%88Southgate%EF%BC%892019.jpg",
     "image_caption": "Aerial view of the old city skyline near the south gate, Datong, Shanxi, China",
@@ -10370,8 +10371,7 @@
       10.6,
       1.9,
       -5.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "changchun-cn",
@@ -10463,6 +10463,7 @@
       "note": "Warmer continental summers, milder winters."
     },
     "urban_fact": "Planned as \"Hsinking,\" capital of Japan’s Manchukuo puppet state (1932-1945), Changchun kept wide colonial boulevards and greenery, then became China’s automotive hub via FAW, the \"Detroit of China.\"",
+    "educational_debrief": "Changchun's wide, tree-lined boulevards and radial street plan date to its years as 'Hsinking,' the purpose-built capital of Japan's Manchukuo puppet state, giving it an unusually planned, spacious layout compared with many older Chinese cities. Its cold, monsoon-influenced continental climate brings long, harsh winters and a short growing season, typical of Manchuria's interior latitude. The city's economy remains heavily concentrated around FAW and the broader automotive sector, a specialization that has powered growth but also leaves it more exposed than diversified metro areas to shifts in the industry.",
     "cryptic_clue": "Its name literally translates to \"long spring,\" though the season it's actually known for is a brutal Manchurian winter. Behind its wide, tree-lined boulevards sits the country's first major film studio, opened in 1945 and still called the cradle of its cinema today.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Changchun_skyline_with_Ji_Tower_-_panoramio.jpg/960px-Changchun_skyline_with_Ji_Tower_-_panoramio.jpg",
     "image_caption": "Changchun skyline with the Ji Tower, Jilin, China",
@@ -10495,8 +10496,7 @@
       10.9,
       0.2,
       -8.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "harbin-cn",
@@ -10588,6 +10588,7 @@
       "note": "Milder, coastally moderated Northeast China winters."
     },
     "urban_fact": "Founded in 1898 as a hub of the Russian-built Chinese Eastern Railway, Harbin kept a cosmopolitan Russian heritage visible in the Saint Sophia Cathedral, and now turns its extreme cold into the Ice and Snow Sculpture Festival.",
+    "educational_debrief": "Harbin's winters are among the coldest of any major city on Earth, a severity that shapes everything from building heating standards to the city's identity around ice and snow tourism. Its built-up area follows the Songhua River in a linear band, with the historic Russian-influenced core near the water and newer districts extending along the transportation corridors the railway first established. As the historic terminus of the Russian-built Chinese Eastern Railway, it became one of the most cosmopolitan cities in early twentieth-century Asia, a legacy still visible in its street grid and surviving Orthodox architecture.",
     "cryptic_clue": "Onion domes still crown its skyline, a leftover from a railway-building empire that collapsed a century ago, in one of the coldest big cities anywhere on the map. A local brewery, older than the republic itself, has been warming stomachs since 1900.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/26941-Harbin_%2849027716202%29.jpg/500px-26941-Harbin_%2849027716202%29.jpg",
     "image_caption": "Cityscape view of Harbin, Heilongjiang province, China",
@@ -10620,8 +10621,7 @@
       9.9,
       -1.5,
       -11.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "shenyang-cn",
@@ -10713,6 +10713,7 @@
       "note": "Milder, coastally moderated border-city winters."
     },
     "urban_fact": "Political center of the rising Manchu state after 1625, when Nurhaci built the Mukden Palace, Shenyang became a major heavy-industry hub under Japanese occupation and later a symbol of China’s industrial \"rust belt.\"",
+    "educational_debrief": "Shenyang anchors China's historic 'rust belt,' having grown into one of the country's largest heavy-industry and machinery-manufacturing centers under Japanese occupation and through the socialist planned-economy era, a legacy that brought both scale and, later, painful state-enterprise restructuring from the 1990s onward. Its radial street pattern grew outward from the Manchu-era Mukden Palace core, expanding through successive waves of industrial development. Sitting inland in a continental climate zone, it faces high projected water stress by 2050, part of a broader pattern across China's northeastern industrial cities.",
     "cryptic_clue": "A pocket-sized cousin of the nation's Forbidden City rises here, built by a rising dynasty before it ever took the bigger throne. Decades later, a staged railway explosion in this same city gave an invading army its pretext for war.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Shenyang_Skyline_-_Tiexi.jpg/960px-Shenyang_Skyline_-_Tiexi.jpg",
     "image_caption": "Skyline of the Tiexi district in Shenyang, China",
@@ -10745,8 +10746,7 @@
       12.8,
       3.3,
       -5.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "xiamen-cn",
@@ -10838,6 +10838,7 @@
       "note": "Warmer, more tropical-trending coastal conditions."
     },
     "urban_fact": "A fortified port grown into one of Deng Xiaoping’s original Special Economic Zones, Xiamen pairs a high-rise SEZ core with the offshore islet Gulangyu, whose dense Victorian-era colonial architecture is UNESCO-listed.",
+    "educational_debrief": "Xiamen's island-and-archipelago geography, split across a mainland core and offshore islets including car-free Gulangyu, has produced a more compact, ferry-linked urban form than most mainland Chinese Special Economic Zones. Its low-lying coastal position leaves it highly exposed to typhoon landfall and storm surge each summer and autumn, a recurring risk along this stretch of the Taiwan Strait coast. Since becoming one of Deng Xiaoping's original 1980s Special Economic Zones, it has grown from a modest port town into a wealthier, more service- and trade-oriented economy than many of its faster-industrializing SEZ peers.",
     "cryptic_clue": "An islet just offshore bans cars outright and packs in more pianos per resident than anywhere else in the country, a leftover from missionary schools and old foreign concessions. Traders once knew the whole port by a different name entirely, the one that stuck on Western maps for a century.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Xiamen_night_Skyline_from_Gulangyu.JPG/960px-Xiamen_night_Skyline_from_Gulangyu.JPG",
     "image_caption": "Xiamen skyline at night, seen from Gulangyu Island",
@@ -10870,8 +10871,7 @@
       25.6,
       21.9,
       17.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "qiqihar-cn",
@@ -10963,6 +10963,7 @@
       "note": "Warmer continental summers under continued warming."
     },
     "urban_fact": "A railway junction after the 1903 Chinese Eastern Railway and a Soviet-aided heavy-equipment manufacturing center from the 1950s, Qiqihar sits beside the Zhalong wetlands, a key breeding ground for the red-crowned crane.",
+    "educational_debrief": "Qiqihar sits beside the Zhalong wetlands, one of Northeast Asia's most important breeding grounds for the endangered red-crowned crane and a rare large freshwater marsh ecosystem this far north in a heavily industrialized region. Like many of China's smaller northeastern rust-belt cities, its population and economic growth have lagged the booming coastal metros in recent decades, even as its Soviet-era heavy-machinery industry remains a significant local employer. Its cold, monsoon-influenced continental climate brings a short growing season and long winters typical of Heilongjiang province.",
     "cryptic_clue": "Marshland at the edge of town shelters one of the last strongholds of a crane so revered in local myth it stands for a thousand years of luck. The city itself grew up around a rail junction, later turning out the heavy machinery that powered a young nation's industrial push.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Qiqiharskyline1.JPG/960px-Qiqiharskyline1.JPG",
     "image_caption": "Qiqihar skyline photographed from Longsha Park",
@@ -10995,8 +10996,7 @@
       9.2,
       -2.8,
       -12.6
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "osaka-jp",
@@ -11088,6 +11088,7 @@
       "note": "Warmer, more intense subtropical summer conditions."
     },
     "urban_fact": "Japan’s premier Edo-period merchant city, Osaka hosted the Dōjima Rice Exchange — widely cited as the world’s first organized futures market, founded in 1697 — and once had roughly 1,629 canal bridges.",
+    "educational_debrief": "Long before Tokyo eclipsed it, Osaka was Edo-period Japan's commercial hub, where regional feudal domains shipped their rice to be sold and priced at the Dōjima exchange — a role that earned it the enduring nickname 'the nation's kitchen' even after political power concentrated in Tokyo. Built low and flat across a river delta opening onto Osaka Bay, the city experienced serious land subsidence through the mid-20th century from unchecked groundwater pumping for industry, a problem later brought under control through regulation. That same flat, reclaimed bay geography later enabled one of modern Japan's largest engineering projects, Kansai International Airport, built entirely on an artificial island offshore so it wouldn't have to disrupt the dense city on land.",
     "cryptic_clue": "Known for centuries as \"the nation's kitchen,\" this merchant town still sizzles octopus dumplings on nearly every corner. Its castle, built by the general credited with unifying the country, sits behind a moat wide enough to swallow armies.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Osaka_skyline_at_night_from_Umeda_Sky_Building.jpg/960px-Osaka_skyline_at_night_from_Umeda_Sky_Building.jpg",
     "image_caption": "Osaka skyline at night from the Umeda Sky Building observation deck",
@@ -11120,8 +11121,7 @@
       21.6,
       15.9,
       10.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "nagoya-jp",
@@ -11213,6 +11213,7 @@
       "note": "Warmer subtropical conditions further west."
     },
     "urban_fact": "Rebuilt on a deliberately orderly grid after WWII around its 1610 castle town, Nagoya anchors Japan’s automotive manufacturing heartland — Toyota is headquartered in greater Nagoya (Aichi Prefecture).",
+    "educational_debrief": "Nagoya anchors Japan's Chubu manufacturing corridor, the industrial base centered on Toyota and its supplier network that has made greater Nagoya one of the country's most export-oriented regional economies. Positioned midway between Tokyo and Osaka along the Tokaido corridor, it has long functioned as a transport and logistics hinge for central Japan's rail and highway networks. Its low-lying position on Ise Bay leaves parts of the city exposed to storm-surge flooding, a risk that shaped its systematic postwar rebuilding around wide, fire-break boulevards radiating from the reconstructed castle-town core.",
     "cryptic_clue": "A shrine here is said to guard one of the three sacred treasures of the imperial throne, a legendary sword pulled from a serpent's tail in myth. Above the nearby castle, a pair of gold dolphin-fish ornaments have watched over the skyline since the age of shoguns.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Nagoya_Skyline.jpg/960px-Nagoya_Skyline.jpg",
     "image_caption": "Skyline of Nagoya, Japan",
@@ -11245,8 +11246,7 @@
       20.8,
       14.8,
       9.4
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "sapporo-jp",
@@ -11338,6 +11338,7 @@
       "note": "Milder, coastally moderated Hokkaido winters."
     },
     "urban_fact": "Laid out on a strict Western-style grid when Japan’s Meiji government founded the Hokkaido Development Commission there in 1869, Sapporo hosted Asia’s first Winter Olympics in 1972 and draws millions to its Snow Festival.",
+    "educational_debrief": "Sapporo is one of the snowiest major cities in the world, accumulating heavy snowfall most winters, a climate reality that shaped both its Meiji-era Western-style street grid, built wide enough for snow clearance, and its economy around winter sports and tourism. As Hokkaido's capital and by far Japan's youngest large city, having been essentially founded rather than inherited from a castle-town past, it lacks the medieval urban layers common elsewhere in Japan. Its relatively low coastal flood risk and water stress, compared with many Japanese metros, reflect Hokkaido's cooler climate and lower population density even as the island faces distinct seasonal challenges of its own.",
     "cryptic_clue": "An American agricultural advisor's parting words to his students here — \"boys, be ambitious\" — got cast into a statue that's now a civic icon. The beer brand born in that same frontier era still wears a red star on every bottle.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Skyline_Sapporo_Hokkaido_Japan.jpg/960px-Skyline_Sapporo_Hokkaido_Japan.jpg",
     "image_caption": "Sapporo skyline, Hokkaido, Japan",
@@ -11370,8 +11371,7 @@
       14.7,
       7.8,
       1.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "sendai-jp",
@@ -11463,6 +11463,7 @@
       "note": "Warmer subtropical-trending regional summers."
     },
     "urban_fact": "Founded as a 1600 castle town by daimyo Date Masamune, Sendai is nicknamed the \"City of Trees\" for its zelkova-lined boulevards, and its port was closed for weeks after the devastating March 2011 tsunami.",
+    "educational_debrief": "Sendai carries an extremely high coastal flood risk, reflecting both its exposed Pacific coastline and the catastrophic 2011 Tohoku earthquake and tsunami, after which the city rebuilt substantial stretches of coastal defense and relocated some vulnerable neighborhoods further inland. As the largest city in the Tohoku region, it functions as the area's administrative, commercial, and transport hub, drawing population from a much more rural surrounding hinterland. Its zelkova-lined boulevards, replanted after wartime destruction, give the city one of the higher tree canopies among dense Japanese urban cores.",
     "cryptic_clue": "A one-eyed warlord nicknamed \"the Dragon\" founded this castle town, and his crescent-moon helmet remains one of the most recognizable in the country's history. Every August, its main streets vanish under enormous paper streamers for one of the nation's largest star festivals.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sendai_skyline_and_Hirose_River_from_Hyojogawara_Bridge.jpg/960px-Sendai_skyline_and_Hirose_River_from_Hyojogawara_Bridge.jpg",
     "image_caption": "Sendai skyline and the Hirose River seen from Hyojogawara Bridge",
@@ -11495,8 +11496,7 @@
       17.9,
       12,
       6.7
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "naha-jp",
@@ -11588,6 +11588,7 @@
       "note": "Warmer, tropical-trending southern Okinawan islands."
     },
     "urban_fact": "Former port capital of the independent Ryukyu Kingdom, Naha centers on Shuri Castle, a UNESCO gusuku site almost entirely destroyed in the 1945 Battle of Okinawa and since substantially reconstructed.",
+    "educational_debrief": "Naha's projected shift from a humid subtropical to a tropical monsoon climate classification by 2050 reflects Okinawa's position at the warm southern edge of Japan, already closer in climate to Taiwan and the northern Philippines than to Tokyo. Built on a compact coastal footprint with little room to spread across its small island setting, the city carries an extremely high coastal flood risk rating, compounding its exposure to typhoons that regularly track through the Ryukyu chain. Its culture, cuisine, and until-recent traffic patterns remain distinct from mainland Japan, a legacy of the centuries it spent as an independent trading kingdom before its 1879 annexation.",
     "cryptic_clue": "This port once ruled its own independent kingdom until an 1879 annexation folded it into a larger nation. It kept driving on the opposite side of the road from the rest of that nation for decades after, switching overnight in a single 1978 operation.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Panorama_view_of_Naha_from_Shuri_Castle_202011.jpg/960px-Panorama_view_of_Naha_from_Shuri_Castle_202011.jpg",
     "image_caption": "Panorama of Naha City and its surroundings from Shuri Castle",
@@ -11620,8 +11621,7 @@
       27.3,
       24.3,
       20.8
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "busan-kr",
@@ -11713,6 +11713,7 @@
       "note": "Warmer maritime subtropical-trending conditions."
     },
     "urban_fact": "South Korea’s busiest port and the world’s sixth-largest container port, Busan is squeezed into narrow valleys between mountains and the sea, and served as the country’s de facto wartime capital in 1950-53.",
+    "educational_debrief": "Busan's urban form is squeezed into narrow valleys between steep coastal mountains and the sea, producing a famously compact, vertically stacked cityscape with limited room for conventional outward sprawl. Its population swelled rapidly during the 1950-53 Korean War, when it served as the country's provisional capital and absorbed a large wave of refugees from the north, a demographic surge still visible in some of its older hillside neighborhoods. As South Korea's principal port, its economy remains deeply tied to shipping and container throughput, complemented in recent decades by a growing film and cultural-festival industry.",
     "cryptic_clue": "Every autumn, red carpets roll out here for one of Asia's biggest film festivals. The same port is just as well known for a rainbow-colored hillside village of stacked houses, built by refugees who had nowhere else to go during a war on the peninsula.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Busan_Cinema_Center_and_Centum_City_Skyline_at_Night.jpg/960px-Busan_Cinema_Center_and_Centum_City_Skyline_at_Night.jpg",
     "image_caption": "Busan Cinema Center and the Centum City skyline at night",
@@ -11745,8 +11746,7 @@
       17,
       10.8,
       4.5
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "daegu-kr",
@@ -11838,6 +11838,7 @@
       "note": "Hotter inland basin summer extremes."
     },
     "urban_fact": "Sitting in a mountain-ringed basin that traps heat, Daegu produces South Korea’s most extreme urban summer heat island — locally nicknamed \"Daefrica\" — after decades as the country’s textile-manufacturing center.",
+    "educational_debrief": "Daegu sits in a mountain-ringed river basin that traps heat and limits airflow, producing South Korea's most extreme urban heat-island effect and the local nickname 'Daefrica' for its punishing summers. That same enclosed basin geography, combined with growing demand, has left it facing higher projected water stress by 2050 than most other major Korean cities. Once the country's dominant textile-manufacturing center, it has spent recent decades diversifying toward medical technology and other advanced manufacturing as textile production declined domestically.",
     "cryptic_clue": "A mountain temple nearby has sheltered over 80,000 carved wooden printing blocks of a Buddhist scripture for close to 800 years, preserved by ventilation nobody's fully explained since. The basin city below built its fortune on textile looms and, until warming pushed the orchards north, some of the country's finest apples.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/%EB%8C%80%EA%B5%AC_%EC%95%BC%EA%B2%BD.jpg/500px-%EB%8C%80%EA%B5%AC_%EC%95%BC%EA%B2%BD.jpg",
     "image_caption": "Nighttime cityscape of Daegu, South Korea",
@@ -11870,8 +11871,7 @@
       19.1,
       12.3,
       5.9
-    ],
-    "educational_debrief": "Cityle combines a curated city profile with modelled climate and urban indicators. Use the values as directional clues for play, not as a research or planning dataset."
+    ]
   },
   {
     "id": "lahore-pk",
@@ -14336,7 +14336,7 @@
       "similarityPct": 87,
       "note": "Slightly warmer continental steppe conditions under further warming."
     },
-    "urban_fact": "Founded in 1931 as a coal-mining settlement built from scratch on open steppe, the city still depends on the 1960s Irtysh–Karaganda Canal for water imported over 400 km.",
+    "urban_fact": "Karaganda exists because of coal: the city was built from scratch on open steppe in 1931 purely to mine it, and the water shortage that came with that site was never solved locally — even now, supply is imported over 400 km via the Irtysh–Karaganda Canal, completed in the 1960s.",
     "educational_debrief": "Karaganda’s water supply travels over 400 kilometers through the Soviet-era Irtysh–Karaganda Canal, a concrete signature of chronic scarcity in a steppe city whose coal-mining economy has contracted to just 8 operating mines from 26 in Soviet times.",
     "cryptic_clue": "Forced laborers and entire deported ethnic minorities built much of this steppe city, which lent its name to one of the Soviet Union's largest Gulag camp networks.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Karaganda_-_190216_DSC_2876.jpg/960px-Karaganda_-_190216_DSC_2876.jpg",
@@ -14461,7 +14461,7 @@
       "similarityPct": 86,
       "note": "Slightly warmer continental summers typical of a warming West Siberian basin."
     },
-    "urban_fact": "Founded in 1893 at the Trans-Siberian Railway’s Ob River crossing, the city is now home to Akademgorodok, a dedicated Soviet-era science-city research complex.",
+    "urban_fact": "When the Trans-Siberian Railway needed to cross the Ob River in 1893, the settlement that grew up around that crossing became Novosibirsk, a city that today is also home to Akademgorodok, a dedicated Soviet-era science-city research complex.",
     "educational_debrief": "Novosibirsk grew from a single railway river-crossing into Siberia’s largest transport and industrial hub, and its Novosibirsk Metro, opened in 1985, remains the only metro system in Siberia.",
     "cryptic_clue": "Its own name literally just means 'New Siberian City' — yet in barely a century from its founding, it grew into its country's third-largest metropolis.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Novosibirsk_skyline_in_winter.jpg/960px-Novosibirsk_skyline_in_winter.jpg",
@@ -14586,7 +14586,7 @@
       "similarityPct": 87,
       "note": "Slightly warmer continental summers typical of a warming Ural-Volga transition zone."
     },
-    "urban_fact": "Founded in 1723 as an iron-making center on the Asian side of the Ural Mountains, the city retains a large stock of Constructivist architecture.",
+    "urban_fact": "Constructivist architecture survives here in unusually large quantities, a Soviet-era layer built on top of a much older industrial foundation: Yekaterinburg began in 1723 as an iron-making center on the Asian side of the Ural Mountains.",
     "educational_debrief": "Renamed Sverdlovsk for most of the Soviet period before reverting to Yekaterinburg, the city where the Romanov imperial family was executed in 1918 now traces 80% of its air pollution to road transport rather than the heavy industry that built it.",
     "cryptic_clue": "Named for an empress consort, this city sits so close to the line separating two continents that a roadside obelisk just outside it lets visitors stand with one foot in each.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Yekaterinburg_skyline.JPG/960px-Yekaterinburg_skyline.JPG",
@@ -14836,7 +14836,7 @@
       "similarityPct": 87,
       "note": "A warmer hot-summer variant of the same coastal East Asian monsoon regime."
     },
-    "urban_fact": "Founded in 1860 on the Golden Horn Bay, Vladivostok grew as a hillside-terraced naval port around a formal 1868 street grid, closed to foreigners for most of the Soviet era.",
+    "urban_fact": "For most of the Soviet era, Vladivostok was closed even to foreign visitors, an unusual fate for a naval port founded in 1860 on Golden Horn Bay and laid out in 1868 around a formal, hillside-terraced street grid.",
     "educational_debrief": "As the Trans-Siberian Railway's Pacific terminus and home to Russia's Pacific Fleet, Vladivostok stayed a closed military city until 1992, shaping a compact port form distinct from most Siberian sprawl.",
     "cryptic_clue": "Its name translates to 'Ruler of the East' — apt for a Pacific naval port sitting closer to Tokyo and Seoul than to its own nation's capital.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Vladivostok_skyline.jpg/960px-Vladivostok_skyline.jpg",
@@ -14961,7 +14961,7 @@
       "similarityPct": 86,
       "note": "A milder continental climate as extreme winter cold retreats under warming."
     },
-    "urban_fact": "Founded in 1661 on the Angara River just downstream of Lake Baikal, Irkutsk grew fur-trade and gold-rush wealth into ornate merchant architecture after a rebuilding following an 1879 fire.",
+    "urban_fact": "A fire in 1879 destroyed much of Irkutsk's original wooden townscape, and what rose in its place was grander: ornate merchant architecture funded by fur-trade and gold-rush wealth that had been accumulating since the city's founding in 1661 on the Angara River, just downstream of Lake Baikal.",
     "educational_debrief": "Sitting only 72km from Lake Baikal's outflow, Irkutsk functions as the main gateway to the world's largest freshwater reserve, a proximity that keeps its long-term water outlook unusually secure.",
     "cryptic_clue": "Noblemen exiled here after rising against the tsar in 1825 built such elegant wooden mansions that the city earned a nickname borrowed from a much grander European capital.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Irkutsk_Karl_Marx_street.JPG/960px-Irkutsk_Karl_Marx_street.JPG",
@@ -15086,7 +15086,7 @@
       "similarityPct": 86,
       "note": "A warmer hot-summer continental variant as regional heat intensifies."
     },
-    "urban_fact": "Founded in 1858 at the strategic confluence of the Amur and Ussuri Rivers, Khabarovsk grew a bluff-top historic core overlooking the wide Amur floodplain.",
+    "urban_fact": "Perched on a bluff above the wide Amur floodplain, Khabarovsk's historic core occupies an obviously strategic site: the confluence of the Amur and Ussuri Rivers, where the city was founded in 1858.",
     "educational_debrief": "Khabarovsk served as administrative capital of the Russian Far East Federal District from 2002 to 2018, a river-confluence outpost turned regional seat of government.",
     "cryptic_clue": "Named for a 17th-century Cossack explorer who never lived to see it built, this bluff-top settlement above two joining rivers sits closer to Tokyo than to its own distant capital.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Muravyov-Amursky_Street_view_from_Lenin_sq.JPG/960px-Muravyov-Amursky_Street_view_from_Lenin_sq.JPG",
@@ -15211,7 +15211,7 @@
       "similarityPct": 85,
       "note": "A milder version of the same dry continental steppe climate as winters warm."
     },
-    "urban_fact": "Founded by Cossacks in 1653, Chita grew into the Transbaikal region’s rail and industrial hub once the Trans-Siberian Railway arrived in the 1890s.",
+    "urban_fact": "Cossacks established Chita in 1653, but the settlement stayed minor for more than two centuries — only once the Trans-Siberian Railway reached it in the 1890s did the city grow into the Transbaikal region's rail and industrial hub.",
     "educational_debrief": "Chita once received exiled Decembrist revolutionaries after an 1827 uprising, whose presence helped shape several of the small fortress town’s earliest civic institutions.",
     "cryptic_clue": "Aristocratic officers exiled here after an 1825 uprising against the tsar arrived to find little more than a Cossack stockade. Within a century, that stockade grew into capital of a short-lived buffer republic squeezed between a wary Japan and a fledgling revolutionary state to the west, before Moscow folded it back in for good in 1922.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Chita%2C_Zabaykalsky_Krai%2C_Russia_-_panoramio_%283%29.jpg/960px-Chita%2C_Zabaykalsky_Krai%2C_Russia_-_panoramio_%283%29.jpg",
@@ -15336,7 +15336,7 @@
       "similarityPct": 87,
       "note": "A hotter Central Asian steppe variant of the same continental warming trend."
     },
-    "urban_fact": "Founded in 1730 by the Demidov industrial family, Barnaul grew at the confluence of the Ob and Barnaulka Rivers into the Russian Empire’s principal silver-processing centre.",
+    "urban_fact": "The Russian Empire's principal silver-processing centre grew up at the confluence of the Ob and Barnaulka Rivers, founded in 1730 by the industrialist Demidov family.",
     "educational_debrief": "Barnaul’s identity as a mining-and-metallurgy hub for the mineral-rich Altai Mountains has persisted from imperial silver production well into its modern industrial base.",
     "cryptic_clue": "A Ural iron baron shipped two hundred peasants into the Altai foothills in 1730 to build smelting works at a river confluence. Within decades the operation was refining a large share of the empire's silver, a legacy still marked by a stone obelisk commemorating a century of mining in the region.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/%D0%92%D0%B8%D0%B4_%D0%BD%D0%B0_%D0%91%D0%B0%D1%80%D0%BD%D0%B0%D1%83%D0%BB_%D1%81_%D0%B3%D0%BE%D1%80%D1%8B_%2840064543275%29.jpg",
@@ -15461,7 +15461,7 @@
       "similarityPct": 85,
       "note": "A warmer Urals-region continental climate as summer heat intensifies."
     },
-    "urban_fact": "Founded in 1604 on the Tom River, Tomsk was bypassed by the Trans-Siberian Railway in favour of Novosibirsk, arguably preserving more of its historic wooden-lace merchant core.",
+    "urban_fact": "Being bypassed can be a preservationist's blessing: when the Trans-Siberian Railway ran through Novosibirsk instead, Tomsk — founded on the Tom River back in 1604 — missed out on the rapid growth that erased so much historic fabric elsewhere, arguably leaving more of its wooden-lace merchant core intact.",
     "educational_debrief": "Home to six universities and Siberia’s oldest, Tomsk State University, the city carries an outsized student population that keeps its demographic profile unusually young for the region.",
     "cryptic_clue": "Bypassed by the great trans-continental railway that funneled growth into a rival city instead, this river town's snub left its carved 'wooden lace' merchant houses intact — and its streets, unusually for the region, dense with university students.",
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Tomsk%2C_view_from_the_fire-observation_tower.jpg",

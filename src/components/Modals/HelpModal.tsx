@@ -88,6 +88,8 @@ export const HelpModal = ({ isOpen, onClose, onOpenWelcome, t }: HelpModalProps)
               </li>
             </ul>
           </section>
+
+          <p className="text-xs text-[#8f9dac]">{t.moreWaysToPlayNote}</p>
         </div>
       </div>
     </div>

@@ -360,6 +360,20 @@ export default function QuickfirePage() {
               <RotateCw className="h-4 w-4" />
               {t.quickfirePlayAgainCta}
             </button>
+
+            {/* Quiet cross-promotion to sibling modes — deliberately not
+                styled as a button so it never competes with Play Again
+                above. Shares its label/color treatment with the same strip
+                on marathon/playlists/notes (see t.relatedModesLabel). */}
+            <div className="mt-4 flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 border-t border-white/8 pt-4 text-center">
+              <span className="text-xs text-[#5c6773]">{t.relatedModesLabel}</span>
+              <Link href="/marathon" className="text-xs font-semibold text-[#8f9dac] hover:text-[#F4F6F8]">
+                {t.marathonPageTitle}
+              </Link>
+              <Link href="/notes" className="text-xs font-semibold text-[#8f9dac] hover:text-[#F4F6F8]">
+                {t.notesPageTitle}
+              </Link>
+            </div>
           </div>
         )}
       </main>

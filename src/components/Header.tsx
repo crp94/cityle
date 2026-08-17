@@ -1,9 +1,11 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { BarChart3, CalendarDays, Flame, HelpCircle, RotateCcw, Swords, Zap } from 'lucide-react';
+import { BarChart3, CalendarDays, Flame, Heart, HelpCircle, RotateCcw, Swords, Zap } from 'lucide-react';
 import { ExploreMenu } from './ExploreMenu';
 import { Locale, Translations } from '../lib/i18n';
+import { getSettings, saveSettings } from '../lib/storage';
 import { Difficulty, GameMode, GameStats } from '../lib/types';
 
 interface HeaderProps {
@@ -45,6 +47,36 @@ export const Header = ({
   t,
 }: HeaderProps) => {
   const streakValue = mode === 'unlimited' ? stats.unlimited.currentRun : stats.currentStreak;
+
+  // Lives Mode toggle (GameSettings.livesMode in storage.ts) — an on/off control only, entirely
+  // self-contained here like the locale <select> below: it reads/writes localStorage directly
+  // rather than flowing through a controlled prop from the parent, mirroring how GameApp already
+  // reads getSettings().livesMode straight from storage at game-start time rather than tracking it
+  // as React state. Reuses `difficultyLocked` for its own disabled state: that prop already means
+  // "an active game has guesses in progress," and changing Lives Mode mid-game would desync that
+  // in-progress game for the exact same reason changing Hard Mode would.
+  //
+  // Initial state is always `false`, matching what SSR renders (no localStorage on the server) —
+  // seeding this via a lazy `useState(() => getSettings().livesMode)` initializer instead caused a
+  // real hydration mismatch: the client's first hydration pass already has localStorage access, so
+  // a previously-saved `livesMode: true` would render immediately while the server-rendered HTML
+  // still showed `false`, exactly the "aria-pressed server vs client" divergence Next.js flags as a
+  // Recoverable Error. Deferring the real read to a rAF-scheduled effect (matching every locale
+  // hook elsewhere in this codebase) keeps the first client render identical to the server's.
+  const [livesMode, setLivesMode] = useState<boolean>(false);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      setLivesMode(getSettings().livesMode);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  function handleToggleLivesMode() {
+    if (difficultyLocked) return;
+    const next = !livesMode;
+    setLivesMode(next);
+    saveSettings({ ...getSettings(), livesMode: next });
+  }
 
   return (
   <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0A0C10]/96 backdrop-blur-md">
@@ -95,6 +127,7 @@ export const Header = ({
           onClick={onToggleDifficulty}
           disabled={difficultyLocked}
           aria-pressed={difficulty === 'hard'}
+          aria-label={difficultyLocked ? t.difficultyLockedHint : t.difficultyToggleHint}
           title={difficultyLocked ? t.difficultyLockedHint : t.difficultyToggleHint}
           className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-xs font-semibold transition-colors border disabled:cursor-not-allowed disabled:opacity-40 ${
             difficulty === 'hard'
@@ -102,7 +135,24 @@ export const Header = ({
               : 'border-[#2a3340] bg-[#10151c] text-[#96a3af] hover:text-white'
           }`}
         >
-          <Swords className="h-3.5 w-3.5" /> {difficulty === 'hard' ? t.difficultyHard : t.difficultyStandard}
+          <Swords className="h-3.5 w-3.5" />{' '}
+          <span className="hidden sm:inline">{difficulty === 'hard' ? t.difficultyHard : t.difficultyStandard}</span>
+        </button>
+        <button
+          type="button"
+          onClick={handleToggleLivesMode}
+          disabled={difficultyLocked}
+          aria-pressed={livesMode}
+          aria-label={difficultyLocked ? t.livesModeLockedHint : t.livesModeToggleHint}
+          title={difficultyLocked ? t.livesModeLockedHint : t.livesModeToggleHint}
+          className={`shrink-0 flex items-center gap-1.5 rounded px-2.5 py-1.5 text-xs font-semibold transition-colors border disabled:cursor-not-allowed disabled:opacity-40 ${
+            livesMode
+              ? 'border-[#FF4D4D]/60 bg-[#FF4D4D]/15 text-[#FF4D4D]'
+              : 'border-[#2a3340] bg-[#10151c] text-[#96a3af] hover:text-white'
+          }`}
+        >
+          <Heart className="h-3.5 w-3.5" />{' '}
+          <span className="hidden sm:inline">{livesMode ? t.livesModeOn : t.livesModeOff}</span>
         </button>
       </nav>
 

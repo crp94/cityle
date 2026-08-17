@@ -399,6 +399,45 @@ interface Antenna {
 }
 
 /**
+ * Symmetric three-tier Art-Deco stepped crown: steps inward by `i1` then
+ * `i2` from each wall while rising by `s1` then `s2`. Shared by the
+ * landmark's crown and the tall-tower setback-crown roofline in `roofTop`
+ * below — the two call sites differ only in the magnitude constants they
+ * pass in, not in the path shape itself.
+ */
+function threeTierCrownPath(x: number, x2: number, t: number, s1: number, s2: number, i1: number, i2: number): string {
+  return (
+    `L ${f(x)} ${f(t + s2)} L ${f(x + i1)} ${f(t + s2)} L ${f(x + i1)} ${f(t + s1)} ` +
+    `L ${f(x + i2)} ${f(t + s1)} L ${f(x + i2)} ${f(t)} L ${f(x2 - i2)} ${f(t)} ` +
+    `L ${f(x2 - i2)} ${f(t + s1)} L ${f(x2 - i1)} ${f(t + s1)} L ${f(x2 - i1)} ${f(t + s2)} L ${f(x2)} ${f(t + s2)}`
+  );
+}
+
+/**
+ * One asymmetric side-step spanning the building's full width at `xs`,
+ * rising or falling by `s`; `flip` swaps which side sits higher. Shared by
+ * the simple-roof and mid-rise rooflines in `roofTop` below — only the
+ * magnitude of `s` differs between the two call sites.
+ */
+function sideStepPath(x: number, x2: number, t: number, s: number, xs: number, flip: boolean): string {
+  return flip
+    ? `L ${f(x)} ${f(t)} L ${f(xs)} ${f(t)} L ${f(xs)} ${f(t + s)} L ${f(x2)} ${f(t + s)}`
+    : `L ${f(x)} ${f(t + s)} L ${f(xs)} ${f(t + s)} L ${f(xs)} ${f(t)} L ${f(x2)} ${f(t)}`;
+}
+
+/**
+ * A single diagonal roofline rising by `rise` from one wall to the other;
+ * `flip` swaps which side sits higher. Shared by the simple-roof and
+ * mid-rise rooflines in `roofTop` below — only the magnitude of `rise`
+ * differs between the two call sites.
+ */
+function slantRoofPath(x: number, x2: number, t: number, rise: number, flip: boolean): string {
+  return flip
+    ? `L ${f(x)} ${f(t)} L ${f(x2)} ${f(t + rise)}`
+    : `L ${f(x)} ${f(t + rise)} L ${f(x2)} ${f(t)}`;
+}
+
+/**
  * Emits the top edge of one building as path segments (starting with the
  * left wall implied by the caller's `L x,groundY` before it). Detailed
  * (front) layers get the full roofline vocabulary — Art-Deco setbacks,
@@ -426,11 +465,7 @@ function roofTop(
     const i1 = w * 0.16;
     const i2 = w * 0.32;
     antennae.push({ x: cx, y1: t, y2: t - (42 + rng() * 22), beacon: true });
-    return (
-      `L ${f(x)} ${f(t + s2)} L ${f(x + i1)} ${f(t + s2)} L ${f(x + i1)} ${f(t + s1)} ` +
-      `L ${f(x + i2)} ${f(t + s1)} L ${f(x + i2)} ${f(t)} L ${f(x2 - i2)} ${f(t)} ` +
-      `L ${f(x2 - i2)} ${f(t + s1)} L ${f(x2 - i1)} ${f(t + s1)} L ${f(x2 - i1)} ${f(t + s2)} L ${f(x2)} ${f(t + s2)}`
-    );
+    return threeTierCrownPath(x, x2, t, s1, s2, i1, i2);
   }
 
   if (!detailed) {
@@ -440,14 +475,10 @@ function roofTop(
       // Single side-step.
       const s = 8 + rng() * 12;
       const xs = x + w * (0.3 + rng() * 0.4);
-      return rng() < 0.5
-        ? `L ${f(x)} ${f(t)} L ${f(xs)} ${f(t)} L ${f(xs)} ${f(t + s)} L ${f(x2)} ${f(t + s)}`
-        : `L ${f(x)} ${f(t + s)} L ${f(xs)} ${f(t + s)} L ${f(xs)} ${f(t)} L ${f(x2)} ${f(t)}`;
+      return sideStepPath(x, x2, t, s, xs, rng() < 0.5);
     }
     const rise = Math.min(w * 0.3, 14);
-    return rng() < 0.5
-      ? `L ${f(x)} ${f(t)} L ${f(x2)} ${f(t + rise)}`
-      : `L ${f(x)} ${f(t + rise)} L ${f(x2)} ${f(t)}`;
+    return slantRoofPath(x, x2, t, rise, rng() < 0.5);
   }
 
   if (hFrac > 0.62) {
@@ -467,11 +498,7 @@ function roofTop(
       const s2 = s1 + 10 + rng() * 8;
       const i1 = w * 0.14;
       const i2 = w * 0.3;
-      return (
-        `L ${f(x)} ${f(t + s2)} L ${f(x + i1)} ${f(t + s2)} L ${f(x + i1)} ${f(t + s1)} ` +
-        `L ${f(x + i2)} ${f(t + s1)} L ${f(x + i2)} ${f(t)} L ${f(x2 - i2)} ${f(t)} ` +
-        `L ${f(x2 - i2)} ${f(t + s1)} L ${f(x2 - i1)} ${f(t + s1)} L ${f(x2 - i1)} ${f(t + s2)} L ${f(x2)} ${f(t + s2)}`
-      );
+      return threeTierCrownPath(x, x2, t, s1, s2, i1, i2);
     }
     if (rng() < 0.55) antennae.push({ x: cx, y1: t, y2: t - (16 + rng() * 26), beacon: false });
     return `L ${f(x)} ${f(t)} L ${f(x2)} ${f(t)}`;
@@ -483,16 +510,12 @@ function roofTop(
     if (r < 0.38) return `L ${f(x)} ${f(t)} L ${f(x2)} ${f(t)}`;
     if (r < 0.58) {
       const rise = Math.min(w * 0.4, 26);
-      return rng() < 0.5
-        ? `L ${f(x)} ${f(t)} L ${f(x2)} ${f(t + rise)}`
-        : `L ${f(x)} ${f(t + rise)} L ${f(x2)} ${f(t)}`;
+      return slantRoofPath(x, x2, t, rise, rng() < 0.5);
     }
     if (r < 0.82) {
       const s = 10 + rng() * 12;
       const xs = x + w * (0.3 + rng() * 0.4);
-      return rng() < 0.5
-        ? `L ${f(x)} ${f(t)} L ${f(xs)} ${f(t)} L ${f(xs)} ${f(t + s)} L ${f(x2)} ${f(t + s)}`
-        : `L ${f(x)} ${f(t + s)} L ${f(xs)} ${f(t + s)} L ${f(xs)} ${f(t)} L ${f(x2)} ${f(t)}`;
+      return sideStepPath(x, x2, t, s, xs, rng() < 0.5);
     }
     const dh = Math.min(w * 0.5, 30);
     return `L ${f(x)} ${f(t + dh)} Q ${f(cx)} ${f(t - dh)} ${f(x2)} ${f(t + dh)}`;
@@ -576,6 +599,33 @@ const LAYER_SPECS: Record<'back' | 'mid' | 'front', LayerSpec> = {
 // ── Main builder ────────────────────────────────────────────────────────
 
 /**
+ * `buildPostcardLayout` is fully deterministic per `city.id` + `options`
+ * (see its doc comment below), and the page route, `opengraph-image.tsx`
+ * and `twitter-image.tsx` can each end up rendering the same city more than
+ * once within one server process's lifetime. This cache short-circuits the
+ * repeat work: keyed on `city.id` plus every field of `options` that
+ * affects the render (currently just `showCaption`), so a `showCaption:
+ * true` call can never hand back a `showCaption: false` (or vice versa)
+ * result. No eviction/size cap — the city list tops out at 255 entries, so
+ * the whole cache is a trivially small amount of JSX to keep resident.
+ */
+const postcardLayoutCache = new Map<string, ReturnType<typeof computePostcardLayout>>();
+
+function postcardLayoutCacheKey(city: City, options?: { showCaption?: boolean }): string {
+  return `${city.id}:${options?.showCaption ?? false}`;
+}
+
+/** Cached entry point — see `computePostcardLayout` for the actual build. */
+export function buildPostcardLayout(city: City, options?: { showCaption?: boolean }) {
+  const key = postcardLayoutCacheKey(city, options);
+  const cached = postcardLayoutCache.get(key);
+  if (cached !== undefined) return cached;
+  const layout = computePostcardLayout(city, options);
+  postcardLayoutCache.set(key, layout);
+  return layout;
+}
+
+/**
  * Builds the full postcard poster for a city as a single Satori-safe JSX
  * tree: one flex `<div>` carrying the gradient sky as a CSS background, and
  * one `<svg viewBox="0 0 1200 630">` filling it, painted strictly back to
@@ -588,7 +638,7 @@ const LAYER_SPECS: Record<'back' | 'mid' | 'front', LayerSpec> = {
  * from the single `rng` closure seeded from it, pulled in a fixed order, so
  * the same city always renders pixel-identical art.
  */
-export function buildPostcardLayout(city: City, options?: { showCaption?: boolean }) {
+function computePostcardLayout(city: City, options?: { showCaption?: boolean }) {
   const { seed, type, sprawlScaleKm, ringsCount, waterOrientation, primaryWater } = city.morphology;
   const rng = createRng(seed);
 

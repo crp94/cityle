@@ -265,6 +265,16 @@ export interface Translations {
   badgeDeepDiverDesc: string;
   badgeHardModeCartographerName: string;
   badgeHardModeCartographerDesc: string;
+  badgeStreakLegendName: string;
+  badgeStreakLegendDesc: string;
+  badgeCenturyClubName: string;
+  badgeCenturyClubDesc: string;
+  badgeUndefeatedName: string;
+  badgeUndefeatedDesc: string;
+  badgeSharpshooterName: string;
+  badgeSharpshooterDesc: string;
+  badgeNeverSayDieName: string;
+  badgeNeverSayDieDesc: string;
   badgeUnlockedOn: string;
   badgeLockedLabel: string;
   newBadgeUnlocked: string;
@@ -302,11 +312,25 @@ export interface Translations {
   openTimeMachineLabel: string;
   openQuickfireLabel: string;
   openNotesLabel: string;
+  // Explore menu group captions (Reference / Play / Read clusters) — small
+  // "stamp"-style micro-labels above each divider, not full sentences.
+  exploreGroupReferenceLabel: string;
+  exploreGroupPlayLabel: string;
+  exploreGroupReadLabel: string;
   difficultyStandard: string;
   difficultyHard: string;
   difficultyToggleHint: string;
   difficultyLockedHint: string;
   hardModeSectionLockedDesc: string;
+  // Header wiring: Lives Mode toggle (separate control from Hard Mode, backed by
+  // GameSettings.livesMode in storage.ts) — same on/off + locked-hint shape as
+  // the difficulty* keys above.
+  livesModeOn: string;
+  livesModeOff: string;
+  livesModeToggleHint: string;
+  livesModeLockedHint: string;
+  // HelpModal: brief pointer to the header's Explore menu for additional game modes.
+  moreWaysToPlayNote: string;
 
   // Win/loss reaction ladder (Workstream B, Phase 2) — keyed off guess count
   // (1-6) on a win, plus a distinct loss state and a streak-aware loss
@@ -397,6 +421,17 @@ export interface Translations {
   marathonComeBackTomorrow: string;
   marathonBackToCityle: string;
 
+  // Cross-mode "Related" strip (Workstream QQ): a small, secondary link row
+  // added to the completion/summary screens of Quickfire, Marathon,
+  // Playlists, and Curator's Notes, pointing at sibling modes. One shared
+  // label across all of them so the feature reads as one deliberate
+  // app-wide addition rather than four ad hoc ones; the link text itself
+  // reuses each destination mode's own existing page-title key
+  // (marathonPageTitle, playlistsPageTitle, quickfireTitle, notesPageTitle,
+  // timeMachinePageTitle) except Atlas, which has no such key of its own.
+  relatedModesLabel: string;
+  atlasModeName: string;
+
   // Phase 5 — Onboarding (Workstream BB): first-run Welcome modal, shown
   // automatically once (storage.ts's hasSeenWelcome/markWelcomeSeen) and
   // replayable afterward via a link in HelpModal.
@@ -446,6 +481,9 @@ export interface Translations {
   timeMachineRevealIntro: string;
   timeMachinePlayAgain: string;
   timeMachineLoading: string;
+  timeMachineRelatedLabel: string;
+  timeMachineRelatedQuickfire: string;
+  timeMachineRelatedNotes: string;
 
   // Phase 7 — Cryptic clue (Workstream LL): free bonus flavor text label,
   // rendered near the Dossier's pinned header whenever city.cryptic_clue is
@@ -759,6 +797,16 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     badgeDeepDiverDesc: 'Pull off a win on your final, sixth guess.',
     badgeHardModeCartographerName: 'Hard Mode Cartographer',
     badgeHardModeCartographerDesc: 'Win a round played on Hard difficulty.',
+    badgeStreakLegendName: 'Streak Legend',
+    badgeStreakLegendDesc: 'Reach a 30-day winning streak in Daily mode.',
+    badgeCenturyClubName: 'Century Club',
+    badgeCenturyClubDesc: 'Play 100 combined games across Daily and Unlimited.',
+    badgeUndefeatedName: 'Undefeated',
+    badgeUndefeatedDesc: 'Reach a 20-game winning run in Unlimited mode without a loss.',
+    badgeSharpshooterName: 'Sharpshooter',
+    badgeSharpshooterDesc: 'Win with a single guess 10 times, combined across Daily and Unlimited.',
+    badgeNeverSayDieName: 'Never Say Die',
+    badgeNeverSayDieDesc: 'Pull off a win on your final, sixth guess 10 times, combined across Daily and Unlimited.',
     badgeUnlockedOn: 'Unlocked {date}',
     badgeLockedLabel: 'Locked',
     newBadgeUnlocked: 'New badge unlocked!',
@@ -791,11 +839,19 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     openTimeMachineLabel: 'Open Climate Time Machine',
     openQuickfireLabel: 'Open Sixty-Second Cityle',
     openNotesLabel: "Open Curator's Notes",
+    exploreGroupReferenceLabel: 'Reference',
+    exploreGroupPlayLabel: 'Play',
+    exploreGroupReadLabel: 'Read',
     difficultyStandard: 'Standard',
     difficultyHard: 'Hard',
     difficultyToggleHint: 'Hard Mode: every clue group arrives one guess later',
     difficultyLockedHint: 'Difficulty locks once you start guessing',
     hardModeSectionLockedDesc: 'Hard Mode delays even the baseline climate and air quality clues by one guess.',
+    livesModeOn: 'Lives On',
+    livesModeOff: 'Lives Off',
+    livesModeToggleHint: 'Lives Mode: start with 3 lives, lose one on a weak guess',
+    livesModeLockedHint: 'Lives Mode locks once you start guessing',
+    moreWaysToPlayNote: 'Looking for more ways to play? Check the Explore menu in the header for more modes.',
 
     // Win/loss reaction ladder
     winHeadline1: 'UNREAL.',
@@ -873,6 +929,10 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     marathonComeBackTomorrow: "Tomorrow's Marathon is a fresh five-city sequence.",
     marathonBackToCityle: '← Back to Cityle',
 
+    // Cross-mode "Related" strip (Workstream QQ)
+    relatedModesLabel: 'Try next:',
+    atlasModeName: 'Atlas',
+
     // Phase 5 — Onboarding (Workstream BB)
     welcomeTitle: 'WELCOME TO CITYLE',
     welcomeIntro: 'Somewhere on Earth, a real city is waiting to be identified. You have six guesses to find it.',
@@ -906,6 +966,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     timeMachineRevealIntro: 'The real city living that future today:',
     timeMachinePlayAgain: 'Play Again',
     timeMachineLoading: 'Fast-forwarding a random city to 2050…',
+    timeMachineRelatedLabel: 'Try next:',
+    timeMachineRelatedQuickfire: 'Quickfire',
+    timeMachineRelatedNotes: "Curator's Notes",
 
     crypticClueLabel: 'Cryptic Clue',
 
@@ -1206,6 +1269,16 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     badgeDeepDiverDesc: 'Gana justo en tu sexto y último intento.',
     badgeHardModeCartographerName: 'Cartógrafo Modo Difícil',
     badgeHardModeCartographerDesc: 'Gana una partida jugada en dificultad difícil.',
+    badgeStreakLegendName: 'Leyenda de la Racha',
+    badgeStreakLegendDesc: 'Consigue una racha de 30 días ganados seguidos en el modo Diario.',
+    badgeCenturyClubName: 'Club del Centenar',
+    badgeCenturyClubDesc: 'Juega 100 partidas combinadas entre Diario e Ilimitado.',
+    badgeUndefeatedName: 'Invicto',
+    badgeUndefeatedDesc: 'Consigue una racha de 20 victorias seguidas en el modo Ilimitado sin perder.',
+    badgeSharpshooterName: 'Tirador Certero',
+    badgeSharpshooterDesc: 'Gana a la primera 10 veces, combinando el modo Diario e Ilimitado.',
+    badgeNeverSayDieName: 'Nunca te Rindas',
+    badgeNeverSayDieDesc: 'Gana justo en tu sexto y último intento 10 veces, combinando el modo Diario e Ilimitado.',
     badgeUnlockedOn: 'Desbloqueada el {date}',
     badgeLockedLabel: 'Bloqueada',
     newBadgeUnlocked: '¡Nueva insignia desbloqueada!',
@@ -1238,11 +1311,19 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     openTimeMachineLabel: 'Abrir Máquina del Tiempo Climática',
     openQuickfireLabel: 'Abrir Cityle en 60 Segundos',
     openNotesLabel: 'Abrir Notas del Curador',
+    exploreGroupReferenceLabel: 'Referencia',
+    exploreGroupPlayLabel: 'Jugar',
+    exploreGroupReadLabel: 'Leer',
     difficultyStandard: 'Estándar',
     difficultyHard: 'Difícil',
     difficultyToggleHint: 'Modo Difícil: cada grupo de pistas llega un intento más tarde',
     difficultyLockedHint: 'La dificultad se bloquea al empezar a jugar',
     hardModeSectionLockedDesc: 'El Modo Difícil retrasa incluso las pistas básicas de clima y calidad del aire un intento.',
+    livesModeOn: 'Vidas Activadas',
+    livesModeOff: 'Vidas Desactivadas',
+    livesModeToggleHint: 'Modo Vidas: empiezas con 3 vidas y pierdes una con una respuesta floja',
+    livesModeLockedHint: 'El Modo Vidas se bloquea al empezar a jugar',
+    moreWaysToPlayNote: '¿Buscas más formas de jugar? Consulta el menú Explorar en la cabecera para ver más modos.',
 
     // Escalera de reacciones de victoria/derrota
     winHeadline1: 'IRREAL.',
@@ -1320,6 +1401,10 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     marathonComeBackTomorrow: 'Mañana llega una secuencia de cinco ciudades totalmente nueva.',
     marathonBackToCityle: '← Volver a Cityle',
 
+    // Franja "Relacionado" entre modos (Workstream QQ)
+    relatedModesLabel: 'Prueba después:',
+    atlasModeName: 'Atlas',
+
     // Fase 5 — Onboarding (Workstream BB)
     welcomeTitle: 'BIENVENIDO A CITYLE',
     welcomeIntro: 'En algún lugar del mundo te espera una ciudad real. Tienes seis intentos para identificarla.',
@@ -1353,6 +1438,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     timeMachineRevealIntro: 'La ciudad real que ya vive ese futuro:',
     timeMachinePlayAgain: 'Jugar de Nuevo',
     timeMachineLoading: 'Adelantando una ciudad al azar hasta 2050…',
+    timeMachineRelatedLabel: 'Prueba después:',
+    timeMachineRelatedQuickfire: 'Partida Rápida',
+    timeMachineRelatedNotes: 'Notas del Curador',
 
     crypticClueLabel: 'Pista Críptica',
 
@@ -1653,6 +1741,16 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     badgeDeepDiverDesc: 'Vinci proprio al tuo sesto e ultimo tentativo.',
     badgeHardModeCartographerName: 'Cartografo Modalità Difficile',
     badgeHardModeCartographerDesc: 'Vinci una partita giocata in difficoltà difficile.',
+    badgeStreakLegendName: 'Leggenda della Serie',
+    badgeStreakLegendDesc: 'Raggiungi una serie di 30 giorni di vittorie consecutive in modalità Giornaliera.',
+    badgeCenturyClubName: 'Club del Centinaio',
+    badgeCenturyClubDesc: 'Gioca 100 partite combinate tra Giornaliero e Illimitato.',
+    badgeUndefeatedName: 'Imbattuto',
+    badgeUndefeatedDesc: 'Raggiungi una serie di 20 vittorie consecutive in modalità Illimitato senza sconfitte.',
+    badgeSharpshooterName: 'Tiratore Scelto',
+    badgeSharpshooterDesc: 'Vinci al primo tentativo 10 volte, combinando modalità Giornaliera e Illimitato.',
+    badgeNeverSayDieName: 'Mai Arrendersi',
+    badgeNeverSayDieDesc: 'Vinci proprio al tuo sesto e ultimo tentativo 10 volte, combinando modalità Giornaliera e Illimitato.',
     badgeUnlockedOn: 'Sbloccato il {date}',
     badgeLockedLabel: 'Bloccato',
     newBadgeUnlocked: 'Nuovo distintivo sbloccato!',
@@ -1685,11 +1783,19 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     openTimeMachineLabel: 'Apri Macchina del Tempo Climatica',
     openQuickfireLabel: 'Apri Cityle in 60 Secondi',
     openNotesLabel: 'Apri Note del Curatore',
+    exploreGroupReferenceLabel: 'Riferimento',
+    exploreGroupPlayLabel: 'Gioca',
+    exploreGroupReadLabel: 'Leggi',
     difficultyStandard: 'Standard',
     difficultyHard: 'Difficile',
     difficultyToggleHint: 'Modalità Difficile: ogni gruppo di indizi arriva un tentativo più tardi',
     difficultyLockedHint: "La difficoltà si blocca all'inizio della partita",
     hardModeSectionLockedDesc: "La Modalità Difficile ritarda anche gli indizi base su clima e qualità dell'aria di un tentativo.",
+    livesModeOn: 'Vite Attive',
+    livesModeOff: 'Vite Disattivate',
+    livesModeToggleHint: 'Modalità Vite: inizi con 3 vite e ne perdi una con un tentativo debole',
+    livesModeLockedHint: "La Modalità Vite si blocca all'inizio della partita",
+    moreWaysToPlayNote: "Cerchi altri modi di giocare? Consulta il menu Esplora nell'intestazione per altre modalità.",
 
     // Scala di reazioni vittoria/sconfitta
     winHeadline1: 'IRREALE.',
@@ -1767,6 +1873,10 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     marathonComeBackTomorrow: 'Domani arriva una nuova sequenza di cinque città.',
     marathonBackToCityle: '← Torna a Cityle',
 
+    // Striscia "Correlati" tra modalità (Workstream QQ)
+    relatedModesLabel: 'Prova dopo:',
+    atlasModeName: 'Atlas',
+
     // Fase 5 — Onboarding (Workstream BB)
     welcomeTitle: 'BENVENUTO SU CITYLE',
     welcomeIntro: 'Da qualche parte nel mondo ti aspetta una città reale. Hai sei tentativi per scoprirla.',
@@ -1800,6 +1910,9 @@ export const TRANSLATIONS: Record<Locale, Translations> = {
     timeMachineRevealIntro: 'La città reale che vive già quel futuro:',
     timeMachinePlayAgain: 'Gioca Ancora',
     timeMachineLoading: 'Proiettiamo una città a caso nel 2050…',
+    timeMachineRelatedLabel: 'Prova dopo:',
+    timeMachineRelatedQuickfire: 'Partita Rapida',
+    timeMachineRelatedNotes: 'Note del Curatore',
 
     crypticClueLabel: 'Indizio Criptico',
 
