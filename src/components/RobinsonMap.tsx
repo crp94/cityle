@@ -37,6 +37,49 @@ export const RobinsonMap: React.FC<RobinsonMapProps> = ({
     return projection([targetCity.lng, targetCity.lat]) as [number, number] | null;
   }, [targetCity, projection]);
 
+  // Performance (Phase 6, Workstream GG): the base map geography (ocean,
+  // graticule, land, and 177 country-border paths — all precomputed static
+  // strings from worldMapData.json) never changes, but `hoveredGuess` lives
+  // in this same component. Without memoizing this subtree, every pin
+  // hover/unhover re-creates and re-diffs all ~180 of these <path> elements
+  // just to update one tooltip. Memoizing the element tree lets React bail
+  // out of reconciling it entirely when only hover state changes.
+  const staticMapLayers = useMemo(
+    () => (
+      <>
+        <path
+          d={worldData.spherePath}
+          fill="#080d14"
+          stroke="rgba(232, 236, 240, 0.15)"
+          strokeWidth={1.5}
+        />
+        <path
+          d={worldData.graticulePath}
+          fill="none"
+          stroke="rgba(232, 236, 240, 0.06)"
+          strokeWidth={0.75}
+          strokeDasharray="2 2"
+        />
+        <path
+          d={worldData.landPath}
+          fill="#141c26"
+          stroke="rgba(232, 236, 240, 0.28)"
+          strokeWidth={1}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+        {worldData.countryPaths && (
+          <g fill="none" stroke="rgba(232, 236, 240, 0.08)" strokeWidth={0.5}>
+            {worldData.countryPaths.map((country, i) => (
+              <path key={`cp-${country.id || i}`} d={country.path} />
+            ))}
+          </g>
+        )}
+      </>
+    ),
+    []
+  );
+
   // Antimeridian-aware trajectory segment: when a pair of cities straddles the
   // +/-180 line and the wraparound path is shorter than the direct path, a naive
   // straight line in flat projection space cuts across almost the entire map
@@ -101,41 +144,9 @@ export const RobinsonMap: React.FC<RobinsonMapProps> = ({
           className="w-full h-full block"
           preserveAspectRatio="xMidYMid meet"
         >
-          {/* Ocean Background (Robinson Outline) */}
-          <path
-            d={worldData.spherePath}
-            fill="#080d14"
-            stroke="rgba(232, 236, 240, 0.15)"
-            strokeWidth={1.5}
-          />
-
-          {/* Graticule Gridlines */}
-          <path
-            d={worldData.graticulePath}
-            fill="none"
-            stroke="rgba(232, 236, 240, 0.06)"
-            strokeWidth={0.75}
-            strokeDasharray="2 2"
-          />
-
-          {/* Real World Landmasses (High Precision GIS Coastlines) */}
-          <path
-            d={worldData.landPath}
-            fill="#141c26"
-            stroke="rgba(232, 236, 240, 0.28)"
-            strokeWidth={1}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-
-          {/* Country Borders */}
-          {worldData.countryPaths && (
-            <g fill="none" stroke="rgba(232, 236, 240, 0.08)" strokeWidth={0.5}>
-              {worldData.countryPaths.map((country, i) => (
-                <path key={`cp-${country.id || i}`} d={country.path} />
-              ))}
-            </g>
-          )}
+          {/* Ocean, graticule, land, and country-border layers — memoized as
+              `staticMapLayers` above since they never change. */}
+          {staticMapLayers}
 
           {/* Connecting Trajectory Lines Between Sequential Guesses */}
           {guesses.map((g, idx) => {

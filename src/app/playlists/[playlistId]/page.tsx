@@ -3,7 +3,7 @@
 import { use, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { track } from '@vercel/analytics';
-import { Check, RotateCw, Share2, Trophy, X } from 'lucide-react';
+import { Check, ImageIcon, RotateCw, Share2, Trophy, X } from 'lucide-react';
 import citiesData from '../../../data/curated-cities.json';
 import { MarathonRound } from '../../../components/MarathonRound';
 import { createDefaultAchievementsState, evaluateAchievements } from '../../../lib/achievements';
@@ -14,6 +14,7 @@ import {
   MARATHON_MAX_GUESSES_PER_ROUND,
   MARATHON_UNSOLVED_PENALTY,
 } from '../../../lib/marathonLogic';
+import { encodeMultiRoundResult } from '../../../lib/multiRoundResultEncoding';
 import { generatePlaylistShareText, getPlaylistById, getPlaylistCities, Playlist } from '../../../lib/playlists';
 import {
   createDefaultStats,
@@ -73,20 +74,37 @@ function usePlaylistLocale(): Locale {
   return locale;
 }
 
+// Accessibility (Phase 6, Workstream GG): won/lost/current/pending used to be
+// color-only (green/red/gold/gray dots) — confirmed indistinguishable under
+// deuteranopia/protanopia emulation, since red and gold collapse to nearly
+// the same yellow-green hue for those users. Shape now carries the signal
+// too: won gets a check glyph, lost an x glyph, current a ring around a
+// filled dot, pending a hollow outline — readable in grayscale, not just hue.
+// Mirrors marathon/page.tsx's RoundDots exactly (kept as a duplicate rather
+// than a shared component, matching this file's existing pattern of mirroring
+// Marathon's page-level helpers).
 function RoundDots({ playlistState }: { playlistState: PlaylistState }) {
   return (
-    <span className="inline-flex items-center gap-1" aria-hidden>
+    <span className="inline-flex items-center gap-1.5" aria-hidden>
       {playlistState.targetCityIds.map((cityId, index) => {
         const result = playlistState.roundResults[index];
         const isCurrent = playlistState.status === 'playing' && index === playlistState.currentIndex;
-        const colorClass = result
-          ? result.won
-            ? 'bg-[#3FD17C]'
-            : 'bg-[#FF4D4D]'
-          : isCurrent
-            ? 'bg-[#FFB238]'
-            : 'bg-[#2a3340]';
-        return <span key={`${cityId}-${index}`} className={`h-2 w-2 rounded-full ${colorClass}`} />;
+        if (result) {
+          return result.won ? (
+            <span key={`${cityId}-${index}`} className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#3FD17C]">
+              <Check className="h-2.5 w-2.5 text-[#0A0C10]" strokeWidth={3.5} />
+            </span>
+          ) : (
+            <span key={`${cityId}-${index}`} className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#FF4D4D]">
+              <X className="h-2.5 w-2.5 text-[#0A0C10]" strokeWidth={3.5} />
+            </span>
+          );
+        }
+        return isCurrent ? (
+          <span key={`${cityId}-${index}`} className="h-2.5 w-2.5 rounded-full bg-[#FFB238] ring-2 ring-offset-1 ring-offset-[#0A0C10] ring-[#FFB238]/50" />
+        ) : (
+          <span key={`${cityId}-${index}`} className="h-2 w-2 rounded-full border border-[#57626d] bg-transparent" />
+        );
       })}
     </span>
   );
@@ -99,6 +117,8 @@ function PlaylistSummary({
   shareStatus,
   shareText,
   onShare,
+  resultShareStatus,
+  onShareResult,
 }: {
   playlist: Playlist;
   playlistState: PlaylistState;
@@ -106,6 +126,8 @@ function PlaylistSummary({
   shareStatus: ShareStatus;
   shareText: string;
   onShare: () => void;
+  resultShareStatus: ShareStatus;
+  onShareResult: () => void;
 }) {
   const score = computeMarathonScore(playlistState.roundResults);
   // Worst-case per round is MARATHON_UNSOLVED_PENALTY (7), not
@@ -173,18 +195,42 @@ function PlaylistSummary({
       </div>
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <button
-          type="button"
-          onClick={onShare}
-          className="inline-flex items-center justify-center gap-2 rounded bg-[#3FD17C] px-5 py-2.5 text-sm font-semibold text-[#0A0C10] transition-colors hover:bg-[#3FD17C]/85"
-        >
-          {shareStatus === 'copied' || shareStatus === 'shared' ? (
-            <Check className="h-4 w-4" />
-          ) : (
-            <Share2 className="h-4 w-4" />
-          )}
-          {shareStatus === 'copied' ? t.copied : t.playlistShareCta}
-        </button>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <button
+            type="button"
+            onClick={onShare}
+            className="inline-flex items-center justify-center gap-2 rounded bg-[#3FD17C] px-5 py-2.5 text-sm font-semibold text-[#0A0C10] transition-colors hover:bg-[#3FD17C]/85"
+          >
+            {shareStatus === 'copied' || shareStatus === 'shared' ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <Share2 className="h-4 w-4" />
+            )}
+            {shareStatus === 'copied' ? t.copied : t.playlistShareCta}
+          </button>
+
+          {/* Workstream DD: personalized /playlists/[playlistId]/result/[encoded]
+              share card link, built from this already-completed run's real
+              playlist.id/playlistState.roundResults (both already available
+              above) — additive alongside the plain-text share button, not a
+              replacement for it. */}
+          <button
+            type="button"
+            onClick={onShareResult}
+            className="inline-flex items-center justify-center gap-2 rounded border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-[#F4F6F8] transition-colors hover:bg-white/10"
+          >
+            {resultShareStatus === 'copied' || resultShareStatus === 'shared' ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <ImageIcon className="h-4 w-4" />
+            )}
+            {resultShareStatus === 'copied'
+              ? t.copied
+              : resultShareStatus === 'error'
+                ? t.shareErrorTitle
+                : t.shareResultCard}
+          </button>
+        </div>
         <p className="text-xs text-[#8f9dac]">{t.playlistComeBackAnytime}</p>
       </div>
 
@@ -249,6 +295,10 @@ export default function PlaylistPlayPage({
   const [stats, setStats] = useState<GameStats>(() => createDefaultStats());
   const [achievements, setAchievements] = useState(() => createDefaultAchievementsState());
   const [shareStatus, setShareStatus] = useState<ShareStatus>('idle');
+  // Workstream DD: separate status for the new personalized-result-card
+  // share button, so a copy/share success or failure on it never flips the
+  // icon/label on the plain-text share button above.
+  const [resultShareStatus, setResultShareStatus] = useState<ShareStatus>('idle');
 
   useEffect(() => {
     if (!playlist) return;
@@ -289,6 +339,23 @@ export default function PlaylistPlayPage({
   const shareText = useMemo(() => {
     if (!playlist || !playlistState) return '';
     return generatePlaylistShareText(playlist, playlistState.roundResults);
+  }, [playlist, playlistState]);
+
+  // Workstream DD: personalized /playlists/[playlistId]/result/[encoded]
+  // share card link, built from this already-completed run's real
+  // playlist.id and playlistState.roundResults (each round's targetCityId
+  // plus the ordered guess city ids — resultEncoding.ts-style stable ids,
+  // never array indices).
+  const resultEncoded = useMemo(() => {
+    if (!playlist || !playlistState) return '';
+    return encodeMultiRoundResult({
+      kind: 'playlist',
+      collectionId: playlist.id,
+      rounds: playlistState.roundResults.map((round) => ({
+        targetId: round.targetCityId,
+        guessIds: round.guesses.map((g) => g.city.id),
+      })),
+    });
   }, [playlist, playlistState]);
 
   function handleRoundComplete(result: { guesses: GuessResult[]; guessesUsed: number; won: boolean }) {
@@ -366,6 +433,37 @@ export default function PlaylistPlayPage({
     }
   }
 
+  async function handleShareResult() {
+    // Mirrors marathon/page.tsx's handleShareResult and VictoryModal.tsx's
+    // shareOrCopyLink exactly: try the Web Share API first, fall back to
+    // clipboard, and revert the button label after a timeout on failure —
+    // an additive convenience alongside the primary text-share button above,
+    // not a replacement for it.
+    if (!playlist) return;
+    const url = `${window.location.origin}/playlists/${playlist.id}/result/${resultEncoded}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Cityle', text: shareText, url });
+        setResultShareStatus('shared');
+        window.setTimeout(() => setResultShareStatus((s) => (s === 'shared' ? 'idle' : s)), 2200);
+        return;
+      }
+      await navigator.clipboard.writeText(url);
+      setResultShareStatus('copied');
+      window.setTimeout(() => setResultShareStatus((s) => (s === 'copied' ? 'idle' : s)), 2200);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') return;
+      try {
+        await navigator.clipboard.writeText(url);
+        setResultShareStatus('copied');
+        window.setTimeout(() => setResultShareStatus((s) => (s === 'copied' ? 'idle' : s)), 2200);
+      } catch {
+        setResultShareStatus('error');
+        window.setTimeout(() => setResultShareStatus((s) => (s === 'error' ? 'idle' : s)), 2600);
+      }
+    }
+  }
+
   if (!playlist) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#0A0C10] px-4 py-16 text-[#aab6c2] dot-matrix-bg">
@@ -425,6 +523,8 @@ export default function PlaylistPlayPage({
             shareStatus={shareStatus}
             shareText={shareText}
             onShare={handleShare}
+            resultShareStatus={resultShareStatus}
+            onShareResult={handleShareResult}
           />
         ) : currentCity ? (
           <MarathonRound

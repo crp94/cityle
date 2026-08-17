@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "data:curate": "tsx src/scripts/buildCuratedCities.ts",
     "icons:generate": "tsx src/scripts/generateIcons.ts",
     "check": "npm run data:curate && npm run lint && npm run typecheck",
@@ -38,6 +40,7 @@
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }

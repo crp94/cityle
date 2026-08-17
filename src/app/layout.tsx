@@ -26,6 +26,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
   title: 'Cityle — Urban Climate Deduction',
   description:
     'Identify a curated global city in six guesses using progressive climate, population, urban-form, and map clues.',

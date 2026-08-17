@@ -184,7 +184,7 @@ export const VictoryModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 backdrop-blur-sm" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="result-title" className="relative flex max-h-[92vh] w-full max-w-xl flex-col gap-4 overflow-y-auto rounded-lg border border-white/15 bg-[#10141C] p-4 text-[#F4F6F8] shadow-2xl sm:p-6">
-        <button onClick={onClose} aria-label="Close results" className="icon-button absolute right-3 top-3"><X className="h-4 w-4" /></button>
+        <button onClick={onClose} aria-label={t.closeLabel} className="icon-button absolute right-3 top-3"><X className="h-4 w-4" /></button>
 
         <div className="pr-10">
           <div className={`mb-2 flex h-10 w-10 items-center justify-center rounded-full ${won ? 'bg-[#3FD17C]/15 text-[#3FD17C]' : 'bg-[#FF4D4D]/15 text-[#FF4D4D]'}`}>

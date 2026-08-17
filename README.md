@@ -48,6 +48,14 @@ The Everyday Access clue introduces the 15-minute-neighbourhood concept with an 
 
 The access framing follows [WHO healthy urban transport guidance](https://www.who.int/teams/environment-climate-change-and-health/healthy-urban-environments/transport), which connects compact neighbourhoods, walking and cycling with access to employment, education, health services, food and recreation.
 
+## Deploying
+
+The app needs zero secrets or API keys to deploy. `@vercel/analytics` auto-detects automatically on Vercel's own hosting, and the only devDependency that does anything special, `sharp`, is used purely at build time for icon generation — it has no runtime API key or external service dependency.
+
+That means deployment is just connecting this GitHub repo at [vercel.com](https://vercel.com), or running `npx vercel` from the project root and following its prompts.
+
+Optionally set `NEXT_PUBLIC_SITE_URL` once a real domain exists — it's used to resolve `metadataBase` for Open Graph and Twitter card images. It defaults to `http://localhost:3000`, which is fine for local dev, but should be set to the real production URL after deploying so social share images resolve correctly.
+
 ## Climatle reference
 
 [Climatle](https://github.com/crp94/climatle) informed Cityle’s generated-data validation, compact five-step proximity signal, and native-share fallback. Country-level Climatle/OWID measurements are not copied into Cityle because they are not city-level observations.

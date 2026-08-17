@@ -129,7 +129,7 @@ export const StatsModal: React.FC<StatsModalProps> = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          aria-label="Close statistics"
+          aria-label={t.closeLabel}
           className="absolute top-4 right-4 p-1.5 rounded text-[#7d8b99] hover:text-[#F4F6F8] hover:bg-[#18212e] transition-colors"
         >
           <X className="w-5 h-5" />
