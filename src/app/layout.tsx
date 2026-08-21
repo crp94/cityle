@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from '@/components/Footer';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 import './globals.css';
@@ -69,6 +70,7 @@ export default function RootLayout({
             badge_unlocked, share_completed) from their own files once this
             is mounted. */}
         <Analytics />
+        <SpeedInsights />
         <ServiceWorkerRegistration />
       </body>
     </html>
